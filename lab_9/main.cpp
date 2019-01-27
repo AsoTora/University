@@ -24,7 +24,6 @@ There are some mode flags used for file opening. These are:
 using namespace std;
 
 int main() {
-
-
+    A_1_1();
     return 0;
 }
