@@ -93,7 +93,8 @@ void A_1_1(){
     fclose(f);
 
     f = fopen(path, "r");
-    if (f== nullptr){
+    FILE *f2 = fopen(path1, "w");
+    if (f == nullptr){
         cout << "Error" << endl;
     }else{
         long int size = file_length(path);
@@ -107,9 +108,16 @@ void A_1_1(){
         }
         cout << "Summa: " << sum << endl;
         cout << "Ammount: " << count << endl;
+
+        if (f2 == nullptr){
+            cout << "Error" << endl;
+        }else{  // запись результата в файл res1.txt
+            fprintf(f2,"Summa: %d\n",sum);
+            fprintf(f2,"Ammount: %d\n",count);
+        }
     }
     fclose(f);
-
+    fclose(f2);
 }
 
 long file_length(const char *f){
