@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-using namespace std;
+
 /*
  Создать бинарный файл, записать в него десять действительных чи-
 сел и закрыть файл. Открыть файл для чтения, прочитать записанные дан-
@@ -17,7 +17,9 @@ using namespace std;
 Закрыть все открытые файлы.
 
 */
-long GetFileSize(std::string filename);
+
+
+using namespace std;
 long file_length(const char *f);
 
 void A_1() {
@@ -120,8 +122,10 @@ void A_1_1(){
     fclose(f2);
 }
 
+
 long file_length(const char *f){
-    struct stat st{};
-    stat(f, &st);
-    return st.st_size;
+    /* https://www.tutorialspoint.com/unix_system_calls/stat.htm */
+    struct stat st{}; // объявление структуры вида stat these functions return information about a file.
+    stat(f, &st);  // запись в нее содержимого файла
+    return st.st_size; // вернет размер содержимого в байтах
 }
