@@ -31,14 +31,13 @@ void A_1(){ // Найти количество отрицательных эле
 }
 
 int even(int arr[], int i, int j){
-    cout << " " << i << " " << j << " ||";
     if (i==j)
         return arr[i]%2==0;
     return even(arr,(i+j)/2+1, j) + even(arr, i, (i+j)/2);
 }
 
 void A_3(){ // Найти количество четных элементов массива.
-    int arr[] = {1, 2, 3, 4, 6, 5, 6};
+    int arr[] = {1, 2, 3, 4, 6, 6, 6};
     cout << even(arr, 0, 6) << endl;
 
     int c=0; // loop
