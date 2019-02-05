@@ -1,5 +1,5 @@
 #include "A.h"
-#include "Example.h"
+#include "B.h"
 
 int main() {
     func();
