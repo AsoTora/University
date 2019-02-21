@@ -2,7 +2,7 @@
 // Created by aso on 1/28/19.
 //
 
-#include "Example.h"
+#include "B.h"
 #include <iostream>
 #include <fstream>
 #include <string>
