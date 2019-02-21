@@ -2,6 +2,11 @@
 
 using namespace std;
 
+/* Создать стек, состоящий из n целых чисел. Выполнить задание. Инфор-
+мационную часть в оперативной памяти не перемещать. Результат вывести на
+экран. В конце работы освободить всю динамически выделенную память. */
+
+
 struct node{
     int data;
     node *next = nullptr;
@@ -22,13 +27,18 @@ public:
     void del();
     // void qsort();  // quicksort
     void bubblesort();
+    void bubblesort_data();
+    int size();
     void search(int);
     void reverse();
     void rec_display(node *);
     void taskB();
     bool is_empty(){return head == nullptr;};  // extra
     node *gethead(){return head;}; // для рекурсивного прохода
-    node *gettail();  // для случая стека без указателя на tail
+    node *gettail();  // для случая стека без указателя на
+    void extra();
+    void swap3(node *, node*);
+    void swap1(node *, node*);
 };
 
 void list::push(int value) {
@@ -133,18 +143,24 @@ void list::del(){
     cout << "Enter position of node to delete (starts with 0): ";
     cin >> pos;
     node *tmp = head;
-    if (pos == 0 && head == tail){  // if there is only 1 node
-        head = nullptr;
-        tail = nullptr;
+    if (head == tail){  // if there is only 1 node
+        this->pop();
         cout << "The list is emptied." << endl;
-    }else{
-        while(c != pos){
-            tmp = tmp->next;
-            c++;
-        }
-        tmp->next = tmp->next->next;
-        cout << pos << "'s node successfully deleted." << endl;
+        return;
+    }else if (pos == 0){
+        head = head->next;
+        delete tmp;
+        return;
     }
+
+    while(c != pos){
+        tmp = tmp->next;
+        c++;
+    }
+    node *old = tmp->next;
+    tmp->next = old->next;
+    delete old;
+    cout << pos << "'s node successfully deleted." << endl;
 
 
 }
@@ -198,7 +214,7 @@ node* list::gettail() {
     return tmp;
 }
 
-void list::bubblesort() {
+void list::bubblesort_data() {
     struct node *tmp, *next;
 
     if (this->is_empty()){
@@ -212,11 +228,59 @@ void list::bubblesort() {
             if (tmp->data > next->data){
                 swap(tmp->data, next->data);
             }
-
         }
         tmp = tmp->next;  // переход на следующую поз.
     }
     cout << "List is sorted." << endl;
+}
+
+int list::size(){
+    node *tmp = head;
+    int c=0;
+
+    while(tmp != nullptr){
+        c++;
+        tmp = tmp->next;
+    }
+
+    return c;
+}
+
+void list::bubblesort() {
+    int size = this->size();
+    if (head == tail || this->is_empty())
+        return;
+
+    node *lastSwapped = nullptr;
+
+    while(size--){
+        node *current = head, *prev = nullptr, *currentSwapped = nullptr;
+
+        while(current->next != lastSwapped){
+            node *after = current->next;
+            if(current->data > after->data){  // swap
+                current->next = after->next;
+                after->next = current;
+                if (prev == nullptr) // beginning
+                    head = after;
+                else
+                    prev->next = after;
+
+                prev = after;
+                currentSwapped = current;
+            }
+            else
+            {
+                prev = current;
+                current = current->next;
+            }
+        }
+
+        if (currentSwapped == nullptr)
+            break; // No swapping
+        else
+            lastSwapped = currentSwapped;  // самое большое число в конце
+    }
 }
 
 void list::taskB(){
@@ -226,7 +290,7 @@ void list::taskB(){
     } // для случая одной ноды
 
 
-    node *tmp = head, *prev=tmp;
+    node *tmp = head, *prev=tmp, *old = nullptr;
     while(tmp != nullptr){
         if (tmp == head && tmp->data < 0) {
             tmp = tmp->next;
@@ -235,14 +299,98 @@ void list::taskB(){
         }
 
         if (tmp->data < 0){
+            old = tmp;
             prev->next = tmp->next;
             tmp = tmp->next;
+            delete old;
         }else{
             prev = tmp;
             tmp = tmp->next;
         }
     }
     cout << "Task successfully completed." << endl;
+}
+
+void list::swap3(node *max_prev, node *min_prev){  // 3 буфера
+    node *max = max_prev->next;
+    node *min =  min_prev->next;
+
+    // 1
+    max_prev->next = min;
+    min_prev->next = max;
+    // 2
+    node *tmp = min->next;
+    min->next = max->next;
+    max->next = tmp;
+}
+
+void list::swap1(node *max, node *min){ // 1 буфер
+    node *tmp = min; // 1 -- поменять сами ноды
+    min = max;
+    max = tmp;
+
+    tmp = head; // 2 -- дойти до предыдущего узла
+    while(tmp->next != min) tmp = tmp->next;
+    tmp->next = max;
+
+    tmp = min->next; // 4, 5 -- поменять указатели и не потерять следующий после 1й ноды эл-т (будет tmp)
+    min->next = max->next;
+    max->next = tmp;
+
+    // если между max и min что-то есть, то tmp -- следующая после 1 --> надо идти пока не найдем ту, что показывала на ноду 2
+    while (tmp->next != max) tmp = tmp->next; // и она все еще это делает
+    tmp->next = min; // 6. исправить это
+}
+
+void list::extra() {
+    if (this->is_empty() || head == tail)
+        return;
+
+    // конструкция head, tail
+    node *tmp = new node;
+    tmp->next = head;
+    head = tmp;
+
+    node *tmp2 = new node;
+    tail->next = tmp2;
+    tmp2->next = nullptr;
+    tail = tmp2;
+    delete tmp2;
+
+    // нахождение макс и мин и их порядка
+    bool por = false;
+    node *min = head->next;
+    node *max = head->next;
+
+    tmp = head->next;
+    while(tmp != tail){
+        if (tmp->data >= max->data){
+            max = tmp; por = false;
+        }
+        if (tmp->data <= min->data){
+            min = tmp; por = true;
+        }
+        tmp = tmp->next;
+    }
+
+    cout << endl << "max: " <<  max->data << ", min: " << min->data << "; swapping" << endl;
+
+    if (por)  // max впереди
+        swap1(max, min);
+    else // min впереди
+        swap1(min, max);
+
+    // Убрать конструкцию
+    head = head->next;
+    tmp = head;
+    while(tmp->next != tail){
+        tmp = tmp->next;
+    }
+    node *old = tail;
+    tmp->next = nullptr;
+    tail = tmp;
+    delete old;
+    cout << "Task successfully completed." << endl << endl;
 }
 
 char menu() {
@@ -259,18 +407,25 @@ char menu() {
     cout << "9. Search by value" << endl;
     cout << "r. Reverse" << endl;
     cout << "B. Выполнить задание лабораторной работы: 'удалить из стека все нечетные числа'." << endl;
+    cout << "E. Extra task. Switch nodes with min and max values" << endl;
     cout << "0. Exit" << endl;
 
     cout << endl << "Choice: ";
     cin >> choice;
     return choice;
-
 }
 
 int main(){
     char choice;
     int data;
     list st;
+
+    st.push(2);
+    st.push(5);
+    st.push(3);
+    st.display();
+    st.extra();
+    st.display();
 
     do{
         choice = menu();
@@ -298,7 +453,7 @@ int main(){
             case '8': st.bubblesort(); break;
             case 'r': st.reverse(); break;
             case 'B': st.taskB(); st.display(); break;
-            case '0': cout << "exit."; break;
+            case '0': cout << "exit." << endl; break;
             default: cout << "Wrong choice. Try again." << endl;
         }
     }while(choice != '0');
@@ -306,7 +461,9 @@ int main(){
     return 0;
 }
 
+// TODO
 /*
+
 node *partition(node *head, node *tail, node *newhead, node *newtail){
     node *pivot = tail; // посл нода
     node *prev = nullptr, *curr = head, *end = pivot;

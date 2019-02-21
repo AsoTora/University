@@ -5,6 +5,7 @@
 #include "B.h"
 #include <iostream>
 #include <cmath>
+#include <string>
 
 using namespace std;
 
@@ -69,4 +70,39 @@ double y(int n, int i=1){
 void B_10(){ // Вычислить y(n) = sqrt(1 +sqrt(2 + ... sqrt(n-1)+ sqrt(n))))
     int n=5;
     cout << y(n) << endl;
+}
+
+bool check(string str, int start, int end){
+    if (start >= end)
+        return true;
+    if (str[start] != str[end])
+        return false;
+    return check(str, ++start, --end);
+}
+
+void B_8(){
+    string str = "step on no pets";
+    cout << str << " " << check(str, 0, str.length()-1) << endl;
+}
+
+double f(double x){
+    return 7*sin(x)*sin(x);
+}
+
+double func(double e, double a, double b){
+    double c = (a+b)/2;
+    if (abs(b-a) > e){
+        double x1 = func(e, a, c);
+        double x2 = func(e, c, b);
+        if (f(x1) < f(x2))
+            return x1;
+        else
+            return x2;
+    }
+    return c;
+}
+
+void B_6(){
+    double  e = 0.01, a=2, b=6;
+    cout << "f(x) = " << func(e, a, b) << endl;
 }

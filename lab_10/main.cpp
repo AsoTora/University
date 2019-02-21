@@ -4,6 +4,6 @@
 using namespace std;
 
 int main(){
-    B_10();
+    B_6();
     return 1;
 }
