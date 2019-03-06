@@ -1,6 +1,6 @@
 # BSUIR
 
-*Sem 1*:
+**Sem 1**:
 - lab 1 -- linear algorithmes
 - lab 2 -- if/ else
 - lab 3 -- loops
@@ -10,7 +10,7 @@
 - lab 7 -- strings
 - lab 6 -- structures
 
-*Sem2*:
+**Sem2**:
 - lab 9 -- files
 - lab 10 -- recursion
 - lab 11 -- sorting
