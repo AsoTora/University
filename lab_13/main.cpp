@@ -37,8 +37,10 @@ public:
     node *gethead(){return head;}; // для рекурсивного прохода
     node *gettail();  // для случая стека без указателя на
     void extra();
+    void dev();
     void swap3(node *, node*);
     void swap1(node *, node*);
+    void swap1_extra(node*, node*);
 };
 
 void list::push(int value) {
@@ -342,6 +344,68 @@ void list::swap1(node *max, node *min){ // 1 буфер
     tmp->next = min; // 6. исправить это
 }
 
+void list::swap1_extra(node *min_prev, node *max_prev){
+    node* tmp = min_prev->next;  // запоминаем мин и все, что позже него
+    min_prev->next = min_prev->next->next; // 1 min_prev->next = min->next
+    tmp->next = max_prev->next->next; // 2 min->next = max->next
+    max_prev->next->next = min_prev->next; // 3, max->next =  min->next;
+
+    min_prev->next = max_prev->next;  // 4
+    max_prev->next = tmp; // 5
+}
+
+void list::dev() { // dev
+    if (this->is_empty() || head == tail)
+        return;
+
+    // конструкция head, tail
+    node *tmp = new node;
+    tmp->next = head;
+    head = tmp;
+
+    node *tmp2 = new node;
+    tail->next = tmp2;
+    tmp2->next = nullptr;
+    tail = tmp2;
+    delete tmp2;
+
+    // нахождение макс и мин и их порядка
+    bool por = false;
+    node *min_prev = head;
+    node *max_prev = head;
+
+    tmp = head;
+    while(tmp->next != tail){
+        if (tmp->next->data >= max_prev->next->data){
+            max_prev = tmp; por = false;
+        }
+        if (tmp->next->data <= min_prev->next->data){
+            min_prev = tmp; por = true;
+        }
+        tmp = tmp->next;
+    }
+
+    cout << endl << "max: " <<  max_prev->next->data << ", min: " << min_prev->next->data << "; swapping" << endl;
+
+    if (por)  // max впереди
+        swap1_extra(max_prev, min_prev);
+    else // min впереди
+        swap1_extra(min_prev, max_prev);
+
+    // Убрать конструкцию
+    head = head->next;
+    tmp = head;
+
+    while(tmp->next != tail){
+        tmp = tmp->next;
+    }
+    node *old = tail;
+    tmp->next = nullptr;
+    tail = tmp;
+    delete old;
+    cout << "Task successfully completed." << endl << endl;
+}
+
 void list::extra() {
     if (this->is_empty() || head == tail)
         return;
@@ -421,10 +485,12 @@ int main(){
     list st;
 
     st.push(2);
-    st.push(5);
     st.push(3);
+    st.push(5);
+    st.push(0);
+    st.push(1);
     st.display();
-    st.extra();
+    st.dev();
     st.display();
 
     do{

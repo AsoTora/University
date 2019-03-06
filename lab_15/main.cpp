@@ -226,32 +226,40 @@ int tree::A_2(node *root) {
     return A_2(root->left) + A_2(root->right);
 }
 
-void tree::B_1() {  // TODO
+void tree::B_1() {  // B1. Поменять местами узлы с минимальным и максимальным ключами в левом поддереве.
     if (root == nullptr) return;
     node *min_prev = root->left, *max_prev = root->left;
+
 
     if (min_prev->left != nullptr)
         while(min_prev->left->left != nullptr) min_prev = min_prev->left;
     if (max_prev->right != nullptr)
         while(max_prev->right->right != nullptr) max_prev = max_prev->right;
+    cout << endl << max_prev->data << " " << min_prev->data << endl;
 
-    cout << endl << max_prev->data << " " << min_prev->data;
-
-    // case 1
-    if (max_prev == min_prev){
-        node *tmp = max_prev->left;
-        max_prev->left = max_prev->right;
-        max_prev->right = tmp;
+    if (min_prev == max_prev){
+        if (min_prev->left == nullptr) {  // есть root->left и его правый узел
+            max_prev->right->right = max_prev;
+            root->left = max_prev->right;
+            max_prev->right = nullptr;
+        }else if(min_prev->right == nullptr) {  // есть root->left и его правый узел
+            max_prev->left->left = max_prev;
+            root->left = max_prev->left;
+            max_prev->left = nullptr;
+        }else{  // нет права и лева, т.е слева от корня только 1 узел
+            return;
+        }
     }
-    // case 2
-    else if(max_prev->right == nullptr){
-
-    }else if(min_prev->left == nullptr){
-
+    else{
+        max_prev->right->left = min_prev->left;
+        min_prev->left = max_prev->right;
+        max_prev->right = min_prev->left->left;
+        min_prev->left->left = nullptr;
     }
+
 }
 
-void tree::B_2() {
+void tree::B_2() {  // Поменять местами узел с максимальным ключом и узел, являющийс корнем деревa
     if (root == nullptr || (root->left == nullptr && root->right == nullptr)) return;
     node *max_parent = root;
 
@@ -271,12 +279,10 @@ void tree::B_2() {
     }else{
         root->right->right = root;
         root->right->left =  root->left;
-
         root = root->right;
 
         root->right->right = nullptr;
         root->right->left = nullptr;
-
     }
 
 
@@ -289,23 +295,24 @@ int main() {
 /*  example tree:
               	5
 			   / \
-			  3   10
+			  4   10
 			 / \   \
 			1   4   11
 */
 
     bt.insert(5);
     bt.insert(10);
-    bt.insert(3);
     bt.insert(4);
+    bt.insert(4);
+    bt.insert(3);
+    bt.insert(2);
     bt.insert(1);
     bt.insert(11);
     bt.preorder(bt.root);
     cout << endl;
     bt.levelorder(bt.root);
     cout << endl << bt.A_2(bt.root);
-    bt.deletenode(bt.root, 10);
-    bt.B_2();
+    bt.B_1();
     bt.levelorder(bt.root);
     return 0;
 }
