@@ -238,7 +238,9 @@ void tree::B_1() {  // B1. Поменять местами узлы с мини�
     cout << endl << max_prev->data << " " << min_prev->data << endl;
 
     if (min_prev == max_prev){
-        if (min_prev->left == nullptr) {  // есть root->left и его правый узел
+        if (min_prev->left == nullptr && min_prev->right == nullptr){ // только 1 узел
+            return;
+        }else if(min_prev->left == nullptr) {  // есть root->left и его правый узел
             max_prev->right->right = max_prev;
             root->left = max_prev->right;
             max_prev->right = nullptr;
@@ -246,8 +248,12 @@ void tree::B_1() {  // B1. Поменять местами узлы с мини�
             max_prev->left->left = max_prev;
             root->left = max_prev->left;
             max_prev->left = nullptr;
-        }else{  // нет права и лева, т.е слева от корня только 1 узел
-            return;
+        }
+        else{ // есть правый и левый
+            max_prev->right->left = max_prev->left;
+            max_prev->left = max_prev->right;
+            max_prev->right = max_prev->left->left;
+            max_prev->left->left = nullptr;
         }
     }
     else{
@@ -304,8 +310,6 @@ int main() {
     bt.insert(10);
     bt.insert(4);
     bt.insert(4);
-    bt.insert(3);
-    bt.insert(2);
     bt.insert(1);
     bt.insert(11);
     bt.preorder(bt.root);
