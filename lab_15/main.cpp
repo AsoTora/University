@@ -1,5 +1,7 @@
 #include <iostream>
 #include <queue>
+#include <stack>
+#include "AVL_Tree.h"
 
 using namespace std;
 
@@ -22,14 +24,32 @@ B1. Поменять местами узлы с минимальным и мак
 левом поддереве.
 B2. Поменять местами узел с максимальным ключом и узел, являющийся
 корнем дерева.
-*/
 
+   example tree:
+              	6
+			   / \
+			  4   10
+			 / \   \
+			1   5   11
+
+
+
+bt.insert(bt.root, 6);
+bt.insert(bt.root, 10);
+bt.insert(bt.root, 4);
+bt.insert(bt.root, 5);
+bt.insert(bt.root, 1);
+bt.insert(bt.root, 11);
+
+
+*/
+/*
 struct  node{
     double data;
     node *left = nullptr;
     node *right = nullptr;
 };
-
+*/
 class tree{
 public:
     node *root;
@@ -44,7 +64,7 @@ public:
     void preorder(node *root);  // предварительный обход
     void reverseinorder(node *root);  // симметричный обход
     void postorder(node *root); // обход в обратном порядке
-    void iterativePreorder(node *root);
+    void iterativeInorder(node *root);
 
     //BFS -- поиск в ширину (Breadth-first search)
     void levelorder(node *root);
@@ -55,16 +75,18 @@ public:
     // extra
     node *min(node *root);
     node *max(node *root);
+    int getsize(node *root);
 
     // labs
     int A_1(node *root);
     int A_2(node *root);
     void B_1();
     void B_2();
+    double *toarr();
 };
 
 // basic
-void tree::insert(double data) {
+void tree::insert(double data) {  // iterative insert
     node *tmp = new node;
     tmp->data = data;
 
@@ -130,6 +152,7 @@ void tree::reverseinorder(node *root) {  // left -- root -- right
     cout << root->data << " ";
     preorder(root->right);
 }
+
 void tree::postorder(node *root) {  // left -- right -- root
     if (root == nullptr)
         return;
@@ -139,6 +162,26 @@ void tree::postorder(node *root) {  // left -- right -- root
     cout << root->data << " ";
 }
 
+void tree::iterativeInorder(node *root) {  // left -- root -- right
+    stack<node *> s;
+    node *curr = root;
+    while (curr != nullptr || !s.empty()){  // Reach the left most Node of the Curr
+        while (curr !=  nullptr){
+            s.push(curr);
+            curr = curr->left;
+        }  // curr теперь nullpntr
+
+        curr = s.top();
+        s.pop();
+
+        cout << curr->data << " ";
+
+        /* we have visited the node and its
+           left subtree.  Now, it's right
+           subtree's turn */
+        curr = curr->right;
+    }
+}
 
 // BFS
 void tree::levelorder(node *root) {
@@ -205,6 +248,11 @@ node *tree::max(node *root){
     while(root->right != nullptr) root = root->right;
     return root;
 }
+int tree::getsize(node *root) {
+    if (root == nullptr)
+        return 0;
+    return getsize(root->left) + getsize(root->right) + 1;
+}
 
 // labs
 int tree::A_1(node *root) {
@@ -227,9 +275,8 @@ int tree::A_2(node *root) {
 }
 
 void tree::B_1() {  // B1. Поменять местами узлы с минимальным и максимальным ключами в левом поддереве.
-    if (root == nullptr) return;
+    if (root == nullptr || root->left == nullptr) return;
     node *min_prev = root->left, *max_prev = root->left;
-
 
     if (min_prev->left != nullptr)
         while(min_prev->left->left != nullptr) min_prev = min_prev->left;
@@ -240,7 +287,7 @@ void tree::B_1() {  // B1. Поменять местами узлы с мини�
     if (min_prev == max_prev){
         if (min_prev->left == nullptr && min_prev->right == nullptr){ // только 1 узел
             return;
-        }else if(min_prev->left == nullptr) {  // есть root->left и его правый узел
+        }else if(min_prev->left == nullptr) {  // есть root->left и его правый узел/ узлы
             max_prev->right->right = max_prev;
             root->left = max_prev->right;
             max_prev->right = nullptr;
@@ -295,28 +342,44 @@ void tree::B_2() {  // Поменять местами узел с максим�
     cout << endl << "Task B_2 completed" << endl;
 }
 
+double* tree::toarr(){  // inorder traversal to create an sorted arr from an BST
+    int size = this->getsize(root);
+    double *arr = new double[size];
+    stack<node *> s;
+    node *curr = root;
+    int i = 0;
+    while (curr != nullptr || !s.empty()){
+        while (curr !=  nullptr){
+            s.push(curr);
+            curr = curr->left;
+        }  // curr теперь nullpntr
+
+        curr = s.top();
+        s.pop();
+
+        arr[i] = curr->data;
+        i++;
+        curr = curr->right;
+    }
+
+    return arr;
+}
+
+
 
 int main() {
-    tree bt;
-/*  example tree:
-              	5
-			   / \
-			  4   10
-			 / \   \
-			1   4   11
-*/
+    avl_tree bt;
+    node *root = nullptr;
 
-    bt.insert(5);
-    bt.insert(10);
-    bt.insert(4);
-    bt.insert(4);
-    bt.insert(1);
-    bt.insert(11);
-    bt.preorder(bt.root);
-    cout << endl;
-    bt.levelorder(bt.root);
-    cout << endl << bt.A_2(bt.root);
-    bt.B_1();
-    bt.levelorder(bt.root);
+    root = bt.insert(root, 2);
+    root = bt.insert(root, 5);
+    root = bt.insert(root, 8);
+    bt.display(root, 1);
+    cout << endl << endl << "===============================" << endl;
+    root = bt.insert(root, 4);
+    root = bt.insert(root, 13);
+    root = bt.insert(root, 11);
+    bt.display(root, 1);
+
     return 0;
 }

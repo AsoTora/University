@@ -3,4 +3,4 @@ project(lab_15)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab_15 main.cpp)
+add_executable(lab_15 main.cpp Convertion.cpp Convertion.h AVL_Tree.cpp AVL_Tree.h)

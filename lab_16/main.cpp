@@ -81,7 +81,7 @@ int mistake(char *str){
     stack *pr = NULL;
     double x;
     if (strlen(str) == 1){
-        cout << "No viragenie" << endl;
+        cout << "No expression" << endl;
         cout << '\n';
         return 0;
     }
@@ -100,14 +100,12 @@ int mistake(char *str){
                 cout<<"Error";
                 return -1;
             }
-            if ((str[i] == '*' || str[i] == '-' || str[i] == '+' || str[i] == '^' || str[i] == '/' || str[i] == '(') && !isalpha(str[i + 1]) && str[i + 1] != '(')
-            {
+            if ((str[i] == '*' || str[i] == '-' || str[i] == '+' || str[i] == '^' || str[i] == '/' || str[i] == '(') && !isalpha(str[i + 1]) && str[i + 1] != '('){
                 cout << "Error" << endl;
                 cout << '\n';
                 return -1;
             }
-            if (str[i] == ')')
-            {
+            if (str[i] == ')'){
                 if (isalpha(str[i + 1]) || pr == NULL){
                     cout << "Error" << endl;
                     cout << '\n';
@@ -186,7 +184,7 @@ void enter(char *str, double *mass){
         for (int j = 0; j < k; j++)
             if (mx[j] == int(str[i]))
                 n++;
-        if (isalpha(str[i]) && mass[int(str[i])] == '\0'  && n == 0){
+        if (isalpha(str[i]) && mass[int(str[i])] == '\0' && n == 0){
             cout << "Write  " << str[i] << "-->";
             cin >> mass[int(str[i])];
             mx[k++] = int(str[i]);
