@@ -4,11 +4,76 @@
 #include "lin_hash.h"
 using namespace std;
 const int M = 15;
+const int t_size = 30;
 
-struct student{
-    string surname;
-    int group;
+class student{
+public:
+    int key;
     int mark;
+    student(int key, int mark){
+        this->key = key;
+        this->mark = mark;
+    }
+};
+
+class HashMap{
+private:
+    student **table;
+public:
+    HashMap(){
+        table = new student *[t_size];
+        for (int i = 0; i < t_size; ++i) {
+            table[i] = nullptr;
+        }
+    }
+
+    int hash(int key){
+        return key % M;
+    }
+
+    void add(int key, int mark){
+        int pos = hash(key);
+        while (table[pos] != nullptr && table[pos]-> key != key){
+            pos = hash(pos + 1);
+        }
+        if (table[pos] != nullptr)
+            delete table[pos];
+        table[pos] = new student(key, mark);
+    }
+
+    int search(int key){
+        int pos = hash(key);
+        while(table[pos] != nullptr && table[pos]->key != key){
+            pos = hash(pos + 1);
+        }
+        if (table[pos] == nullptr)
+            return -1;
+        else
+            return table[pos]->mark;
+    }
+
+    void remove(int key){
+        int pos = hash(key);
+        while(table[pos] != nullptr){
+            if (table[pos]->key == key) break;
+            pos = hash(pos+1);
+        }
+        if (table[pos] == nullptr){
+            cout << "not found" << endl;
+            return;
+        }else{
+            delete table[pos];
+        }
+        cout << "Element removed;" << endl;
+    }
+
+    ~HashMap(){
+        for (int i = 0; i < t_size; ++i) {
+            if (table[i] != nullptr)
+                delete table[i];
+            delete []table;
+        }
+    }
 };
 
 int main() {
