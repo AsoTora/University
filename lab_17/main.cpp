@@ -1,82 +1,94 @@
 #include <iostream>
 #include <string>
+#include<cstdlib>
+#include<cstdio>
 #include "Separate Chaining.h"
 #include "lin_hash.h"
 using namespace std;
-const int M = 15;
-const int t_size = 30;
+const int M = 15; // n
+const int t_size = 30; // M
 
-class student{
-public:
-    int key;
+/*
+ * Объявить и ввести массив структур из n элементов. Создать хеш-таблицу из М элементов. Осуществить поиск элемента по ключу в хеш-таблице.
+Вывести на экран исходный массив, хеш-таблицу и все поля найденной структуры. Задание выбрать в соответствии с номером варианта в табл. V.
+ */
+
+struct student{
     int mark;
-    student(int key, int mark){
-        this->key = key;
-        this->mark = mark;
-    }
+    // string name;
 };
 
-class HashMap{
+class HashTable{
 private:
     student **table;
 public:
-    HashMap(){
-        table = new student *[t_size];
+    HashTable(){ // создание массива структур
+        table = new student*[t_size];
         for (int i = 0; i < t_size; ++i) {
             table[i] = nullptr;
         }
     }
-
-    int hash(int key){
-        return key % M;
-    }
-
-    void add(int key, int mark){
-        int pos = hash(key);
-        while (table[pos] != nullptr && table[pos]-> key != key){
-            pos = hash(pos + 1);
-        }
-        if (table[pos] != nullptr)
-            delete table[pos];
-        table[pos] = new student(key, mark);
-    }
-
-    int search(int key){
-        int pos = hash(key);
-        while(table[pos] != nullptr && table[pos]->key != key){
-            pos = hash(pos + 1);
-        }
-        if (table[pos] == nullptr)
-            return -1;
-        else
-            return table[pos]->mark;
-    }
-
-    void remove(int key){
-        int pos = hash(key);
-        while(table[pos] != nullptr){
-            if (table[pos]->key == key) break;
-            pos = hash(pos+1);
-        }
-        if (table[pos] == nullptr){
-            cout << "not found" << endl;
-            return;
-        }else{
-            delete table[pos];
-        }
-        cout << "Element removed;" << endl;
-    }
-
-    ~HashMap(){
+    ~HashTable(){ // его удаление
         for (int i = 0; i < t_size; ++i) {
             if (table[i] != nullptr)
                 delete table[i];
-            delete []table;
-        }
+        }delete []table;
     }
+
+    int hash(int c);
+    void add(int data);
+    void search_key(int key);
+    int search_data(int data);
+    void remove(int key);
 };
 
+int HashTable::hash(int c) {
+    return c*c;
+}
+
+void HashTable::add(int data) {
+    int position = 0, c=0;
+    while(table[position] != nullptr){
+        c++;
+        position += hash(c);
+    }
+    auto *tmp = new student;
+    tmp->mark = data;
+    table[position] = tmp;
+}
+
+void HashTable::search_key(int key) {
+    if (table[key] != nullptr){
+        cout << table[key]->mark << endl;
+        return;
+    }
+    cout << "empty" << endl;
+}
+
+int HashTable::search_data(int data) {
+    for (int i = 0; i < t_size; ++i) {
+        if (table[i] != nullptr && table[i]->mark == data)
+            return i;
+    }
+    return -1;
+}
+
+void HashTable::remove(int key){
+    if (table[key] == nullptr){
+        cout << "not found" << endl;
+        return;
+    }else{
+        delete table[key];
+    }
+    cout << "Element removed;" << endl;
+}
+
+
+
 int main() {
-    s_chain();
+    HashTable t;
+    t.add(15);
+    t.add(12);
+
     return 0;
 }
