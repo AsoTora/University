@@ -51,17 +51,16 @@ public:
     void del_node(struct node *);
 
     // data work //
-    void qsort();
     void bubblesort();
     void bubblesort_data();
     void search(int);
-    void reverse();
 
     // show //
     void display();
     void rec_display(node *);
     void taskA();
     void taskB(double_linked_list &);
+    void extra();
 
     // extra //
     bool is_empty(){return head == nullptr;};
@@ -386,7 +385,52 @@ void double_linked_list::taskB(double_linked_list &lst2){
     cout << "Task B.1 successfully completed." << endl;
 }
 
+void double_linked_list::extra() { // поменять мин и макс местами
 
+    /* Конструкция */
+    node *tmp = new node;
+    tmp->next = head;
+    head->prev = tmp;
+    head = tmp;
+
+    node *tmp2 = new node;
+    tail->next = tmp2;
+    tmp2->prev = tail;
+    tail = tmp2;
+
+    node *min = head->next;
+    node *max = head->next;
+    node *go = head->next;
+    while(go != tail){
+        if (go->data >= max->data)
+            max = go;
+        if (go->data <= min->data)
+            min = go;
+        go = go->next;
+    }
+
+    cout << max->data << " " << min->data;
+
+    // swap
+    node *buff = new node;
+    if (max->next == min || min->next == max){
+
+    }else{
+
+    }
+
+
+    /* Удаление конструкции */
+    tmp = tail;
+    tail = tail->prev;
+    tail->next = nullptr;
+    delete tmp;
+
+    tmp2 = head;
+    head = head->next;
+    head->prev = nullptr;
+    delete tmp2;
+}
 int main(){
     char choice;
     int data;
@@ -398,8 +442,8 @@ int main(){
     lst.add(3);
     lst.add(-2);
     lst.display();
-    lst.bubblesort();
-    lst.display();
+    lst.search(3);
+    lst.extra();
 
     /*
     do{

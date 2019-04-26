@@ -34,7 +34,7 @@ int avl_tree::height(node *temp){  // высота одного узла, рек
     }
     return h;
 }
-int avl_tree::diff(node *temp){  // проверка узла на нарущение правил
+int avl_tree::diff(node *temp){  // проверка узла на нарушение правил
     int left_height = height(temp->left);
     int right_height = height(temp->right);
     int balance = left_height - right_height;
@@ -58,7 +58,6 @@ node *avl_tree::ll_rotation(node *parent){
 
     return temp;
 }
-
 
 node *avl_tree::insert(node* root, double data) {
     if (root == nullptr){
