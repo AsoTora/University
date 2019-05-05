@@ -44,6 +44,7 @@ public:
     void insert_after(int);
     void insert_before(int);
     void pop();
+    void add_node(node *);
 
     // deleting nodes //
     void clear();
@@ -51,17 +52,16 @@ public:
     void del_node(struct node *);
 
     // data work //
-    void qsort();
-    void bubblesort();
+    //void bubblesort();
     void bubblesort_data();
     void search(int);
-    void reverse();
 
     // show //
     void display();
     void rec_display(node *);
     void taskA();
     void taskB(double_linked_list &);
+    void extra();
 
     // extra //
     bool is_empty(){return head == nullptr;};
@@ -77,7 +77,7 @@ int double_linked_list::getsize(){
     int c=0;
     while(tmp != nullptr){
         c++;
-        tmp = tmp->next;
+        tmp = tmp->prev;
     }
     return c;
 }
@@ -92,9 +92,9 @@ void double_linked_list::add(int value) {
         head = tmp; tail = tmp;
         return;
     }else{
-        tmp->next = tail->next;
-        tmp->prev = tail;
-        tail->next = tmp;
+        tmp->next = tail;
+        tmp->prev = nullptr;
+        tail->prev = tmp;
         tail = tmp;
     }
 }
@@ -107,9 +107,9 @@ void double_linked_list::append(int value){
         tail = tmp;
         return;
     }else{
-        tmp->next = head;
-        tmp->prev = nullptr;
-        head->prev = tmp;
+        tmp->prev = head;
+        tmp->next = nullptr;
+        head->next = tmp;
         head = tmp;
     }
 }
@@ -174,13 +174,13 @@ void double_linked_list::pop(){  // удалить последний элеме
     if (this->is_empty())
         return;
     if (head == tail){
-        delete head; head = nullptr; tail = head;
+        delete head; head = nullptr; tail = nullptr;
         return;
     }
 
-    node *tmp = tail, *prev = tail->prev;
-    prev->next = nullptr;
-    tail = tail->prev;
+    node *tmp = tail;
+    tail->next->prev = nullptr;
+    tail = tail->next;
     delete tmp;
 
 }
@@ -206,30 +206,30 @@ void double_linked_list::del(int pos){
         return;
     }else if(pos == 0){
         node *old = head;
-        node *tmp = head->next;
-        head = tmp;
-        tmp->prev = nullptr;
+        head->prev->next = nullptr;
+        head = head->prev;
         delete old;
         return;
     }
 
     int c = 0;
-    node *curr = head, *after, *prev;
+    node *curr = head;
     while (c != pos){
         c++;
-        curr = curr->next;
+        curr = curr->prev;
     }
-    after = curr->next;
-    prev = curr->prev;
-    prev->next = after;
-    after->prev = prev;
+    // поправил удаление. Удаление из tail и head предусмотрено выше
+    if (curr->next != nullptr)
+        curr->prev->next = curr->next;
+    if(curr->prev != nullptr)
+        curr->next->prev = curr->prev;
     delete curr;
 }
 void double_linked_list::del_node(struct node *old){
     if (head == nullptr || old == nullptr)
         return;
     else if (head == old)
-        head = old->next;
+        head = head->prev;
 
     /* Change next only if node to be deleted is NOT the last node */
     if (old->next != nullptr)
@@ -245,7 +245,7 @@ void double_linked_list::del_node(struct node *old){
 
 // data work
 void double_linked_list::search(int value) {  // обычный линейный поиск
-    int pos=0; node *tmp = head;
+    int pos=0; node *tmp = tail;
 
     if (this->is_empty()){
         cout << "List is empty.";
@@ -281,40 +281,7 @@ void double_linked_list::bubblesort_data() {
     }
 
 }
-void double_linked_list::bubblesort() {  // TODO
-    if (this->is_empty() || head == tail) return;
-    int size = this->getsize();
-    bool swapped = true;
 
-
-    while(swapped){
-        swapped = false;
-        node *prev = nullptr, *curr = head, *next = curr->next;
-
-        int c = 0;
-        while(c < size-1){
-            if (curr->data > next->data){
-                swapped = true;
-
-                if (prev != nullptr)
-                    prev->next = next;
-
-                curr->next = next->next;
-                next->prev = curr->prev;
-                curr->prev = next;
-                next->next = curr;
-
-                prev = next;
-                next = curr->next;
-            }else{
-                prev = curr;
-                curr = curr->next;
-                next = curr->next;
-            }
-            c++;
-        }size--;
-    }
-}
 
 // show
 void double_linked_list::display(){
@@ -360,24 +327,38 @@ void double_linked_list::taskA(){
     this->del(pos);
     cout << "Task A.1 successfully completed." << endl;
 }
-void double_linked_list::taskB(double_linked_list &lst2){
+
+void double_linked_list::add_node(node *nd){
+    if (head == nullptr){
+        head = nd; tail = nd;
+    }
+
+    nd->next = tail;
+    nd->prev = nullptr;
+    tail->prev = nd;
+    tail = nd;
+}
+
+void double_linked_list::taskB(double_linked_list &lst2){ // переделал
     if (this->is_empty()){
         cout << "List1 is empty" << endl;
         return;
     }else if (head == tail && head->data < 0){
-        lst2.add(head->data); this->pop();
+        lst2.add_node(head);
+        this->pop();
         cout << "Task B.1 successfully completed." << endl;
         return;
     }
 
-    node *tmp = head;
+    node *tmp = tail;
     int d;
     while(tmp != nullptr){
         d = tmp->data;
         if (d < 0){
-            lst2.add(d);
-            node *old = tmp; tmp = tmp->next;
-            this->del_node(old);
+            lst2.add_node(tmp);
+            node *old = tmp;
+            tmp = tmp->next;
+            this->del_node(old); // использовал буфер, чтобы не переписывать в этой функции метод удаления
         }else{
             tmp = tmp->next;
         }
@@ -386,7 +367,52 @@ void double_linked_list::taskB(double_linked_list &lst2){
     cout << "Task B.1 successfully completed." << endl;
 }
 
+void double_linked_list::extra() { // TODO: поменять мин и макс местами
 
+    /* Конструкция */
+    node *tmp = new node;
+    tmp->next = head;
+    head->prev = tmp;
+    head = tmp;
+
+    node *tmp2 = new node;
+    tail->next = tmp2;
+    tmp2->prev = tail;
+    tail = tmp2;
+
+    node *min = head->next;
+    node *max = head->next;
+    node *go = head->next;
+    while(go != tail){
+        if (go->data >= max->data)
+            max = go;
+        if (go->data <= min->data)
+            min = go;
+        go = go->next;
+    }
+
+    cout << max->data << " " << min->data;
+
+    // swap
+    node *buff = new node;
+    if (max->next == min || min->next == max){
+
+    }else{
+
+    }
+
+
+    /* Удаление конструкции */
+    tmp = tail;
+    tail = tail->prev;
+    tail->next = nullptr;
+    delete tmp;
+
+    tmp2 = head;
+    head = head->next;
+    head->prev = nullptr;
+    delete tmp2;
+}
 int main(){
     char choice;
     int data;
@@ -398,8 +424,9 @@ int main(){
     lst.add(3);
     lst.add(-2);
     lst.display();
-    lst.bubblesort();
-    lst.display();
+    lst.search(3);
+    lst.taskB(lst2);
+    lst2.display();
 
     /*
     do{
@@ -474,3 +501,39 @@ int enter(){
     return n;
 }
 
+/*
+ * void double_linked_list::bubblesort() {  // TODO
+    if (this->is_empty() || head == tail) return;
+    int size = this->getsize();
+    bool swapped = true;
+
+
+    while(swapped){
+        swapped = false;
+        node *prev = nullptr, *curr = head, *next = curr->next;
+
+        int c = 0;
+        while(c < size-1){
+            if (curr->data > next->data){
+                swapped = true;
+
+                if (prev != nullptr)
+                    prev->next = next;
+
+                curr->next = next->next;
+                next->prev = curr->prev;
+                curr->prev = next;
+                next->next = curr;
+
+                prev = next;
+                next = curr->next;
+            }else{
+                prev = curr;
+                curr = curr->next;
+                next = curr->next;
+            }
+            c++;
+        }size--;
+    }
+}
+ * */
