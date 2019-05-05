@@ -285,7 +285,7 @@ void double_linked_list::bubblesort_data() {
 
 // show
 void double_linked_list::display(){
-    node *tmp = head;
+    node *tmp = tail;
     if (is_empty())
         cout << "List is empty." << endl;
     else{
@@ -331,6 +331,9 @@ void double_linked_list::taskA(){
 void double_linked_list::add_node(node *nd){
     if (head == nullptr){
         head = nd; tail = nd;
+        nd->next = nullptr;
+        nd->prev = nullptr;
+        return;
     }
 
     nd->next = tail;
@@ -345,20 +348,32 @@ void double_linked_list::taskB(double_linked_list &lst2){ // переделал
         return;
     }else if (head == tail && head->data < 0){
         lst2.add_node(head);
-        this->pop();
         cout << "Task B.1 successfully completed." << endl;
         return;
     }
 
-    node *tmp = tail;
+    node *tmp = tail, *nxt;
     int d;
     while(tmp != nullptr){
         d = tmp->data;
         if (d < 0){
-            lst2.add_node(tmp);
-            node *old = tmp;
-            tmp = tmp->next;
-            this->del_node(old); // использовал буфер, чтобы не переписывать в этой функции метод удаления
+            if (tmp->prev == nullptr){ // tmp == tail
+                tail = tail->next;
+                lst2.add_node(tail->prev);
+                tail->prev = nullptr;
+                tmp = tail;
+            }else if (tmp->next == nullptr){ // tmp == head
+                head = head->prev;
+                lst2.add_node(head->next);
+                head->next = nullptr;
+                tmp = nullptr;
+            }else{
+                nxt = tmp->next;
+                tmp->prev->next = tmp->next;
+                tmp->next->prev = tmp->prev;
+                lst2.add_node(tmp);
+                tmp = nxt;
+            }
         }else{
             tmp = tmp->next;
         }
@@ -424,7 +439,6 @@ int main(){
     lst.add(3);
     lst.add(-2);
     lst.display();
-    lst.search(3);
     lst.taskB(lst2);
     lst2.display();
 
