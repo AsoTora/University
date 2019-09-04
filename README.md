@@ -1,5 +1,7 @@
 # BSUIR
 
+## 1 year
+
 **Sem 1**:
 - lab 1 -- linear algorithmes
 - lab 2 -- if/ else
@@ -8,7 +10,7 @@
 - lab 5 -- 2 dimens. arrays
 - lab 6 -- functions
 - lab 7 -- strings
-- lab 6 -- structures
+- lab 8 -- structures
 
 **Sem2**:
 - lab 9 -- files
