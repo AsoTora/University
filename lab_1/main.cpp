@@ -20,7 +20,7 @@ int enter(){
  * */
 
 
-struct Date{
+class Date{
 private:
     unsigned int y; // year
     unsigned int m; // month

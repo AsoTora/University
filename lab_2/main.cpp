@@ -31,8 +31,7 @@ public:
     void Set(int i, int value){
         this->arr[i-1] = value;
     };
-    int Get(int i){
-        return arr[i-1];
+    int Get(int i){        return arr[i-1];
     };
     void Print(){
         for (int i = 0; i < size; i++) {
