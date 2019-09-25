@@ -1,6 +1,9 @@
 # BSUIR
 
-**Sem 1**:
+## 1 year
+*CS essentials*
+
+**Sem 1:**
 - lab 1 -- linear algorithmes
 - lab 2 -- if/ else
 - lab 3 -- loops
@@ -8,9 +11,9 @@
 - lab 5 -- 2 dimens. arrays
 - lab 6 -- functions
 - lab 7 -- strings
-- lab 6 -- structures
+- lab 8 -- structures
 
-**Sem2**:
+**Sem2:**
 - lab 9 -- files
 - lab 10 -- recursion
 - lab 11 -- sorting
@@ -20,3 +23,15 @@
 - lab 15 -- BST
 - lab 16 -- ОПЗ (math user input)
 - lab 17 -- HASH-tables
+
+## 2 year
+*OOP intro*
+
+**Sem 3:**  
+- lab 1, 2 -- classes
+- lab 3 -- constructors
+- lab 4 -- operator overloading
+- lab 5 -- inheritance
+- lab 6 -- templates
+- lab 7 -- error catching
+- lab 8 -- dynamic and static cast

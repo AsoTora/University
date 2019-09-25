@@ -1,5 +1,18 @@
+# xml files
 *.idea
-*.txt
+
+# my notes files 
+*.txt 
+*.md
+
+# to build projects with CMake
 !CMakeLists.txt
+
+# stuff from builder
 **/cmake-build-debug
-**/zero
+
+# directory for test and junk projects
+**/tmp
+
+# temporarly ignor dir
+**/lab_55
