@@ -16,14 +16,13 @@ public:
         }
         return out;
     }
-// TODO
-//    friend istream& operator >> (istream& in, const Vector& vect){
-//        cout << "Enter vector values:" << endl;
-//        for (int i = 0; i < size; ++i) {
-//            in >> vect.vec[i];
-//        }
-//        return in;
-//    }
+    friend istream& operator >> (istream& in, Vector& vect){
+        cout << "Enter vector values:" << endl;
+        for (int i = 0; i < size; ++i) {
+            in >> vect.vec[i];
+        }
+        return in;
+    }
 };
 
 template <class T, int size>
@@ -41,11 +40,10 @@ void Vector<T, size>::print() {
     cout << endl;
 }
 
-
 int main(){
     Vector<int, 5> v1;
     v1.print();
-//    cin >> v1;
+    cin >> v1;
     cout << v1;
     return 0;
 }
