@@ -1,130 +1,172 @@
 #include <iostream>
-#include <cstring>
-#include <cmath>
 using namespace std;
-/*
- * 1) Реализуйте простую графическую систему с использованием графических средств Win32 API. Абстрактный класс
-    Является общим интерфейсом для классов Dot (точка), Line (линия), Triangle (треугольник), Rectangle (прямоугольник),
- Ellipse (эллипс). Line задается парой объектов Point, который не является производным от Shape, Triangle задается
- тройкой (массивом) объектов Point. Предусмотреть возможность установки для всех фигур толщины и цвета линии,
- цвета заливки. Shape невидим до вызова функции Draw().
- *
- *
- */
 
-enum colors {black, white, green};
-void get_color(enum colors color){
-    switch (color){
-        case black:{
-            cout << "Im black." << endl;
-        }
-        case white:{
-            cout << "Im white" << endl;
-        }
-        case green:{
-            cout << "Im green" << endl;
-        }
+/*
+ * Автомобильный транспорт описывается классом «Автомобиль» (Automobile), который содержит следующую информацию:
+ марка автомобиля, тип двигателя (карбюраторный или дизельный), мощность двигателя в л.с., масса автомобиля, пробег в км.
+
+ * «Легковой автомобиль» (Car) производный от «Автомобиля» содержит дополнительную информацию:
+расход топлива на 100 км, время разгона до 100 км/ч в секундах, количество пассажирских мест.
+ * «Грузовой автомобиль» (Lorry) производный от «Автомобиля» содержит дополнительную информацию:
+грузоподъемность в тоннах, тип кузова (открытый или закрытый).
+ * «Автобус» (Bus) производный от «Легкового автомобиля» содержит дополнительную информацию:
+количество стоячих мест.
+
+ * Необходимо создать парк автомобилей автобазы в виде списка или массива, где каждый элемент представляет собой
+указатель на базовый класс Automobile, а указывает на объект производного класса. В базовом классе определить чисто
+виртуальную функцию Load(int), которая в производном классе Lorry определяется как загрузка груза, а в классах
+Car и Bus – посадка пассажиров. В базовом и производных классах необходимо определить виртуальную функцию Print(),
+которая выводит на экран сведения об автотранспорте. Каждый класс должен содержать конструктор с параметрами.
+*/
+
+class Auto {
+public:
+    char* carModel; //модель автомобиля
+    char* engineType; //тип двигателя
+    int enginePower; //мощность двигателя
+    int mass; //масса автомобля
+    int mileage; //пробег
+
+    virtual void Load(int) = 0;
+    virtual void Print() {
+        cout << "Model: " << carModel << endl;
+        cout << "Engine: " << engineType << endl;
+        cout << "Power: " << enginePower << endl;
+        cout << "Mass: " << mass << endl;
+        cout << "Mileage: " << mileage << endl;
     }
+
+    Auto() = default;  //по умолчанию
+    Auto(char *carModel1, char *engineType1, int enginePower1, int mass1, int mileage1) {
+        carModel = carModel1;
+        engineType = engineType1;
+        enginePower = enginePower1;
+        mass = mass1;
+        mileage = mileage1;
+    }
+};
+
+
+class Car : public Auto { //легковой автомобиль
+public:
+    int accelerationTime; //время разгона
+    int fuelConsumption; //расход топлива
+    int passengerSeats; //количество пассажирских мест
+
+    void Load(int) { //посадка пассажиров
+        cout << "Посадка!" << endl;
+    }
+    void Print() {
+        cout << "Model: " << carModel << endl;
+        cout << "Engine: " << engineType << endl;
+        cout << "Power: " << enginePower << endl;
+        cout << "Mass: " << mass << endl;
+        cout << "Mileage: " << mileage << endl;
+        cout << "Acceleration Time: " << accelerationTime << endl;
+        cout << "Fuel: " << fuelConsumption << endl;
+        cout << "Passenger seats: " << passengerSeats << endl;
+    }
+
+    Car() = default;
+    Car(char *carModel1, char *engineType1, int enginePower1, int mass1, int mileage1,
+        int accelerationTime1, int fuelConsumption1, int passengerSeats1) {
+        carModel = carModel1;
+        engineType = engineType1;
+        enginePower = enginePower1;
+        mass = mass1;
+        mileage = mileage1;
+        accelerationTime = accelerationTime1;
+        fuelConsumption = fuelConsumption1;
+        passengerSeats = passengerSeats1;
+    }
+};
+
+class Lory : public Auto { //грузовой автомобиль
+public:
+    int carryingCapacity; //грузоподъёмность
+    char* carcassType; //тип кузова
+
+    void Load(int) { //загрузка груза
+        cout << "Load: " << endl;
+    }
+    void Print() {
+        cout << "Model: " << carModel << endl;
+        cout << "Engine: " << engineType << endl;
+        cout << "Power: " << enginePower << endl;
+        cout << "Mass: " << mass << endl;
+        cout << "Mileage: " << mileage << endl;
+        cout << "Capacity: " << carryingCapacity << endl;
+        cout << "Carcass: " << carcassType << endl;
+    }
+
+    Lory(char *carModel1, char *engineType1, int enginePower1, int mass1, int mileage1,
+         int carryingCapacity1, char *carcassType1) {
+        carModel = carModel1;
+        engineType = engineType1;
+        enginePower = enginePower1;
+        mass = mass1;
+        mileage = mileage1;
+        carryingCapacity = carryingCapacity1;
+        carcassType = carcassType1;
+    }
+};
+
+
+class Bus : public Car { //автобус
+public:
+    int standingPlaces;
+
+    void Print() {
+        cout << "Model: " << carModel << endl;
+        cout << "Engine: " << engineType << endl;
+        cout << "Power: " << enginePower << endl;
+        cout << "Mass: " << mass << endl;
+        cout << "Mileage: " << mileage << endl;
+        cout << "Acceleration Time: " << accelerationTime << endl;
+        cout << "Fuel: " << fuelConsumption << endl;
+        cout << "Passenger seats: " << passengerSeats << endl;
+        cout << "Standing seats:  " << standingPlaces << endl;
+    }
+
+    Bus(char *, char *, int, int, int, int, int, int, int);
+};
+
+Bus::Bus(char *carModel1, char *engineType1, int enginePower1, int mass1, int mileage1,
+         int accelerationTime1, int fuelConsumption1, int passengerSeats1, int standingPlaces1) {
+    carModel = carModel1;
+    engineType = engineType1;
+    enginePower = enginePower1;
+    mass = mass1;
+    mileage = mileage1;
+    accelerationTime = accelerationTime1;
+    fuelConsumption = fuelConsumption1;
+    passengerSeats = passengerSeats1;
+    standingPlaces = standingPlaces1;
 }
 
-class Shape{
-protected:
-	int width; // толщина линий
-	enum colors color; // цвет линий
-public:
-	void SetWidth(int w){
-	    this->width = w;
-	};
-	void SetColor(enum colors c){
-	    this->color = c;
-	};
-	virtual void Draw(); //  должна переопределяться в производных классах
-	~Shape() = default;
-};
+int main(){
+    char y, type;
+    char* carModel = new char[50];
+    char* engineType = new char[50];
+    char* carcassType = new char[50];
+    int enginePower, mass, mileage, accelerationTime, fuelConsumption, passengerSeats, carryingCapacity, standingPlaces;
+//    cout << "Model: "; cin >> carModel;
+//    cout << "Engine: "; cin >> engineType;
+//    cout << "Power: "; cin >> enginePower;
+//    cout << "Mass: "; cin >> mass;
+//    cout << "Mileage: "; cin >> mileage;
+//    cout << "Acceleration time: "; cin >> accelerationTime;
+//    cout << "Fuel: "; cin >> fuelConsumption;
+//    cout << "Seats: "; cin >> passengerSeats;
 
-class Dot: private Shape{
-protected:
-    int x, y;
-public:
-    Dot (int w, enum colors color, int xx, int yy): x(xx), y(yy){
-        SetColor(color);
-        SetWidth(w);
-    }
-    void Draw(){
-        cout << "This is an dot. Coordinates: [" << x << "," << y << "]." << endl;
-        cout << "Width is " << width << endl;
-        get_color(color);
-    }
-    int getx(){ return x; }
-    int gety(){ return y; }
-    ~Dot() = default;
-};
+    Car car1("merz", "big", 300, 2000, 300000, 10,
+            11, 30);
+    car1.Print();
 
-class Line: private Shape{
-protected:
-    int length;
-    int x1, x2;
-    int y1, y2;
-public:
-    Line(int w, enum colors color, int xx1, int yy1, int xx2, int yy2):x1(xx1), x2(xx2), y2(yy2), y1(yy1){
-        int wid, col;
-        cout << "Enter dot1 width: "; cin >> wid; cout << endl;
-        cout << "Enter dot1 color (1 -- black, 2 -- white, 3 -- green): "; cin >> col; cout << endl;
-        Dot d1(wid, static_cast<colors>(col), x1, y1);
+    cout << "***" << endl;
 
-        cout << "Enter dot2 width: "; cin >> wid; cout << endl;
-        cout << "Enter dot2 color (1 -- black, 2 -- white, 3 -- green): "; cin >> col; cout << endl;
-        Dot d2(wid, static_cast<colors>(col), x2, y2);
-
-        SetWidth(w); // for Shape Class
-        SetColor(color);
-    }
-    Line (int w, enum colors color, Dot d1, Dot d2){ // diff constructor
-        SetWidth(w); // for Shape Class
-        SetColor(color);
-        x1 = d1.getx(); x2 = d2.getx();
-        y1 = d1.gety(); y2 = d2.gety();
-    }
-    void Draw(){
-        cout << "This is an line. Coordinates: [" << x1 << "," << y1 << ";" << x2 << ',' << y2 << "]." << endl;
-        cout << "Width is " << width << endl;
-        get_color(color);
-    }
-    ~Line() = default;
-};
-
-class Triangle: private Shape{
-protected:
-    int x1, x2, x3;
-    int y1, y2, y3;
-public:
-    Triangle (int w, enum colors color, Dot *d1, Dot *d2, Dot *d3){
-        SetWidth(w); // for Shape Class
-        SetColor(color);
-        x1 = d1->getx(); x2 = d2->getx(); x3 = d3->getx();
-        y1 = d1->gety(); y2 = d2->gety(); y3 = d3->gety();
-    }
-    void Draw(){
-        cout << "This is an Triangle. Coordinates: [" << x1 << "," << y1 << ";" << x2 << ','
-            << y2 << ";" << x3 << "," << y3 << "]." << endl;
-        cout << "Width is " << width << endl;
-        get_color(color);
-    }
-    ~Triangle() = default;
-};
-
-class Rectangle: private Shape{
-
-};
-
-class Ellipse:private Shape{
-
-};
-
-int main() {
-    Dot d1(1, black, 1,2), d2(2, white,3,4), d3(3, green, 5,6);
-    d1.Draw();
-    Line line1(2, black, d1, d2);
-    line1.Draw();
+    Bus bus1("merz", "big", 300, 2000, 300000, 10,
+            11, 30, 70);
+    bus1.Print();
     return 0;
 }
