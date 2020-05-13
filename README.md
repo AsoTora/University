@@ -3,7 +3,7 @@
 ## 1 year
 *CS essentials*
 
-**Sem 1:**
+**Part 1**
 - lab 1 -- linear algorithmes
 - lab 2 -- if/ else
 - lab 3 -- loops
@@ -13,7 +13,7 @@
 - lab 7 -- strings
 - lab 8 -- structures
 
-**Sem2:**
+**Part 2**
 - lab 9 -- files
 - lab 10 -- recursion
 - lab 11 -- sorting
@@ -27,7 +27,7 @@
 ## 2 year
 *OOP intro*
 
-**Sem 3:**  
+**Part 3**  
 - lab 1, 2 -- classes
 - lab 3 -- constructors
 - lab 4 -- operator overloading
