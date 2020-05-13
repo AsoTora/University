@@ -83,18 +83,18 @@ int main(){
         cout << "Add: " << endl;
         cout << test.Add(LONG_MAX, LONG_MAX) << endl;
         cout << endl;
-        cout << "Sub: " << endl;
-        cout << test.Sub(LONG_MIN, 10) << endl;
-        cout << endl;
-        cout << "Multiplie: " << endl;
-        cout << test.Mul(LONG_MAX, 2) << endl;
-        cout << endl;
-        cout << "Divide: " << endl;
-        cout << test.Div(47, 0) << endl;
-        cout << endl;
-        cout << "Mod:" << endl;
-        cout << test.Mod(30, 4) << endl;
-        cout << endl;
+//        cout << "Sub: " << endl;
+//        cout << test.Sub(LONG_MIN, 10) << endl;
+//        cout << endl;
+//        cout << "Multiplie: " << endl;
+//        cout << test.Mul(LONG_MAX, 2) << endl;
+//        cout << endl;
+//        cout << "Divide: " << endl;
+//        cout << test.Div(47, 0) << endl;
+//        cout << endl;
+//        cout << "Mod:" << endl;
+//        cout << test.Mod(30, 4) << endl;
+//        cout << endl;
     }
     catch (MathException &ex){
         cout << ex.Message() << endl;;

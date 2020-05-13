@@ -41,7 +41,7 @@ void Vector<T, size>::print() {
 }
 
 int main(){
-    Vector<int, 5> v1;
+    Vector<char, 3> v1;
     v1.print();
     cin >> v1;
     cout << v1;

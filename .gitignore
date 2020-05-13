@@ -10,6 +10,6 @@
 
 # stuff from builder
 **/cmake-build-debug
-
+*/out
 # directory for test and junk projects
 **/tmp

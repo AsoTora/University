@@ -130,7 +130,7 @@ Date Date::operator++(int){ // ++obj
     return *this;
 }
 
-ostream& operator<<(ostream& out, const Date& dt){ // ostream& os -- cout
+ostream& operator<<(ostream& out, const Date& dt){ // ostream& out -- cout
     return out << dt.y << '.' << dt.m << '.' << dt.d << endl;
 }
 istream& operator>>(istream& in, Date& dt){ // istream& in -- cin
