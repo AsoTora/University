@@ -1,6 +1,10 @@
 # BSUIR
 
-## 1 year
+## ASOI 
+
+Feel free to browse my old junk. Some of it may even be usefull. I don't really care. 
+
+### 
 *CS essentials*
 
 **Part 1**
