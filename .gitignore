@@ -15,5 +15,8 @@
 # directory for test and junk projects
 **/tmp
 
+# large files and unnessesary docs
+.pdf
+
 # other
 ignore_*
