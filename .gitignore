@@ -1,0 +1,30 @@
+# xml files
+*.idea
+
+# my notes files 
+*.txt 
+*.md
+
+# to build projects with CMake
+!CMakeLists.txt
+
+# stuff from builder
+**/cmake-build-debug
+*/out
+
+# directory for test and junk projects
+**/tmp
+
+# large files and unnessesary docs
+*.pdf
+*.gsheet
+*.docx
+*.doc
+*.jar
+*.dll
+
+stuff/
+
+# other
+ignore_*
+*DS_Store*
