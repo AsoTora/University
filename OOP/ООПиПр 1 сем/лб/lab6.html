@@ -1,0 +1,922 @@
+﻿<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Лабораторная работа №6</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<div class="title">ЛАБОРАТОРНАЯ РАБОТА № 6</div>
+
+
+<div class="title">ШАБЛОНЫ</div>
+
+<center>[<a href="lab5.html">Предыдущая работа</a>][<a href="#0">Оглавление</a>][<a href="index.html">Содержание</a>][<a href="lab7.html">Следующая работа</a>]</center>
+
+<br>
+<br>
+<div class="title">
+<a name="0"></a>Оглавление</div>
+
+<ol type="1">
+
+<li>
+<a href="#1">Цель работы</a>
+</li>
+
+<li>
+<a href="#2">Шаблоны в языке C++</a>
+</li>
+
+<ul>
+
+<li>
+<a href="#2_1">Назначение и виды шаблонов</a>
+</li>
+
+<li>
+<a href="#2_2">Шаблоны функций</a>
+</li>
+
+<li>
+<a href="#2_3">Перегрузка шаблонов функций</a>
+</li>
+
+<li>
+<a href="#2_4">Шаблоны классов</a>
+</li>
+
+<li>
+<a href="#2_5">Использование шаблонов классов</a>
+</li>
+
+<li>
+<a href="#2_6">Специализация</a>
+</li>
+
+</ul>
+
+<li>
+<a href="#3">Индивидуальные задания</a>
+</li>
+
+</ol>
+
+
+<br>
+<br>
+<div class="title">
+<a name="1"></a>1.	ЦЕЛЬ РАБОТЫ</div>
+
+<ol type="1">
+
+<li> Изучение правил объявления и определения шаблонов функций и классов в языке С++.</li>
+
+<li> Изучение способов переопределения шаблонов функций.</li>
+
+<li>Изучение методов альтернативного определения шаблонов классов и функций.</li>
+
+</ol>
+
+
+<br>
+<br>
+<div class="title">
+<a name="2"></a>2.	ШАБЛОНЫ В ЯЗЫКЕ С++</div>
+
+
+<br>
+<br>
+<div class="header">
+<a name="2_1"></a>2.1.	Назначение и виды шаблонов</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			 Естественное желание сокращения объема программы часто противоречит строгости контроля типов компилятором и требованиям надежного программирования. Например, задача определения максимального значения из пары значений разных типов может породить в программе наличие функций</p>
+
+
+<pre>
+<div class="code">
+int max(int x, int y) { return (x &gt; y) ? x : y; }
+long max(long x, long y) { return (x &gt; y) ? x : y; }
+char max(char x, char y) { return (x &gt; y) ? x : y; }
+double max(double x, double y) { return (x &gt; y) ? x : y; }
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Тело функций во всех вариантах программы одинаково, но из-за различия типов аргументов и возвращаемых значений результат компиляции будет существенно различным. Идея использования препроцессора здесь может не отвергаться лишь по причине малости текста функций, в других же ситуациях она несостоятельна по надежности.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Приведенный пример иллюстрирует целесообразность параметризации определений функций в отношении <i>типов</i> аргументов функций. Это оформляют в интуитивно понятной форме</p>
+
+
+<pre>
+<div class="code">
+template &lt;class Type&gt; // Шаблон функции максимума
+Type max(Type x, Type y) { return (x &gt; y) ? x : y; }
+</div>
+</pre>
+
+(Type &ndash; аргумент, представляющий тип).
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			 В языке С++ в современных системах программирования параметризация типов поддерживается понятиями <i>шаблонов (template) функций и классов</i>. Шаблоны класса, в отличие от шаблонов функций, позволяют параметризовать не только признак типа элементов класса, но и <i>константы</i> разных типов. Например, определения классов</p>
+
+
+<pre>
+<div class="code">
+class char_array // Массив символов фиксированного размера
+{
+protected:
+  char * area;
+public:
+  char_array()
+  { area=new char[81]; } // Константа характеризует тип!
+  ~char_array() { delete[] area; }
+};
+
+class int_array // Массив слов фиксированного размера
+{
+protected:
+  char * area;
+public:
+  int_array()
+  { area=new int[150]; } // Константа характеризует тип!
+  ~int_array() { delete[] area; }
+};
+</div>
+</pre>
+
+из практических соображений можно было бы параметризовать относительно типа элементов и размера массива. Это можно выразить в форме
+
+<pre>
+<div class="code">
+template &lt;class Type, int Size&gt; // Шаблон класса
+class any_type_array // Массив фиксированного размера
+{
+protected:
+  Type * area;
+public:
+  any_type_array()
+  { area = new Type[Size]; } // Константа характеризует тип!
+  ~any_type_array() { delete[] area; }
+ };
+</div>
+</pre>
+
+(<i>Type</i> &ndash; параметр, представляющий тип, а <i>Size</i> &ndash; константу типа <i>int</i>).
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Механизм шаблонов в языке С++ &ndash; средство построения обобщенных определений функций и классов, независимых от используемых типов. Использование шаблонов избавляет от необходимости переписывания исходного текста функций и/или классов для различных типов объектов. Компилятор на основе определения шаблона по заданному в качестве параметра типу автоматически порождает соответствующие экземпляры, или так называемые <i>представители</i> функции или класса.</p>
+
+
+
+
+<br>
+<br>
+<div class="header">
+<a name="2_2"></a>2.2.	Шаблоны функций</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Синтаксис определения шаблона функции:</p>
+
+
+<pre>
+<div class="code">
+template &lt;список_аргументов_шаблона&gt; декларация_функции
+</div>
+</pre>
+
+(угловые скобки обязательны).
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Элемент <i>&laquo;список_аргументов_шаблона&raquo;</i> определяет набор типов, параметризующих текст декларации функции. Каждый тип представляется ключевым словом <i>class</i> и локальным в рамках элемента <i>&laquo;декларация_функции&raquo;</i> идентификатором типа. Элемент <i>&laquo;список_аргументов_шаблона&raquo;</i> не может быть пустым, а его элементы разделяются запятыми.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Элемент <i>&laquo;декларация_функции&raquo;</i> подобен обычному определению или описанию функции, но в списке аргументов функции должны быть хотя бы раз упомянуты типы, перечисленные в списке аргументов шаблона.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Наиболее очевидным применением шаблонов функций является определение и использование классов-контейнеров стандартной библиотеки, таких как <i>basic_string</i>, <i>vector</i>, <i>map</i> и др. В качестве простого примера можно привести сортировку массива:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; void sort(vector&lt;T&gt;&amp; v)
+{ // сортировка методом Шелла
+  const size_t n = v.size();
+  for(int gap = n/2; 0 &lt; gap; gap /= 2)
+    for(int i = gap; i &lt; n; i++)
+      for(int j = i &ndash; gap; 0 &lt;= j; j -= gap)
+        if(v[j + gap] &lt; v[j])
+        {
+          T tmp = v[j];
+          v[j] = v[j + gap];
+          v[j + gap] = tmp;
+        }
+}
+
+void f(vector&lt;int&gt;&amp; vi, vector&lt;string&gt;&amp; vs)
+{
+  sort(vi); // вызов sort(vector&lt;int&gt;&amp;)
+  sort(vs); // вызов sort(vector&lt;string&gt;&amp;)
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			При вызове функции-шаблона типы аргументов функции определяют, какая версия шаблона используется, то есть аргументы шаблона выводятся по аргументам функции.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Существенным моментом является возможность <i>выведения</i> (<i>deduction</i>) типа аргументов шаблона функции по типам аргументов при ее вызове. Компилятор может вывести аргументы, как являющиеся типами, так и обычные, при условии, что список аргументов функции однозначно идентифицирует набор аргументов шаблона. Например:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T, int i&gt;
+T lookup(Buffer&lt;T, i&gt;&amp; b, const char* p);
+
+class Record
+{
+  const char s[12];
+  // ...
+};
+
+Record&amp; f(Buffer&lt;Record, 128&gt;&amp; buf, const char* p)
+{
+  return lookup(buf, p); // вызвать lookup(),
+                         // где Т &ndash; это Record, i &ndash; 128
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Если аргумент шаблона не может быть выведен по списку аргументов шаблона функции, его нужно указать явно. Например:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt; T* create(); // создать Т и вернуть
+                                // указатель на него
+void f()
+{
+  int* pi = create&lt;int&gt;(); // аргумент шаблона int
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Часто явная специализация используется для указания возвращаемого типа для шаблона функции:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T, class U&gt; T implicit_cast(U u) { return u; }
+
+void f(int i)
+{
+  implicit_cast(i);           // ошибка: невозможно вывести Т
+  implicit_cast&lt;double&gt;(i);      // T &ndash; double, U &ndash; int
+  implicit_cast&lt;char, double&gt;(i);// T &ndash; char, U - double
+  implicit_cast&lt;char*, int&gt;(i);  // T &ndash; char*, U &ndash; int
+                                 // ошибка: невозможно
+                                 // преобразовать int в char*
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Как и в случае с аргументами функций по умолчанию, только последние аргументы в списке можно исключить из списка явных аргументов шаблона.</p>
+
+
+
+
+<br>
+<br>
+<div class="header">
+<a name="2_3"></a>2.3.	Перегрузка шаблонов функций</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Можно объявить несколько шаблонов функций с одним и тем же именем и даже объявить комбинацию шаблонов и обычных функций с одинаковым именем. Когда вызывается перегруженная функция, требуется механизм разрешения перегрузки для нахождения требуемой функции или шаблона функции. Например:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; T sqrt(T);
+template&lt;class T&gt; complex&lt;T&gt; sqrt(complex&lt;T&gt;);
+double sqrt(double);
+
+void f(complex&lt;double&gt; z)
+{
+  sqrt(2); // sqrt&lt;int&gt;(int)
+  sqrt(2.7); // sqrt(double)
+  sqrt(z); // sqrt&lt;double &gt;(complex&lt;double &gt;)
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Аналогично тому, как шаблон функции является обобщением понятия функции, правила разрешения при наличии шаблонов функций являются обобщением правил разрешения перегрузки функций. Для каждого шаблона осуществляется поиск специализации, наилучшим образом соответствующей списку аргументов. Затем применяются обычные правила разрешения перегрузки функций применительно к этим специализациям и обычным функциям:</p>
+
+<ul>
+
+<li>ищется набор специализаций шаблонов функций, которые примут участие в разрешении перегрузки. Например, для <i>sqrt(z)</i> к рассмотрению будут приняты <i>sqrt&lt;double&gt;(complex&lt;double&gt;)</i> и <i>sqrt&lt;complex&lt;double&gt;&gt;(complex&lt;double&gt;)</i>;</li>
+
+<li>если могут быть вызваны два шаблона функции, предпочтение отдается более специализированному шаблону. Например, для <i>sqrt(z)</i> предпочтение отдается <i>sqrt&lt;double&gt;(complex&lt;double&gt;)</i> по отношению к <i>sqrt&lt;complex&gt;(complex);</i>
+</li>
+
+<li>если аргументы функции шаблона были определены путем выведения по фактическим аргументам шаблона, к ним нельзя применять интегральное продвижение, стандартные и определяемые пользователем преобразования. Для <i>sqrt(2) sqrt&lt;int&gt;(int)</i> является точным соответствием и поэтому ей отдается предпочтение по отношению <i>sqrt(double)</i>;</li>
+
+<li>если и обычная и специализация подходят одинаково хорошо, отдается предпочтение обычной функции. Следовательно, для <i>sqrt(2.7)</i> выбирается <i>sqrt(double)</i>, а не <i>sqrt&lt;double&gt;(double)</i>;</li>
+
+<li>если ни одного соответствия не найдено, вызов считается ошибочным. Если процесс заканчивается с двумя или более одинаково хорошо подходящими вариантами, вызов считается неоднозначным и это тоже ошибка.</li>
+
+</ul>
+
+<br>
+<br>
+<div class="header">
+<a name="2_4"></a>2.4.	Шаблоны классов</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Синтаксис определения шаблона класса:</p>
+
+
+<pre>
+<div class="code">
+template &lt;список_аргументов_шаблона&gt; определение_класса
+</div>
+</pre>
+
+(угловые скобки обязательны, как и для шаблонов функций). Элемент <i>&laquo;список_аргументов_шаблона&raquo;</i> не может быть пустым, а его элементы разделяются запятыми. Виды параметров шаблона:
+<ul>
+
+<li>аргумент типа &ndash; ключевое слово <i>class</i> и идентификатор;</li>
+
+<li>нетиповой аргумент &ndash; имя типа и идентификатор, определяющие константу.</li>
+
+</ul>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Элемент <i>&laquo;список_аргументов_шаблона&raquo;</i> определяет набор типов и констант, параметризующих текст определения класса. Каждый аргумент является локальным в рамках элемента <i>&laquo;определение_класса&raquo;</i>.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Элемент <i>&laquo;определение_класса&raquo;</i> &ndash; обычное определение класса, где хотя бы раз упомянуты идентификаторы типовых и нетиповых аргументов из списка аргументов шаблона. </p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Если функции-элементы определяются вне определения класса, то синтаксис их определения должен иметь вид</p>
+
+
+<pre>
+<div class="code">
+template &lt;список_аргументов_шаблона&gt;
+тип_результата
+имя_класса&lt;аргументы_шаблона&gt;;::имя_функции(аргументы_функции)
+{
+  // Тело функции
+}
+</div>
+</pre>
+
+
+<br>
+<br>
+<div class="header">
+<a name="2_5"></a>2.5.	Использование шаблонов классов</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Шаблон класса используется для создания его представителей в местах употребления имени класса как имени типа. Например, имя типа необходимо в операторах декларации объектов, приведения типа, переопределения типа (<i>typedef</i>) и т.п.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Имя представителя образуется из имени шаблона класса и заключенного в угловые скобки списка аргументов. В списке аргументов каждому типовому параметру шаблона должно соответствовать известное в этой точке имя типа, а нетиповому &ndash; константное выражение ожидаемого типа.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Аргументами шаблонов могут быть: аргументы-типы, аргументы обычных типов, такие как <i>int</i>, и аргументы-шаблоны. Например:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T, T def_val&gt; class Cont { /* ... */ };
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Как видно, аргумент шаблона может быть использован для определения последующих аргументов шаблона. Нетиповой аргумент шаблона должен быть константой:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T, int S&gt; class Buffer
+{
+  T v[S];
+  int sz;
+public:
+  Buffer():sz(S) { }
+  // ...
+};
+void f(int i)
+{
+  Buffer&lt;char, 128&gt; bc; // правильно
+  Buffer&lt;int, i&gt; bi;    // ошибка: требуется константное
+                        // выражение
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			И наоборот, аргумент шаблона, не являющийся типом, является константой в теле шаблона, поэтому попытка изменения значения этого аргумента является ошибкой.</p>
+
+
+
+<br>
+<br>
+<div class="header">
+<a name="2_6"></a>2.6.	Специализация</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Рассмотрим возможные использования шаблона Vector.</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; class Vector
+{
+  T* v;
+  int sz;
+public:
+  Vector();
+  Vector(int);
+
+  T&amp; elem(int i) { return v[i]; }
+  T&amp; operator[](int i);
+  void swap(Vector&amp;);
+  // ...
+};
+
+Vector&lt;int&gt; vi;
+Vector&lt;Shape*&gt; vps;
+Vector&lt;string&gt; vs;
+Vector&lt;char*&gt; vpc;
+Vector&lt;Node*&gt; vpn;
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Большинство векторов будут векторами указателей для сохранения полиморфного поведения на этапе выполнения.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Во многих реализациях С++ код функций шаблона дублируется. Это увеличивает производительность, но часто ведет к увеличению кода в критических случаях, таких как в примере с Vector.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			В таких случаях имеется очевидное решение. Контейнеры указателей могут совместно пользоваться единственной реализацией. Это можно выразить при помощи <i>специализации</i>. Определив версию (специализацию) <i>Vector</i> для указателей на <i>void</i>
+</p>
+
+
+<pre>
+<div class="code">
+template&lt;&gt; class Vector&lt;void*&gt;
+{
+  void** p;
+  // ...
+  void*&amp; operator[](int i);
+};
+</div>
+</pre>
+
+ее можно использовать в качестве общей реализации для всех векторов указателей. Префикс <i>template&lt;&gt;</i> говорит о том, что речь идет о специализации, которая может быть указана без аргумента шаблона. Аргументы шаблона, для которых должна использоваться специализация, задаются в угловых скобках &lt;&gt; после имени. То есть, <i>&lt;void*&gt;</i> означает, что данное определение должно использоваться как реализация для всех <i>Vector</i>, у которых <i>Т</i> является <i>void*</i>.
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<i>Vector&lt;void*&gt;</i> является <i>полной специализацией</i> и используется с векторами, объявленными следующим образом:</p>
+
+
+<pre>
+<div class="code">
+Vector&lt;void*&gt; vpv;
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Для определения специализации, которая используется для любого вектора указателей, требуется <i>частичная специализация:</i>
+</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; class Vector&lt;T*&gt;
+{
+  // ...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Образец специализации <i>&lt;T*&gt;</i> после имени означает, что эта специализация должна использоваться для каждого типа указателя, то есть, это определение используется для каждого <i>Vector</i>, аргумент шаблона которого можно выразить в виде <i>T*</i>. Например:</p>
+
+
+<pre>
+<div class="code">
+Vector&lt;Shape*&gt; vps; // &lt;T*&gt; - это &lt;Shape*&gt;, поэтому T - Shape
+Vector&lt;int**&gt; vppi; // &lt;T*&gt; - это &lt;int**&gt;, поэтому T &ndash; int*
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Когда используется частичная специализация, аргумент шаблона выводится по образцу специализации; аргумент шаблона не является фактическим аргументом шаблона. В частности, для <i>Vector&lt;Shape*&gt;</i>, <i>T</i> &ndash; это <i>Shape</i>, а не <i>Shape*</i>.</p>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Одна специализация считается более специализированной, чем другая, если каждый список аргументов, соответствующий образцу первой специализации, также соответствует и второй специализации, но не наоборот. Например:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; class Vector;    // общий шаблон
+template&lt;class T&gt; class Vector&lt;T*&gt;;// специализация для
+                                   // любого указателя
+template&lt;&gt; class Vector&lt;void*&gt;;    // специализация для void*
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Любой тип можно использовать в качестве аргумента шаблона для наиболее общего класса <i>Vector</i>, но только указатели можно использовать с <i>Vector&lt;T*&gt;</i> и только указатели <i>void*</i> разрешается применять с <i>Vector&lt;void*&gt;</i>.</p> 
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Естественно, специализация также полезна для шаблонов функций. Рассмотрим сортировку Шелла. В ней производится сравнение элементов при помощи оператора &laquo;&lt;&raquo; и затем перестановка элементов. Лучше определить этот алгоритм следующим образом:</p>
+
+
+<pre>
+<div class="code">
+template&lt;class T&gt; bool less(T a, T b) { return a &lt; b; }
+
+template&lt;class T&gt; void sort(Vector&lt;T&gt;&amp; v)
+{ // сортировка методом Шелла
+  const size_t n = v.size();
+  for(int gap = n/2; 0 &lt; gap; gap /= 2)
+    for(int i = gap; i &lt; n; i++)
+      for(int j = i &ndash; gap; 0 &lt;= j; j -= gap)
+        if(less(v[j + gap], v[j]))
+        {
+          T tmp = v[j];
+          v[j] = v[j + gap];
+          v[j + gap] = tmp;
+        }
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Это улучшает реализацию алгоритма, но он не будет правильно сортировать <i>Vector&lt;char*&gt;</i>, потому что &laquo;&lt;&raquo; будет сравнивать два <i>char*</i>, то есть адреса первых символов в каждой строке. Вместо этого необходимо сравнивать символы строк. Простая специализация <i>less()</i> для <i>const char*</i> позаботится об этом:</p>
+
+
+<pre>
+<div class="code">
+template&lt;&gt;
+bool less&lt;const char*&gt;(const char* a, const char* b)
+{
+  return strcmp(a, b) &lt; 0;
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Префикс <i>template&lt;&gt;</i> имеет тот же смысл, что в случае с классами. Выражение <i>&lt;const char*&gt;</i> после имени шаблона функции означает, что эта специализация будет использоваться в тех случаях, когда аргументом шаблона является <i>const char*</i>. Так как аргумент шаблона может быть выведен по списку аргументов функции, нет необходимости его явно указывать. Поэтому определение специализации можно упростить:</p>
+
+
+<pre>
+<div class="code">
+template&lt;&gt; bool less&lt;&gt;(const char* a, const char* b)
+{
+  return strcmp(a, b) &lt; 0;
+}
+</div>
+</pre>
+
+или даже
+
+<pre>
+<div class="code">
+template&lt;&gt; bool less(const char* a, const char* b)
+{
+  return strcmp(a, b) &lt; 0;
+}
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Специализация полезна, когда существует более эффективная альтернатива общему алгоритму для конкретных аргументов шаблона или когда нерегулярность типа аргумента приводит к тому, что общий алгоритм выдает неправильный результат.</p>
+
+
+
+<br>
+<br>
+<div class="title">
+<a name="3"></a>3.	ИНДИВИДУАЛЬНЫЕ ЗАДАНИЯ</div>
+
+<br>
+<br>
+<div class="header">
+<a name="|||||"></a>Варианты заданий</div>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>1)</b>	Определите класс <b>Vector</b> для хранения векторных данных:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T, int size&gt;
+class Vector
+{
+	T vec[size];
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Определите в классе следующие функции:</p>
+
+<ul>
+
+<li>Vector(); &ndash; конструктор по умолчанию, который устанавливает значения элементов вектора в 0;</li>
+
+<li>T&amp; operator[](int index); &ndash; получение элемента по его индексу;</li>
+
+<li>friend ostream&amp; operator&lt;&lt;(ostream&amp;, Vector&lt;T&gt;&amp;); &ndash; перенаправление вывода;</li>
+
+<li>friend istream&amp; operator&gt;&gt;(istream&amp;, Vector&lt;T&gt;&amp;); &ndash; перенаправление ввода.</li>
+
+</ul>
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>2)</b>	Определите класс <b>Matrix</b> для хранения двумерной матрицы:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T, int M, int N&gt;
+class Matrix
+{
+	T mat[M][N];
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Определите в классе следующие функции:</p>
+
+<ul>
+
+<li>Matrix(); &ndash; конструктор по умолчанию, который устанавливает значения элементов матрицы в 0;</li>
+
+<li>T* operator[](int index); &ndash; получение указателя на начало строки матрицы с индексом <i>index</i>;</li>
+
+<li>friend ostream&amp; operator&lt;&lt;(ostream&amp;, Matrix&lt;T, M, N&gt;&amp;); &ndash; перенаправление вывода;</li>
+
+<li>friend istream&amp; operator&gt;&gt;(istream&amp;, Matrix&lt;T, M, N&gt;&amp;); &ndash; перенаправление ввода.</li>
+
+</ul>
+ 
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>3)</b>	Определите узел бинарного дерева следующим образом:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+class Node
+{
+	T * data;		//данные хранящиеся в узле
+	Node&lt;T&gt; * left;		//левая ветвь
+	Node&lt;T&gt; * right;	//правая ветвь
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>4)</b>	Определите элемент односвязного списка и список:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+struct ListItem
+{
+	T * data;		//указатель на данные
+	ListItem&lt;T&gt; * next;	//указатель на следующий элемент
+};
+template &lt;class T&gt;
+class List
+{
+	ListItem&lt;T&gt; * list;
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>5)</b>	Имеется элемент стека (дисциплина обслуживания LIFO) и стек:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+struct StackItem
+{
+	T * data;		//указатель на данные
+	StackItem&lt;T&gt; * prev;	//указатель на предыдущий элемент
+};
+template &lt;class T&gt;
+class Stack
+{
+	StackItem&lt;T&gt; * stack;
+	...
+};
+</div>
+</pre>
+ 
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>6)</b>	Имеется элемент очереди и очередь (дисциплина обслуживания FIFO):</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+struct QueueItem
+{
+	T * data;		//указатель на данные
+	QueueItem&lt;T&gt; * next;	//указатель на следующий элемент
+};
+template &lt;class T&gt;
+class Queue
+{
+	QueueItem&lt;T&gt; * queue;
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>7)</b>	Определите класс <b>Complex</b>:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+class Complex
+{
+	T re;	//вещественная часть
+	T im;	//мнимая часть
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>8)</b>	Определите класс <b>TreeNode</b> &ndash; узел:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+class TreeNode
+{
+	char name[10];		//имя узла
+	T * data;		//данные хранящиеся в узле
+	TreeNode&lt;T&gt; * nodes;	//список дочерних узлов
+	TreeNode&lt;T&gt; * next;	//следующий узел на том же уровне
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>9)</b>	Смотри вариант №2.</p>
+ 
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>10)</b>	Определите структуру <b>Pair</b> &ndash; пара &laquo;ключ = значение&raquo; и класс <b>Pairs</b> &ndash; массив пар:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T1, class T2&gt;
+struct Pair
+{
+	T1 key;		//имя
+	T2 value;	//значение
+};
+template &lt;class T1, class T2&gt;
+class Pairs
+{
+	Pair&lt;T1, T2&gt; * prs;	//массив пар
+	int length;		//размер массива
+	int count;		//количество имеющихся пар в массиве
+	...
+};
+</div>
+</pre>
+
+
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<b>11)</b>	Определите класс <b>Array</b> &ndash; одномерный массив вещественных чисел:</p>
+
+
+<pre>
+<div class="code">
+template &lt;class T&gt;
+class Array
+{
+	T * arr;	//непосредственно массив
+	unsigned size;	//размер массива
+	...
+};
+</div>
+</pre>
+
+
+<center>[<a href="lab5.html">Предыдущая работа</a>][<a href="#0">Оглавление</a>][<a href="index.html">Содержание</a>][<a href="lab7.html">Следующая работа</a>]</center>
+
+
+</body>
+</html>

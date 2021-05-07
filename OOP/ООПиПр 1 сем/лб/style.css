@@ -1,0 +1,27 @@
+body {
+	font-family: Verdana;
+	font-size: 12px;
+	font-weight : normal;
+	text-align : justify;
+	padding-left : 20px;
+	padding-right : 20px;
+}
+div.title{
+	font-family: Verdana;
+	font-size: 15px;
+	font-weight : bold;
+	text-align : center;
+}
+div.header {
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight : bold;
+	text-align : left;
+}
+div.code {
+	font-family: Courier;
+	font-size: 15px;
+	font-weight : normal;
+	color : blue;
+	padding-left : 20px;
+}

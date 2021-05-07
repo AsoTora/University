@@ -1,0 +1,1100 @@
+﻿<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Лабораторная работа №4</title>
+<link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+	
+		
+<div class="title">ЛАБОРАТОРНАЯ РАБОТА №4</div>
+		
+<div class="title">ПЕРЕОПРЕДЕЛЕНИЕ ОПЕРАТОРОВ</div>
+		
+<center>[<a href="lab3.html">Предыдущая работа</a>][<a href="#0">Оглавление</a>][<a href="index.html">Содержание</a>][<a href="lab5.html">Следующая работа</a>]</center>
+		
+<br>
+<br>
+<div class="title">
+<a name="0"></a>Оглавление</div>
+		
+<ol type="1">
+			
+<li>
+				
+<a href="#1">Цель работы</a>
+			
+</li>
+			
+<li>
+				
+<a href="#2">Определение операций над объектами классов</a>
+			
+</li>
+			
+<ul>
+				
+<li>
+					
+<a href="#2_1">Схема определения операций над объектами</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_2">Особенности определения операций</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_3">Способы согласования типов</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_4">Особенности использования ссылочных типов
+					</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_5">Особенности операций присваивания и инициализации
+					</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_6">Переопределение операции индексации
+					</a>
+				
+</li>
+				
+<li>
+					
+<a href="#2_7">Переопределение операции вызова функции
+					</a>
+				
+</li>
+			
+</ul>
+			
+<li>
+				
+<a href="#3">Индивидуальные задания</a>
+			
+</li>
+		
+</ol>
+		
+<br>
+<br>
+<div class="title">
+<a name="1"></a>1.	ЦЕЛЬ РАБОТЫ</div>
+		
+<ol type="1">
+			
+<li>Изучение правил и особенностей переопределения операторов для объектов классов.</li>
+			
+<li>Изучение особенностей согласования типов, инициализации и копирования объектов.</li>
+			
+<li>Использование переопределенных операторов для реализации более привычной и удобной формы записи манипулирования над ними.</li>
+		
+</ol>
+		
+<br>
+<br>
+<div class="title">
+<a name="2"></a>2.	ОПРЕДЕЛЕНИЕ ОПЕРАЦИЙ НАД ОБЪЕКТАМИ КЛАССОВ</div>
+		
+<div class="title">
+<a name="2_1">2.1.Схема определения операций над объектами</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Как и большинство других языков С++ поддерживает набор операторов для встроенных типов. Однако большинство концепций, для которых обычно используются операторы, не являются встроенными типами С++, поэтому они должны быть представлены в виде типов, определяемых пользователем. Например, если требуется комплексная арифметика, матричная алгебра, сигнальная логика или символьные строки в С++, обычно используют механизм классов для представления этих понятий. Определение операторов для таких классов иногда позволяет программисту реализовать более привычную и удобную форму записи для манипулирования объектами, чем та, которая доступна с использованием только базовой функциональной формы записи.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			По умолчанию для объектов любого класса определены лишь операции присваивания <i>&laquo;=&raquo;</i> и определения адреса <i>&laquo;&amp;&raquo;</i>. Определение любой операции <i>&laquo;@&raquo;</i> для некоторого класса реализуется объявлением функции доступа к его элементам (функции-элемента или дружественной функции) с именем <i>operator@</i>. Такая функция должна иметь соответствующие смыслу операции набор и типы аргументов и, как любая функция, может быть переопределенной. Например,</p>
+	
+	
+<pre>
+<div class="code">
+class Complex
+{
+  double re, im;
+public:
+  complex(): re(r), im(i) { }
+  complex operator+(complex);
+  complex operator*(complex);
+};
+</div>
+</pre>
+	
+		
+определяет простую реализацию концепции комплексного числа. Класс <i>Complex</i> представлен парой чисел с плавающей точкой и двумя операторами <i>&laquo;+&raquo;</i> и <i>&laquo;*&raquo;</i>. Введение функций <i>Complex::operator+()</i> и <i>Complex::operator*()</i> определяют новый смысл операций сложения и умножения. Теперь можно записать комплексные выражения в форме, близкой к общепринятой:
+	
+	<pre>
+<div class="code">
+void f() {
+  Complex a(1, 3.1);
+  Complex b(1.2, 2);
+  Complex c = b;
+
+  a = b + c;
+  b = b + a * c;
+  c = a * b + Complex(1, 2);
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Возможен и явный вызов таких функций. Например, <i>b + c</i> означает <i>b.operator+(c)</i>. Для переопределенных операций сохраняются обычные правила приоритета операций.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Можно объявить функции, определяющие смысл следующих операторов:</p>
+	
+	
+<pre>
+<div class="code">
++	-	*	/	%	^	&amp;	|	~	!	=	&lt;
+&gt;	+=	-=	*=	/=	%=	^=	&amp;=	|=	&lt;&lt;	&gt;&gt;	&gt;&gt;=
+&lt;&lt;=	==	!=	&lt;=	&gt;=	&amp;&amp;	||	++	--	-&gt;*	,	-&gt;
+[]	()	new	new[]	delete	delete[]
+</div>
+</pre>
+	
+		Следующие операторы не могут быть определены пользователем:
+	
+	<pre>
+<div class="code">
+:: (разрешение области видимости);
+.  (выбор элемента);
+.* (выбор элемента через указатель на элемент).</div>
+</pre>
+	
+		
+Правым операндом у них является не значение, а имя, и они предоставляют основные средства доступа к элементам. Тернарный условный оператор <i>?:</i> также не может быть переопределен.
+		<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Нехватка символических конструкций для обозначения операций легко преодолевается введением набора функций.</p>
+		
+<div class="title">
+<a name="2_2">2.2.Особенности определения операций</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Очевидно, что определяемыми могут быть только <i>унарные</i> или <i>бинарные</i> операторы. Бинарный оператор можно определить либо в виде нестатической функции-элемента с одним аргументом, либо в виде функции-не-элемента (например, дружественной функции) с двумя аргументами. Для любого бинарного оператора <i>&laquo;@&raquo;</i> выражение <i>aa@bb</i> интерпретируется либо как <i>aa.operator@(bb)</i> либо <i>operator@(aa, bb)</i>. Если определены обе функции, для выяснения того, какую (возможно, никакую) из них использовать, применяется механизм разрешения переопределения. Например:</p>
+	
+	
+<pre>
+<div class="code">
+class X {
+public:
+  void operator+(int);
+  X(int);
+};
+void operator+(X, X);
+void operator+(X, double);
+
+void f(X a)
+{
+  a + 1;    // a.operator+(1)
+  1 + a;    // ::operator+(X(1), a)
+  a + 1.0;  // ::operator+(a, 1.0)
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Унарный оператор, префиксный или постфиксный, можно определить либо в виде нестатической функции-элемента без аргументов, либо в виде функции-не-элемента (например, дружественной функции) с одним аргументом. Для любого унарного оператора <i>&laquo;@&raquo;</i> выражение <i>@aa</i> интерпретируется либо как <i>aa.operator@()</i> либо <i>operator@(aa)</i>. Если определены обе функции, для определения того, какую (возможно, никакую) из них использовать, применяется механизм разрешения переопределения. Для любого постфиксного оператора <i>&laquo;@&raquo;</i> выражение <i>aa@</i> интерпретируется либо как <i>aa.operator@(int)</i> либо <i>operator@(aa, int)</i>. Если определены обе функции, для определения того, какую (возможно, никакую) из них использовать, применяется механизм разрешения переопределения.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Оператор может быть объявлен только с синтаксисом, существующим для него в грамматике. Например, пользователь не может определить унарный <i>&laquo;%&raquo;</i> или <i>&laquo;+&raquo;</i> с тремя операндами. Рассмотрим пример:</p>
+	
+	
+<pre>
+<div class="code">
+class X {
+  // ...
+  X * operator&amp;();   // префиксный унарный оператор &amp;
+   // (чей-то адрес)
+  X operator&amp;(X);    // бинарный оператор &amp; (И)
+  X operator++(int); // постфиксный инкремент
+  X operator&amp;(X, X); // ошибка: три операнда
+  X operator/();     // ошибка: унарный оператор /
+};
+
+X operator-(X);        // префиксный унарный минус
+X operator-(X, X);     // бинарный минус
+X operator--(X&amp;, int); // постфиксный декремент
+X operator-();         // ошибка: отсутствует операнд
+X operator-(X, X, X);  // ошибка: три операнда
+X operator%(X);        // ошибка: унарный оператор %
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Функция <i>operator@</i> должна быть элементом класса или иметь хотя бы один параметр - обьект класса (исключение - функции, переопределяющие операторы <i>new</i> и <i>delete</i>). Дополнительное ограничение - нельзя определить функцию оператора, которая оперирует исключительно с указателями. Отсюда следует:</p>
+		
+<ul>
+			
+<li>защита любых выражений с символом операции <i>&laquo;@&raquo;</i> от неуместного применения функций вида <i>operator@</i> гарантируется правилами разрешения переопределения функций;</li>
+			
+<li>если первый операнд операции в классе не является объектом класса, то определить такой оператор можно только функцией-не-элементом (например, дружественной функцией).</li>
+		
+</ul>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Интерпретации операций над объектами класса не предполагает учет фундаментальных свойств базовых типов. Например, коммутативность операции <i>&laquo;*&raquo;</i> влечет эквивалентность выражений <i>obj_1 * obj_2 и obj_2 * obj_1</i>, но к объектам  определенного пользователем класса это не относится.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Аналогичным образом не учитывается взаимозависимость некоторых операций языка С. Например, выражение <i>obj_1 *= obj_2</i> для объектов класса не эквивалентно выражению <i>obj_1 = obj_1 * obj_2</i>.</p>
+		
+<div class="title"><a name="2_3">	2.3.	Способы согласования типов</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Определение операций над объектами разных классов часто связано с необходимостью преобразования типов. Например, для коммутативных по характеру операций над арифметическими объектами прямолинейное определение функций-операторов для всех возможных комбинаций операндов не только обременительно, но и неэффективно &ndash; можно сократить объем программ за счет использования неявных преобразований. Неявными преобразованиями удобно пользоваться в операциях присваивания, операторах инициализации, а также для преобразования фактических аргументов и возвращаемых значений функций.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Имеется два пути согласования типов объектов:</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			создание из объектов других типов объекта класса явным либо неявным вызовом его конструктора (неявно может вызываться только конструктор с единственным параметром);</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			определение в классе операции приведения к другому типу.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Например, определим фрагмент класса <i>Complex</i>, предусматривающий операции с данными типа <i>double</i>:</p>
+	
+	
+<pre>
+<div class="code">
+class Complex {
+  double re, im;
+public:
+  Complex(double r, double i):re(r), im(i) { }
+
+  friend Complex operator+(Complex, Complex);
+  friend Complex operator+(Complex, double);
+  friend Complex operator+(double, Complex);
+
+  friend Complex operator-(Complex, Complex);
+  friend Complex operator-(Complex, double);
+  friend Complex operator-(double, Complex);
+
+  friend Complex operator*(Complex, Complex);
+  friend Complex operator*(Complex, double);
+  friend Complex operator*(double, Complex);
+// ...
+};
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Исключить потребность в определении нескольких функций можно определением конструктора, который по заданному объекту типа <i>double</i> создает объект типа <i>Complex</i>. Здесь это можно осуществить двумя способами:</p>
+	
+	
+<pre>
+<div class="code">
+явное определение двух конструкторов
+...
+Complex(double r, double i):re(r), im(i) { }
+Complex(double r):re(r), im(0) { }
+
+определение конструктора с аргументом по умолчанию
+...
+Complex(double r, double i = 0):re(r), im(i) { }
+...
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Используя второй способ, можно представить ранее записанный фрагмент класса <i>Complex</i> в виде:</p>
+	
+	
+<pre>
+<div class="code">
+
+class Complex {
+  double re, im;
+public:
+  Complex(double r, double i = 0):re(r), im(i) { }
+
+  friend Complex operator+(Complex, Complex);
+  friend Complex operator-(Complex, Complex);
+  friend Complex operator*(Complex, Complex);
+  // ...
+};
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Конструктор вызывается при возможности построения объекта своего класса из определенных его аргументами объектов. Такая возможность определяется последовательным сопоставлением типов фактических аргументов объектов и формальных аргументов конструктора (правилами использования переопределенных функций):</p>
+		
+<ul>
+			
+<li>точное совпадение типов;</li>
+			
+<li>совпадения после применения стандартных преобразований;</li>
+			
+<li>уникальное совпадение после применения явно определенных преобразований.</li>
+		
+</ul>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Неудача сопоставления влечет выдачу компилятором сообщения о необходимости явного вызова конструктора.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Отсюда следует, что последний вариант класса <i>Complex</i> допускает конструирование объектов для любых сочетаний арифметических данных:</p>
+	
+	
+<pre>
+<div class="code">
+Complex x1 = Complex(123,456); // явный вызов конструктора
+Complex x2 = 234.6;            // неявный вызов конструктора
+//...
+void f(Complex);
+//...
+f(10);       // f(Complex(10));
+x1 = x2 * 5; // x1=operator*(x2,Complex(double(5),double(0)))
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Попытки подбора других конструкторов для преобразования аргументов в промежуточные типы, приемлемые для некоторых имеющихся конструкторов, не предпринимаются:</p>
+	
+	
+<pre>
+<div class="code">
+class X { /* ... */ X(int); }
+class Y { /* ... */ Y(X); }
+// ...
+Y z = 23;    // ошибка: Y(X(23)) не планируется
+Y z = X(23); // правильный явный вызов конструктора
+</div>
+</pre>
+	
+		
+Пример нарушения уникальности совпадения типов аргументов:
+	
+	<pre>
+<div class="code">
+class X { /* ... */ X(int); X(char*); };
+class Y { /* ... */ Y(int); };
+class Z { /* ... */ Z(x); };
+
+void f(X);
+void f(Y);
+
+f(1);     // неоднозначность: f(X(1)) или f(Y(1)) ?
+f(X(1));  // правильный явный вызов конструктора
+f(Y(1));  // правильный явный вызов конструктора
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Преобразование типа конструктором характеризуется следующими очевидными ограничениями:</p>
+		
+<ul>
+			
+<li>невозможно преобразование объекта определенного пользователем класса в объект базового типа (такие типы не являются классами);</li>
+			
+<li>описание преобразования из нового типа в старый требует изменения описания старого типа.</li>
+		
+</ul>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Указанные ограничения снимаются определением в классе <i>X</i> функции-элемента вида <i>operator type()</i>, выполняющей преобразование объекта класса <i>X</i> в объекты типа <i>type</i>. Здесь <i>type</i> &ndash; имя типа без модификаторов <i>[]</i> или <i>()</i>.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Схема введения функции преобразования:</p>
+	
+	
+<pre>
+<div class="code">
+class X {
+  //...
+  operator int();
+};
+
+X a,b;
+int i;
+
+// Эквивалентные выражения
+i = int(b); // явное функциональное приведение типа
+i = (int)b; // явное традиционное приведение типа
+i = b;      // неявное приведение типа
+
+// Другие примеры неявного приведения типа
+i = (a)? a+1 : 0;
+while(a||b) { /* ... */ }
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Таким образом, подобно конструктору, функция преобразования <i>X::operator type()</i> может вызываться неявно. Явный ее вызов возможен посредством записи операции приведения типа в синтаксических формах <i>type(expr)</i> или <i>(type)expr</i>, где <i>expr</i> &ndash; выражение типа <i>X</i>.</p>
+		
+<div class="title"><a name="2_4">2.4.Особенности использования ссылочных типов</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+В предыдущих примерах операторы класса <i>Complex</i> были определены таким образом, что их операнды имеют тип <i>Complex</i>. Из этого следует, что при каждом использовании оператора класса <i>Complex</i>, каждый операнд копируется. Дополнительные затраты на копирование двух <i>double</i> могут оказаться заметными, но часто меньшими, чем для пары указателей. К сожалению не все классы имеют удобное и компактное представление. Чтобы избавиться от интенсивного копирования, можно объявить функции, имеющие в качестве аргументов ссылки. Например:</p>
+	
+	
+<pre>
+<div class="code">
+class Matrix {
+  double m[100][100];
+public:
+  friend Matrix operator+(const Matrix&amp;, const Matrix&amp;);
+  friend Matrix operator*(const Matrix&amp;, const Matrix&amp;);
+};
+</div>
+</pre>
+	
+		
+Ссылки позволяют в случае больших объектов пользоваться выражениями, включающими в себя обычные арифметические операторы, без интенсивного копирования. Указателями нельзя воспользоваться потому, что невозможно заместить смысл оператора, применяемого к указателю. Сложение можно определить следующим образом:
+	
+	<pre>
+<div class="code">
+Matrix operator+( const Matrix&amp; arg1, const Matrix&amp; arg2)
+{
+  Matrix sum;
+  for(int i = 0; i &lt; 100; i++)
+    for(int j = 0; j &lt; 100; j++)
+      sum.m[i][j] = arg1.m[i][j] + arg2.m[i][j];
+  return sum;
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Этот <i>operator+()</i> осуществляет доступ к операндам по ссылке, но возвращает значение объекта. Возвращение ссылки может показаться более эффективным решением:</p>
+	
+	
+<pre>
+<div class="code">
+class Matrix {
+  // ...
+  friend Matrix&amp; operator+(const Matrix&amp;, const Matrix&amp;);
+  friend Matrix&amp; operator*(const Matrix&amp;, const Matrix&amp;);
+};
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Такое допустимо, но вызывает проблемы при выделении памяти. Так как ссылка на результат будет выдана вызываемой функцией как ссылка на возвращаемое значение, возвращаемое из функции значение не может быть автоматической переменной. Так как оператор может использоваться более одного раза в выражении, результат не может быть статической локальной переменной. Результат, как правило, будет размещаться в свободной памяти. Копирование возвращаемого значения часто обходится дешевле (в смысле времени выполнения, размера кода и данных), чем выделение и (последующее) освобождение памяти под объект. Кроме того, это легче запрограммировать.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Тем не менее в некоторых ситуациях по смыслу операции можно возвратить ссылку на известный объект, например, один из операндов.</p>
+		
+<div class="title"><a name="2_5">	2.5.	Особенности операций присваивания и инициализации</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Как правило, для данного типа <i>X</i> копирующий конструктор <i>X(const X&amp;)</i> отвечает за инициализацию объекта того же типа <i>X</i>. Следует отметить, что присваивание и инициализация являются различными операциями. Это имеет особое значение, когда объявлен деструктор. Если класс <i>X</i> имеет деструктор, который выполняет нетривиальную работу, такую, как освобождение памяти, скорее всего классу потребуется полный набор функций, осуществляющих управление процессами конструирования, уничтожения и копирования:</p>
+	
+	
+<pre>
+<div class="code">
+class X {
+  // ...
+  X(/*...*/);              // конструктор: создает объект
+  X(const X&amp;);             // копирующий конструктор
+  X&amp; operator=(const X&amp;);  // копирующее присваивание:
+                           // очистка и копирование
+  ~X();                    // деструктор: очистка
+};
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Существует еще три случая, когда объект копируется: аргумент функции, возвращаемое значение и исключение (рассматривается далее). При передаче аргумента инициализируется формальный параметр. Соответствующая семантика идентична любой другой инициализации. То же самое происходит для возвращаемых из функции значений и исключений, хотя и в менее очевидной форме.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Пример реализации конструктора копирования был приведен в предыдущей работе (см. лаб. раб. №3, подразд. 2.6). Рассмотрим следующий пример:</p>
+	
+	
+<pre>
+<div class="code">
+void f()
+{
+  Table t1;
+  Table t2 = t1; // копирующая инициализация: проблема
+                 // решается определением Table(const Table&amp;)
+  Table t3;
+  t3 = t2;       // копирующее присваивание - проблема
+}
+</div>
+</pre>
+	
+		
+Здесь присваивание <i>t3 = t2</i> приведет к дублированию указателя на массив <i>Name</i>. При выходе из функции <i>f()</i> для объектов <i>t2</i> и <i>t3</i> автоматически будут вызываться деструкторы, которые будут освобождать одну и ту же область памяти с непредсказуемо аварийными последствиями.
+		<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Правильным решением здесь является явное определение операции присваивания:</p>
+	
+	
+<pre>
+<div class="code">
+class Table {
+  Name * p;
+  size_t sz;
+public:
+  Table(const Table&amp;);
+  Table&amp; operator=(const Table&amp;);
+};
+
+Table&amp; Table::operator=(const Table&amp; t)
+{
+  if(this != &amp;t) // чтобы уберечься от присваивания
+  {              // самому себе
+    delete[] p;
+    p = new Name[sz = t.sz];
+    for(int i = 0; i &lt; sz; i++) p[i] = t.p[i];
+  }
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Основная стратегия при реализации оператора присваивания проста: защита от присваивания самому себе, удаление старых элементов, инициализация и копирование новых элементов. Как правило, все нестатические элементы должны быть скопированы.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Если требуется запретить какое-либо копирование объектов, соответствующие функции копирования необходимо объявить как закрытые элементы класса. Например:</p>
+	
+	
+<pre>
+<div class="code">
+class Unique_handle {
+// операции копирования закрыты с целью
+// предотвращения копирования
+private:
+  Unique_handle(const Unique_handle&amp;);
+  Unique_handle&amp; operator=(const Unique_handle&amp;);
+}
+
+class X {
+  // ...
+  Unique_handle h;
+}
+
+X x1;
+X x2 = x1; // ошибка: невозможно скопировать X::h
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Однако в тех случаях, когда конструктор копирования и операция копирования по умолчанию имеют правильный смысл, предпочтительней полагаться на это умолчание. Это короче и, кроме того, компилятор знает об этом умолчании и о возможности его оптимизации.</p>
+
+		
+<div class="title"><a name="2_6">	2.6.	Переопределение операции индексации</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Чтобы придать смысл индексам для объектов класса можно воспользоваться функцией <i>operator[]</i>. Второй аргумент (индекс) функции <i>operator[]</i> может быть любого типа. Это делает возможным определение векторов, ассоциативных массивов и т. д.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Приведем пример программы для подсчета числа вхождений строк в ассоциативный массив.</p>
+	
+	
+<pre>
+<div class="code">
+struct Pair {
+  char * name; // указатель строки
+  int val;     // количество повторений строки
+};
+
+class List {
+  Pair * vec; // указатель массива строк
+  int max;    // текущий размер массива
+  int free;   // индекс свободного элемента
+public:
+  list(int size = 16): free(0) // конструктор
+  { vec = new Pair[max = (size &lt; 16) ? 16 : size]; }
+
+  int&amp; operator[](char*);
+  void print_all();
+};
+
+int&amp; List::operator[](char* p)
+{
+  Pair* q;
+
+  for(q = vec + free; vec != q--;)
+    if(!strcmp(p, q-&gt;name)) return q-&gt;val;
+
+  if(free == max)
+  { // переполнение: вектор увеличивается
+    Pair* nvec = new Pair[max &lt;&lt; 1];
+    for (int i = 0; i &lt; max; i++) *(nvec + i) = *(vec + i);
+    delete vec;
+    vec = nvec;
+    max &lt;&lt;= 1;
+  }
+
+  q = vec + free++;
+  q-&gt;name = new char[strlen(p) + 1];
+  strcpy(q-&gt;name, p);
+  q-&gt;val = 0; // начальное значение: 0
+  return q-&gt;val;
+}
+
+void List::print_all()
+{ // Вывод ассоциативного массива
+  for (int i = 0; i &lt; free; i++)
+    cout &lt;&lt; endl &lt;&lt; vec[i].name &lt;&lt; &ldquo; - &rdquo; &lt;&lt; vec[i].val;
+}
+
+// Подсчет количества повторения вводимых строк
+void main()
+{
+  char buf[256]; // Буфер ввода строки
+  List vector;   // Список введенных строк
+
+// Ввод списка строк
+  while(cin &gt;&gt; buf) vector[buf]++;
+
+// Отображение списка строк
+  vector.print_all();
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+В приведенной программе размер вектора увеличивается в два раза при обнаружении ситуации переполнения текущего буферного массива.</p>
+		
+<div class="title"> <a name="2_7">	2.7.	Переопределение операции вызова функции</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Вызов функции, то есть обозначение <i>выражение(список выражений)</i>, можно интерпретировать как бинарную операцию, где <i>выражение</i> &ndash; левый операнд, а <i>список выражений</i> &ndash; правый. Оператор вызова <i>()</i> может быть переопределен точно так же, как и другие операторы. Аргументы из списка оператора <i>operator()()</i> вычисляются и проверяются в соответствии с обычными правилами передачи аргументов. Переопределение вызова функции, скорее всего, полезна в основном для определения типов с одной единственной операцией или типов с одной главной операцией. Типичный пример таких классов &ndash; <i>итераторы</i> &ndash; вспомогательные классы для организации выборки в заданном порядке элементов некоторого множества.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Приведем пример построения итератора <i>Iterator</i> для ранее рассмотренного класса <i>List</i>. Наличие итератора здесь позволит отказаться от  функции-элемента <i>print_all</i>, что обеспечит большую гибкость в форме вывода.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Очевидно, что для доступа итератора к данным класса <i>List</i> требуется модификация декларации этого класса:</p>
+	
+	
+<pre>
+<div class="code">
+class List {
+  friend class Iterator; // разрешение доступа
+  Pair * vec;
+  int max, free;
+public:
+  List(int);
+  int&amp; operator[](char*);
+};
+
+// Определение итератора:
+class Iterator {
+  List * base;  // текущий массив list
+  int index;    // текущий индекс
+
+public:
+  Iterator(List&amp; owner) // конструктор
+  { base = &amp;owner, index = 0; }
+
+// Определение операции вызова функции
+  Pair * operator()()
+  { return (index &lt; base-&gt;free) ? &amp;base-&gt;vec[index++] : 0; }
+};
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Создание объекта класса <i>Iterator</i> для некоторого объекта класса <i>List</i> позволит далее операцией вызова функции получать указатели последовательно на все элементы типа <i>Pair</i>. Конец последовательности индицируется возвратом пустого указателя.</p>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Перепишем программу из предыдущего подраздела, используя класс <i>Iterator</i>.</p>
+	
+	
+<pre>
+<div class="code">
+// Модифицированная программа подсчета
+// количества повторения вводимых строк
+void main()
+{
+  char buf[256]; // Буфер ввода строки
+  List strings;  // Список введенных строк
+
+// Ввод списка строк
+  while(cin &gt;&gt; buf) strings[buf]++;
+// Определение итератора для существующего списка строк
+  Iterator next(strings); // next - имя объекта
+// Отображение списка строк
+  Pair * p; // указатель выбранного объекта
+  while((p = next()) != 0)
+    cout &lt;&lt; endl &lt;&lt; p-&gt;name &lt;&lt; &ldquo; - &rdquo; &lt;&lt; p-&gt;val;
+}
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+Итераторы, реализованные подобным образом, предназначены для сохранения закрытых описаний состояния процесса выборки объектов. Это позволяет порождать без особых усилий требуемое количество независимых итерационных процессов. Такие процессы естественно связываются с блоками программы автоматическим вызовом конструкторов и деструкторов итераторов. Функция <i>operator()()</i> должна быть элементом класса.
+</p>
+		
+<br>
+<br>
+<div class="title">
+<a name="3"></a>3.	ИНДИВИДУАЛЬНЫЕ ЗАДАНИЯ</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			Для всех вариантов необходимо выполнить следующее:</p>
+		
+<ul>
+			
+<li>определить классы их свойства и методы в соответствии с вариантом задания;</li>
+			
+<li>в функции main() реализовать демонстрацию работы операций над объектами созданных классов;</li>
+		
+</ul>
+		
+<br>
+<br>
+<div class="header">
+<a name="|||||"></a>ЗАМЕЧАНИЯ:</div>
+		
+<ul>
+			
+<li>
+Весь ввод/вывод должен осуществляться внутри функции main() если только это не оговорено для отдельных функций.</li>
+			
+<li>Передача в функции объектов типа класс должна осуществляться через указатель либо ссылку на объект.</li>
+			
+<li>Все другие нестатические данные должны передаваться функциям через параметры.</li>
+			
+<li>Все нестатические элементы класса должны иметь закрытый атрибут доступа. Доступ извне к таким элементам должен осуществляться через функции-элементы класса.</li>
+		
+</ul>
+		
+<br>
+<br>
+<div class="header">
+<a name="|||||"></a>Варианты заданий</div>
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>1)</b>	Определите в классе <b>Date</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Date&amp; operator=(const Date&amp;);//копирование даты
+Date&amp; operator+=(const Date&amp;);//добавление даты
+Date&amp; operator-=(const Date&amp;);//вычитание даты
+Date&amp; operator+=(int);//добавить дни
+Date&amp; operator-=(int);//вычесть дни
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Date&amp;);//вывод
+friend istream&amp; operator&gt;&gt;(ostream&amp; is, Date&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>2)</b>	Определите в классе <b>Time</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Time&amp; operator=(const Time&amp;);//копирование времени
+Time&amp; operator+=(const Time&amp;);//добавить время
+Time&amp; operator-=(const Time&amp;);//вычесть время
+Time&amp; operator+=(int);//добавить секунды
+Time&amp; operator-=(int);//вычесть секунды
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Time&amp;);//вывод
+friend istream&amp; operator&gt;&gt;(ostream&amp; is, Time&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>3)</b>	Определите в классе <b>TextFile</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+TextFile&amp; operator=(const TextFile&amp;);//копирование файла
+TextFile&amp; operator=(const char *);//копирование текста
+friend char * operator=(const TextFile&amp;);//получить текст
+TextFile&amp; operator+=(const TextFile&amp;);//добавить файл
+TextFile&amp; operator+=(const char *);//добавить текст
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const TextFile&amp;);//
+friend istream&amp; operator&gt;&gt;(istream&amp; is, const TextFile&amp;);//
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>4)</b>	Определите в классе <b>Node</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Node&amp; operator=(const Node&amp;);//копирование узла
+Node&amp; operator&lt;&lt;(const char*);//добавить узел влево
+Node&amp; operator&gt;(const char*);//добавить узел вправо
+Node&amp; operator[](const char*);//вернуть узел по его имени
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Node&amp;);//вывод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>5)</b>	Определите в классе <b>List</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+List&amp; operator=(const List&amp;);//копирование списка
+List&amp; operator+=(const char*);//добавить элемент в список
+List&amp; operator-=(int);//удалить элемент из списка
+ListItem&amp; operator[](int);//получить элемент списка
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const List&amp;);//вывод
+а в структуре <b>ListItem</b>:
+friend istream&amp; operator&gt;&gt;(istream&amp; is, ListItem&amp;);
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>
+		6)</b>	Определите в классе <b>Stack</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Stack&amp; operator=(const Stack&amp;);//копирование стека
+Stack&amp; operator&lt;&lt;(const char*);//поместить данные в стек
+Stack&amp; operator&gt;&gt;(char*);//извлечь данные из стека
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Stack&amp;);//вывод
+а в структуре <b>StackItem</b>:
+friend istream&amp; operator&gt;&gt;(istream&amp; is, StackItem&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>7)</b>	Определите в классе <b>String</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+String&amp; operator=(const char*);//копирование строк
+String&amp; operator=(const String&amp;);//копирование строк
+String&amp; operator+=(const char*);//объединение строк
+String&amp; operator+=(const String&amp;);//объединение строк
+char operator[](int);//получить символ
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const String&amp;);//вывод
+friend istream&amp; operator&gt;&gt;(istream&amp; is, String&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>
+8)</b>	Определите в классе <b>Queue</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Queue&amp; operator=(const Queue&amp;);//копирование очереди
+Queue&amp; operator&lt;&lt;(const char*);//поместить данные в очередь
+Queue&amp; operator&gt;&gt;(char*);//извлеч данные из очереди
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Queue&amp;);//вывод
+а в структуре <b>QueueItem</b>:
+friend istream&amp; operator&gt;&gt;(istream&amp; is, QueueItem&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>9)</b>	Определите в классе <b>Complex</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Complex&amp; operator=(const Complex&amp;);//копирование
+Complex&amp; operator+(const Complex&amp;);//сложение
+Complex&amp; operator-(const Complex&amp;);//вычитание
+Complex&amp; operator*(const Complex&amp;);//умножение
+Complex&amp; operator/(const Complex&amp;);//деление
+Complex&amp; operator+=(const Complex&amp;);//сложение
+Complex&amp; operator-=(const Complex&amp;);//вычитание
+Complex&amp; operator*=(const Complex&amp;);//умножение
+Complex&amp; operator/=(const Complex&amp;);//деление
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Complex&amp;);//вывод
+friend istream&amp; operator&gt;&gt;(istream&amp; is, Complex&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>
+10)</b>	Определите в классе <b>TreeNode</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+TreeNode&amp; operator=(const TreeNode&amp;);//копирование дерева
+TreeNode&amp; operator&lt;&lt;(const char*);//добавить доч. узел
+TreeNode&amp; operator[](const char*);//получить узел с именем
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const TreeNode&amp;);//вывод
+friend istream&amp; operator&gt;&gt;(istream&amp; is, TreeNode&amp;);//ввод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>
+11)</b>	Определите в классе <b>Pairs</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Pairs&amp; operator=(const Pairs&amp;);//копирование пар
+Pairs&amp; operator+=(const Pairs&amp;);//добавление пар
+Pairs&amp; operator+=(const Pair&amp;);//добавление новой пары
+char * operator[](int);//получение имени по значению
+int operator[](const char *);//получение значения по имени
+friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Pairs&amp;);//вывод
+А в структуре <b>Pair</b> следующие операции:
+Pair&amp; operator=(int);//установить значение
+Pair&amp; operator=(const char *);//установить имя
+friend istream&amp; operator&gt;&gt;(istream&amp; is, Pair&amp;);//ввод
+friend ostream&amp; operator&gt;&gt;(ostream&amp; os, Pair&amp;);//вывод
+</div>
+</pre>
+	
+		
+<p>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			
+			<b>
+12)</b>	Определите в классе <b>Array</b> следующие операции:</p>
+	
+	
+<pre>
+<div class="code">
+Array&amp; operator=(const Array&amp;);//копирование массива
+Array&amp; operator+=(const Array&amp;);//добавление массива
+Array&amp; operator+=(double);//добавление нового элемента в массив
+double&amp; operator[](int);//получение доступа к элементу массива
+friend istream&amp; operator&gt;&gt;(istream&amp; is, Array&amp;);//ввод значений
+friend ostream&amp; operator&gt;&gt;(ostream&amp; os, Array&amp;);//вывод массива
+</div>
+</pre>
+
+		
+<center>[<a href="lab3.html">Предыдущая работа</a>][<a href="#0">Оглавление</a>][<a href="index.html">Содержание</a>][<a href="lab5.html">Следующая работа</a>]</center>
+
+
+
+</body>
+</html>
