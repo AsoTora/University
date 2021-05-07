@@ -1,41 +1,14 @@
-# BSUIR
+# About
 
-## ASOI 
+All the materials I've gathered during the education at [BSUIR](https://www.bsuir.by/en/) 2018-2022. Feel free to browse my old junk. Some of it may even be usefull. I don't really care. 
 
-Feel free to browse my old junk. Some of it may even be usefull. I don't really care. 
 
-### 
-*CS essentials*
+# Navigation
 
-**Part 1**
-- lab 1 -- linear algorithmes
-- lab 2 -- if/ else
-- lab 3 -- loops
-- lab 4 -- arrays
-- lab 5 -- 2 dimens. arrays
-- lab 6 -- functions
-- lab 7 -- strings
-- lab 8 -- structures
+Files are separated into branches by semesters. No commit history or any other explanation:
 
-**Part 2**
-- lab 9 -- files
-- lab 10 -- recursion
-- lab 11 -- sorting
-- lab 12 -- searching
-- lab 13 -- stack
-- lab 14 -- double-linked-list
-- lab 15 -- BST
-- lab 16 -- ОПЗ (math user input)
-- lab 17 -- HASH-tables
-
-## 2 year
-*OOP intro*
-
-**Part 3**  
-- lab 1, 2 -- classes
-- lab 3 -- constructors
-- lab 4 -- operator overloading
-- lab 5 -- inheritance
-- lab 6 -- templates
-- lab 7 -- error catching
-- lab 8 -- dynamic and static cast
+1. https://github.com/AsoTora/University/tree/sem1
+2. https://github.com/AsoTora/University/tree/sem2
+3. https://github.com/AsoTora/University/tree/sem3-4
+4. https://github.com/AsoTora/University/tree/sem5
+5. https://github.com/AsoTora/University/tree/sem6
