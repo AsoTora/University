@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">lab3</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
+    <string name="yellow">Yellow</string>
+    <string name="img">Image</string>
+    <string name="developer">Developer</string>
+    <string name="title_activity_main">Intel school</string>
+</resources>

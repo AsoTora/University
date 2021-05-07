@@ -1,0 +1,255 @@
+UL {
+	LIST-STYLE-TYPE: square
+}
+PRE {
+	FONT-SIZE: 10px; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+TT {
+	FONT-SIZE: 10px; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A {
+	FONT-SIZE: 12px; COLOR: #da630b; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: underline
+}
+TD {
+	FONT-SIZE: 12px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial
+}
+TH {
+	FONT-SIZE: 12px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial
+}
+BODY {
+	FONT-SIZE: 12px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial
+}
+P {
+	FONT-SIZE: 12px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial; TEXT-ALIGN: justify
+}
+DD {
+	FONT-SIZE: 11px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial; TEXT-ALIGN: justify
+}
+DT {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-STYLE: italic
+}
+A.topmenu {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.manage {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #185b9a; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.fresh {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.fresh:hover {
+	FONT-SIZE: 11px; COLOR: #1e5fa8; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: underline
+}
+.ratinglink {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.ratinglink {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.freshtopic {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.freshtopic {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; TEXT-DECORATION: none
+}
+A.freshtopic:hover {
+	COLOR: #606366
+}
+.date {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #3399cc; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.best {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.best:hover {
+	FONT-SIZE: 11px; COLOR: #1e5fa8; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: underline
+}
+.podval {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.stat {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #6987a9; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.textblock {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ee800a; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.textblockdiv {
+	FONT-SIZE: 10px; COLOR: #7e8286; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.doctitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #3f71a9; FONT-FAMILY: Tahoma, Verdana, Arial
+}
+A.docauthor {
+	FONT-SIZE: 12px; COLOR: #797d82; FONT-FAMILY: Tahoma, Verdana, Arial; TEXT-DECORATION: none
+}
+A.docauthor:hover {
+	FONT-SIZE: 12px; COLOR: #797d82; FONT-FAMILY: Tahoma, Verdana, Arial; TEXT-DECORATION: underline
+}
+.docpages {
+	FONT-SIZE: 12px; COLOR: #797d82; FONT-FAMILY: Tahoma, Verdana, Arial
+}
+A.docpages {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px
+}
+.docwww {
+	FONT-SIZE: 10px; COLOR: #797d82; FONT-FAMILY: Tahoma, Verdana, Arial; TEXT-DECORATION: none
+}
+A.docwww:hover {
+	TEXT-DECORATION: underline
+}
+.doctext {
+	FONT-SIZE: 12px; COLOR: #010913; FONT-FAMILY: Verdana, Tahoma, Arial
+}
+.gbheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #2579ab; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.gbauthor {
+	FONT-SIZE: 11px; COLOR: #6987a9; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.articleload {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #6987a9; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.announce {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.kroshka {
+	FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Verdana, Tahoma, Helvetica, Arial; TEXT-DECORATION: none
+}
+.kroshkatext {
+	FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Verdana, Tahoma, Helvetica, Arial
+}
+.kroshkacur {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Verdana, Tahoma, Helvetica, Arial
+}
+.gbauthortext {
+	FONT-SIZE: 11px; COLOR: #6987a9; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.gbmsg {
+	FONT-SIZE: 12px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.gbpages {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.gbpagestext {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.gbnew {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ee800a; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+.gbreply {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.gbreply A {
+	FONT-SIZE: 11px; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.addheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.addarticle {
+	BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #c0c0c0 1px solid; WIDTH: 300px; BORDER-BOTTOM: #c0c0c0 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; BACKGROUND-COLOR: #fffffb
+}
+.addsubmit {
+	BORDER-RIGHT: #6f777c 1px solid; BORDER-TOP: #6f777c 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: #6f777c 1px solid; CURSOR: hand; BORDER-BOTTOM: #6f777c 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; HEIGHT: 25px; BACKGROUND-COLOR: #ebf0f2
+}
+.addvote {
+	BORDER-RIGHT: #6f777c 1px solid; BORDER-TOP: #6f777c 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 11px; BORDER-LEFT: #6f777c 1px solid; CURSOR: hand; BORDER-BOTTOM: #6f777c 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; BACKGROUND-COLOR: #ebf0f2
+}
+.additem {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #2579ab; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+H3 {
+	COLOR: #2579ab; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+H4 {
+	COLOR: #2579ab; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.addmsg {
+	FONT-SIZE: 12px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.rate {
+	FONT-SIZE: 12px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.rate:hover {
+	COLOR: #536373
+}
+.add {
+	FONT-SIZE: 12px; COLOR: #da630b; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: underline
+}
+.news {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ee800a; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+A.newslink {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #999999; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-DECORATION: none
+}
+A.newslink:hover {
+	COLOR: #000000
+}
+.newsdiv {
+	FONT-SIZE: 10px; COLOR: #7e8286; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.newsheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.submitsearch {
+	BORDER-RIGHT: #6f777c 1px solid; BORDER-TOP: #6f777c 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: #6f777c 1px solid; CURSOR: hand; BORDER-BOTTOM: #6f777c 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; HEIGHT: 18px; BACKGROUND-COLOR: #ebf0f2
+}
+.res {
+	FONT-SIZE: 11px; COLOR: gray; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.search {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #3399cc; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.inputsearch {
+	BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; BACKGROUND-COLOR: #fffffb
+}
+.inputopros {
+	BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; FONT-SIZE: 10px; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; BACKGROUND-COLOR: #fffffb
+}
+.radiosearch {
+	BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; BACKGROUND-COLOR: #fffffb
+}
+.optionsearchb {
+	BACKGROUND-COLOR: #ebf0f2
+}
+.optionsearch {
+	BACKGROUND-COLOR: #fffffb
+}
+A.bot {
+	FONT-SIZE: 11px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana; TEXT-DECORATION: none
+}
+.voteart {
+	FONT-SIZE: 11px; COLOR: #003366; FONT-FAMILY: Tahoma, Verdana
+}
+.catdesc {
+	FONT-SIZE: 10px; COLOR: #3f71a9; FONT-FAMILY: Tahoma, Verdana
+}
+.subcattext {
+	FONT-SIZE: 11px; COLOR: #6987a9; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial
+}
+.cat {
+	FONT-WEIGHT: bold; COLOR: #354b63
+}
+.subcat {
+	COLOR: #354b63
+}
+A.subcat {
+	FONT-SIZE: 11px; COLOR: #6987a9
+}
+.blockanons {
+	FONT-SIZE: 11px; FONT-FAMILY: Tahoma, Verdana, Helvetica, Arial; TEXT-ALIGN: justify
+}
+.newsdate {
+	FONT-WEIGHT: bold; COLOR: #f88a14
+}
+.newstitle {
+	FONT-WEIGHT: bold; COLOR: #3f8fb8; TEXT-DECORATION: none
+}
+A.gonews {
+	FONT-WEIGHT: bold; COLOR: #000000; TEXT-DECORATION: none
+}
+H1 {
+	FONT-SIZE: 14px; FONT-FAMILY: Verdana, Tahoma, Arial
+}
+H2 {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Tahoma, Arial
+}

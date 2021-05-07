@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0040)http://www.interface.ru/mrp/erp-book.htm -->
+<HTML><HEAD><TITLE>Автоматизированные системы управления предприятием</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1251">
+<STYLE type=text/css>.qb {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.qc {
+	FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.qe {
+	FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2800.1491" name=GENERATOR></HEAD>
+<BODY text=#000000 bgColor=#ffffff>
+<SCRIPT language=JavaScript type=text/javascript>
+<!--
+if ((self.parent.frames.length == 0) && (document.location.search != "?noframes") && (navigator.userAgent.indexOf("Opera") == -1) && (navigator.userAgent.indexOf("Mozilla") != -1) && (navigator.userAgent.indexOf("Newman") == -1)) {
+if (document.location.hash)
+hash1="&anchor=" + document.location.hash.substr(1, document.location.hash.length)
+else
+hash1=""
+top.location.replace("/fset.asp?Url=" + document.location.pathname + document.location.search + hash1)
+}
+//-->
+</SCRIPT>
+
+<DIV align=center>
+<TABLE class=d height=8 cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><B><FONT class=d color=#006699>СТАТЬЯ</FONT></B></TD>
+    <TD>
+      <DIV align=right>
+      <P><B><FONT class=d 
+  color=#006699>27.02.01</FONT></B></P></DIV></TD></TR></TBODY></TABLE>
+<HR noShade>
+<FONT size=+1><B>Автоматизированные системы управления 
+предприятием</B></FONT></DIV>
+<P align=center>
+<DIV align=center><I><B><FONT size=-1>(глава из книги "Автоматизированные 
+системы управления<BR>предприятиями стандарта ERP/MRP II" ) 
+</FONT></B></I></DIV>
+<P align=right><I>С.Л. Зайцев<BR>(с) 2001 Interface Ltd.</I></P>
+<P>В последние годы в компьютерном бизнесе России отмечается устойчивый интерес 
+к компьютерным интегрированым системам, способным обеспечить эффективное 
+управление предприятием. </P>
+<P>В контексте интегрированных информационных систем мы все чаще встречаем 
+сокращения типа ERP, MRP, MRPII и др. Многим из нас известно, что эти названия 
+как-то связаны с бухгалтерским учетом и компьютерами. Что же это такое? Давайте 
+разберемся. </P>
+<P>Когда в конце 40-х - начале 50-х годов компьютеры впервые появились в 
+коммерческих организациях, одна ЭВМ служила для выполнения только одной функции. 
+Практически никто не задумывался о том, чтобы распределить обработку информации 
+по различным ЭВМ. Пользователи довольствовались уже тем, что машины заменили 
+исключительно трудоемкий процесс обработки данных вручную. По мере того, как 
+вычислительная мощность повышалась, а цены падали, стало возможным выполнение 
+нескольких функций на одном компьютере или на небольшой группе ЭВМ. Возможность 
+передачи итоговых сводок или части данных из одного приложения в другое казалась 
+гигантским шагом вперед из-за их изначальной несхожести.</P>
+<P>Появление в начале 80-х персональных компьютеров позволило автоматизировать 
+ведение учета и обработку данных даже самым маленьким компаниям. Из-за 
+небольшого размера у таких компаний отсутствовал достаточно квалифицированный 
+административный, бухгалтерский и технический персонал, который использовался 
+более крупными фирмами для выполнения задач по обработке информации. Это привело 
+к появлению нового типа коммерческих приложений, интегрирующих несколько функций 
+так, чтобы сделать возможным однократный ввод информации, которая бы затем 
+автоматически использовалась другими частями приложения. </P>
+<P>К концу 80-х годов идея создания единой модели данных в рамках организации 
+стала привлекать внимание международных промышленных компаний, которые искали 
+способ упростить управление производственными процессами. Первым шагом в данном 
+направлении стало MRP, планирование материальных ресурсов (Materials Resource 
+Planning), включавшее только планирование материалов для производства.<BR></P>
+<P>Когда ряд американских специалистов в области управления разработали 
+концепцию MRP, было замечено, что существует два типа материалов - с зависимым 
+спросом (для выпуска десяти автомобилей нужно пятьдесят колес - не больше и не 
+меньше - к определенному сроку) и с независимым спросом (типичная ситуация с 
+запасами для торговых предприятий).</P>
+<P><BR>Основная концепция MRP в том, чтобы минимизировать издержки, связанные со 
+складскими запасами (в том числе и на различных участках в производстве). В 
+основе этой концепции лежит следующее понятие - Bill Of Material (BOM - 
+спецификация изделия, за которую отвечает конструкторский отдел), который 
+показывает зависимость спроса на сырье, полуфабрикаты и пр. в зависимости от 
+плана выпуска (бюджета реализации) готовой продукции. При этом очень важную роль 
+играет время. Для того, чтобы учитывать время, системе необходимо знать 
+технологию выпуска продукции (или технологическую цепочку, т.е. 
+последовательность операций и их продолжительность). На основании плана выпуска 
+продукции, BOM и технологической цепочки осуществляется расчет потребностей в 
+материалах, привязанный к конкретным срокам. </P>
+<P>Однако у MRP есть серьезный недостаток. Его суть в том, что, рассчитывая 
+потребность в материалах, мы не учитываем (как минимум) производственные 
+мощности, их загрузку, стоимость рабочей силы и т.д. Поэтому, возникла концепция 
+MRP II (Manufacturing Resource Planing - планирование производственных 
+ресурсов). MRP II позволял планировать все производственные ресурсы предприятия 
+(сырье, материалы, оборудование, персонал и т.д.). </P>
+<P>Впоследствии концепция MRP II развивалась, и к ней постепенно добавлялись 
+возможности по учету остальных затрат предприятия - появилась концепция ERP 
+(Enterprise Resource Planning - Планирование ресурсов предприятия), называемая 
+иногда также планированием ресурсов в масштабе предприятия (Enterprise-wide 
+Resource Planning). В основе ERP лежит принцип создания единого хранилища данных 
+(repository), содержащего всю деловую информацию, накопленную организацией в 
+процессе ведения деловых операций, включая финансовую информацию, данные, 
+связанные с производством, управлением персоналом, или любые другие сведения. 
+Это устраняет необходимость в передаче данных от системы к системе. Кроме того, 
+любая часть информации, которой располагает данная организация, становится 
+одновременно доступной для всех работников, обладающих соответствующими 
+полномочиями. </P>
+<P>Концепция ERP стала очень известной в производственном секторе, поскольку 
+планирование ресурсов позволило сократить время выпуска продукции, снизить 
+уровень товарно-материальных запасов, а также улучшить обратную связь с 
+потребителем при одновременном сокращении административного аппарата. Стандарт 
+ERP позволил объединить все ресурсы предприятия, таким образом, добавляя 
+управление заказами, финансами и т.д. </P>
+<P>Сейчас практически все современные западные производственные системы и 
+основные системы управления производством базируются на концепции ERP и отвечают 
+её рекомендациям, которые вырабатываются американской общественной организацией 
+APICS, объединяющей производителей, консультантов в области управления 
+производством, разработчиков ПО. К сожалению, большинство из российских систем 
+управления производством не удовлетворяет даже требованиям MRP, не говоря уже 
+обо всех остальных более продвинутых концепциях (см. таблицу 1). </P>
+<P>Самый последний по времени стандарт CSRP (Customer Synchronized Resource 
+Planning) охватывает также и взаимодействие с клиентами: оформление 
+наряд-заказа, техзадание, поддержка заказчика на местах и пр. Таким образом, 
+если MRP, MRP-II, ERP ориентировались на внутреннюю организацию предприятия, то 
+CSRP включил в себя полный цикл от проектирования будущего изделия, с учетом 
+требований заказчика, до гарантийного и сервисного обслуживания после продажи. 
+Основная суть концепции CSRP в том, чтобы интегрировать Заказчика (Клиента, 
+Покупателя и пр.) в систему управления предприятием. То есть не отдел сбыта, а 
+сам покупатель непосредственно размещает заказ на изготовление продукции - 
+соответственно сам несет ответственность за его правильность, сам может 
+отслеживать сроки поставки, производства и пр. При этом предприятие может очень 
+четко отслеживать тенденции спроса и т.д. </P>
+<P><BR>На мировом рынке сейчас предлагается свыше 500 систем класса MRP II-ERP. 
+Рынок бурно растет - на 35% - 40% каждый год. В настоящее время в России 
+присутствуют около десятка западных систем и три-четыре отечественные системы 
+класса КИС (Корпоративные Информационные Системы). Для того, чтобы читатели 
+смогли лучше усвоить и понять, кто есть кто на рынке информационных систем для 
+предприятий России, предлагается (см. <A 
+href="http://www.interface.ru/mrp/erp-book.htm#t1">табл. 1</A>) классификация 
+информационных систем. Это поможет ориентироваться в большом многообразии 
+предлагаемых решений, определить, какая же именно система нужна вашему 
+предприятию, и сделать обоснованный выбор.<BR></P>
+<P>Отечественного потребителя последнее время пугали системами стандарта ERP с 
+их якобы избыточной функциональностью и дороговизной, как правило, апеллируя к 
+самым заметным представителям этого класса - продуктам SAP, Baan и Oracle. 
+Действительно, помимо высоких цен, программные продукты этих корпораций сложны 
+для внедрения в российских условиях: во-первых, у нас элементарно не хватает 
+специалистов по внедрению, а во-вторых, эти системы требуют от заказчика 
+серьезной реорганизации управления.<BR></P>
+<P> </P>
+<P align=center><B><FONT size=-1><A name=t1></A>Таблица 1. Тиражируемые 
+интегрированные системы управления предприятием <BR>(ИСУП), представленные на 
+российском рынке (<A 
+href="http://www.interface.ru/mrp/erp-book.htm#q1">1*</A>)</FONT></B></P>
+<TABLE cellSpacing=0 cellPadding=0 width=400 align=center bgColor=#000000 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=1 cellPadding=0 width="100%" align=center border=0>
+        <TBODY>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe width="39%">Название тиражируемой ИСУП</TD>
+          <TD class=qe width="13%">Класс</TD>
+          <TD class=qe width="48%" height=20>Поставщик на территории 
+        России</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe colSpan=3 height=20><B class=qb>ИСУП для крупных 
+            предприятий</B></TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>R/3 </TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>SAP СНГ</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Вааn</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Альфа-Интегратор Баан Еврзия</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Oracle Applications (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Oracle CIS</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>OneWorld J.D. Edwards</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Robertson &amp; Blums</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qb colSpan=3 height=20>ИСУП для средних предприятий</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>SyteLine (разработчик Symix) (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>CSRP</TD>
+          <TD class=qe>Socap</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>iRenaissance.ERP (разработчик Ross Systems)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Интерфейс</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Mfg/Pro (разработчик ОАD)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>BMS</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>MAX (разработчик МАХ International) (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>ICL-КПО ВС (Казань)</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>IFS (Industrial &amp; Financial Systems)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Форс</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>PRMS (разработчик Computer Associates)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>R-Style</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Axapta (разработчик Damgaard, Дания)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Columbus IT Partner</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qb colSpan=3 height=20>ИСУП для малых и средних 
+          предприятий</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Concorde XAL (разработчик Damgaard, Дания) (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Columbus IT Partner</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Exact</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Exact Software</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Platinum ERA2 (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Platinum Software </TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Scala</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>Scala CIS</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>LS LIPro Systems (разработчик LIPro Systems, 
+          Германия)</TD>
+          <TD class=qe>ERP</TD>
+          <TD class=qe>ЛИПро Р</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Protean (разработчик Wonderware)</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>PLC Systems</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>NS-2000 (разработчик Никос-Софт) + Solagem Enterprise 
+            (разработчик Solagem OY) (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Никос-Софт</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>БОСС-Корпорация (с модулем "Производство") (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>MRP</TD>
+          <TD class=qe>АйТи</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Галактика (<A 
+            href="http://www.interface.ru/mrp/erp-book.htm#qs">2*</A>)</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Галактика</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Парус 8.x </TD>
+          <TD class=qe>MRP</TD>
+          <TD class=qe>Парус</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>БЭСТ-ПРО 3.02</TD>
+          <TD class=qe>MRP II</TD>
+          <TD class=qe>Интеллект-Сервис</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>SunSystems (фирмы Systems Union) + RB Manufacturing 
+            (разработчик Robertson &amp; Blums) </TD>
+          <TD class=qe>MRP</TD>
+          <TD class=qe>Robertson &amp; Blums</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>М-2</TD>
+          <TD class=qe>MRP</TD>
+          <TD class=qe>Клиент-серверные технологии</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>АС+ </TD>
+          <TD class=qe>MRP</TD>
+          <TD class=qe>Борлас</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Флагман</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Инфософт</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Монополия</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Формоза-Софт</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Эталон</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Цефей</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>Альфа</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Информконтакт</TD></TR>
+        <TR align=middle bgColor=#dddddd>
+          <TD class=qe>Аккорд</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>Атлант-Информ</TD></TR>
+        <TR align=middle bgColor=#ffffff>
+          <TD class=qe>1С: Предприятие 7.7 (с модулем "Производство")</TD>
+          <TD class=qe>&nbsp;</TD>
+          <TD class=qe>1С</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width="70%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>&nbsp;</TD></TR>
+  <TR>
+    <TD class=qc><A name=q1></A><FONT color=#0000ff>1*</FONT>. Использованы 
+      данные аналитического отчета "Выбор тиражируемой интегрированной системы 
+      управления предприятием", раз в полгода выпускаемого независимой 
+      исследовательской компанией RC Group и корпорацией "МетаСинтез" (подробнее 
+      см. <A href="http://www.russianenterprisesolutions.com/" 
+      target=_blank>http://www.russianenterprisesolutions.com/</A>). Они не 
+      претендуют на абсолютную полноту, а отражают состояние исследований на 
+      октябрь 2000 года.<B> </B></TD></TR>
+  <TR>
+    <TD class=qc>&nbsp;</TD></TR>
+  <TR>
+    <TD class=qc><FONT color=#0000ff><A name=qs></A>2*</FONT>. Системы 
+      подробно представлены в аналитическом отчете и за их правильную 
+      квалификацию эксперты RC Group и "МетаСинтез" несут ответственность. 
+      Остальные системы квалифицированы так, как это представляют их 
+      разработчики.<BR>Принцип отбора систем в таблицу: приведенные в таблице 
+      системы отличаются от всех прочих присутствующих на российском рынке 
+      программных продуктов для автоматизации финансово-хозяйственной 
+      деятельности, во-первых, наиболее развитой функциональностью, а также тем, 
+      что в них или уже присутствует модуль планирования производства и 
+      оперативного управления им, или разработчики системы обещают появление 
+      таких возможностей в ближайшие два года (т.е. уже идет работа над 
+      реализацией этих задач). <BR></TD></TR></TBODY></TABLE>
+<P>Достоинством и одновременно недостатком систем ERP этого уровня является их 
+универсальность. Иными словами, у "гигантов" есть референтные модели для любого 
+типа производственного процесса, и количество автоматизированных рабочих мест 
+определяется исключительно финансовыми возможностями заказчика. Но и возможности 
+эти должны быть серьезными. Проект с использованием такой системы не может 
+обойтись дешевле 500 тысяч долларов, а чаще всего стоит несколько миллионов. По 
+сути, эти системы оптимальны для бизнесов не менее масштабных, чем бизнес самих 
+разработчиков.</P>
+<P>Для компаний среднего масштаба или имеющих не слишком диверсифицированный 
+бизнес больше подходят другие системы ERP. О них до недавнего времени 
+потребители либо не слышали, либо не совсем понимали, на кого они рассчитаны. А 
+речь идет о западных продуктах для самого массового сегмента рынка - среднего и 
+малого бизнеса, то есть для компаний с годовым оборотом от 5 до 10 млн. долларов 
+и количеством работающих от 100 до 1000 человек. Типовая стоимость проекта по 
+внедрению такой системы составляет от 50 до 250 тысяч долларов (для сравнения: у 
+российских ИСУП этот показатель колеблется в пределах от 50 до 500 тысяч 
+долларов для тиражно-заказных систем и до 10 тысяч - для тиражируемых, или 
+"коробочных"). </P>
+<P>Основное отличие систем ERP среднего уровня от ПО для крупных предприятий 
+состоит в ограниченности решаемых задач и относительной простоте технологий. 
+Иными словами, эти системы поддерживают несколько определенных видов 
+промышленной деятельности и имеют лимитированное количество возможных 
+пользователей. </P>
+<P>В соответствии с мировой практикой, при необходимости более тонкого анализа 
+нескольких систем одного или близких классов, этапу выбора придается большое 
+значение. Каждый проект в области автоматизации должен рассматриваться 
+предприятием как стратегическая инвестиция средств, которая должна окупиться за 
+счет улучшения управленческих процессов, повышения эффективности производства, 
+сокращения издержек. В выборе правильного решения должно быть, в первую очередь, 
+заинтересовано руководство предприятия. Данный проект должен ставиться на один 
+уровень с приобретением, например, новой производственной линии или 
+строительством цеха. </P>
+<P>Прежде всего, предприятие должно определить, а что же собственно ожидается от 
+новой системы: какие функциональные области и какие типы производства она должна 
+охватывать, какую техническую платформу использовать, какие отчеты готовить? 
+Проведение такой работы заканчивается составлением документа "Требования к 
+компьютерной системе". Этот документ предназначен, прежде всего, для самого 
+предприятия, так как в нем формализованы и расписаны в соответствии с 
+приоритетами все характеристики новой системы. Он дает объективные критерии для 
+сравнения систем по заранее определенным параметрам. <BR>Любая из систем - лишь 
+механизм для повышения эффективности управления, принятия правильных 
+стратегических и тактических решений на основе своевременной и достоверной 
+информации, выдаваемой компьютером. </P>
+<CENTER>
+<P>Дополнительную информацию Вы можете получить в компании Interface Ltd. </P>
+<P align=left><A 
+href="http://www.shop.org.ru/Level4.asp?ItemId=1215&amp;partnerId=its138">Оформить 
+заказ на книгу</A> </P>
+<P><A href="http://www.interface.ru/forum/display_forum.asp?fid=ross">Обсудить 
+на форуме</A><BR><BR></CENTER>
+<P align=center><A class=cold 
+href="http://www.interface.ru/services/sendlink.asp?link=/mrp/erp-book.htm">Отправить 
+ссылку на страницу по e-mail</A> 
+<HR noShade>
+
+<TABLE height=0 cellSpacing=0 cellPadding=0 width="100%" border=0 VSPACE="0" 
+HSPACE="0">
+  <TBODY>
+  <TR>
+    <TD width="48%" rowSpan=2><FONT color=#0000ff size=+1>Interface 
+      Ltd.</FONT><BR><!--         <FONT size="-1" color="#0000FF"><NOBR>Tel: +7(495) 795-3186, 135-7781, 135-5500, 135-2519</NOBR></FONT><BR> --><FONT 
+      color=#0000ff><NOBR>Тel/Fax: +7(495) 105-0049 
+      (многоканальный)</NOBR></FONT><BR><FONT color=#0000ff><A 
+      href="http://www.interface.ru/services/mailfrompage.asp">Отправить 
+      E-Mail</A></FONT><BR><FONT color=#0000ff><A 
+      href="http://www.interface.ru/" 
+      target=_top>http://www.interface.ru/</A></FONT> </TD>
+    <TD vAlign=top align=right width="52%" height=0><!--TopList COUNTER--><A 
+      href="http://top.list.ru/jump?from=30466" target=_top>
+      <SCRIPT language=JavaScript><!--
+d=document;js=10;a=';r='+escape(d.referrer)
+//--></SCRIPT>
+
+      <SCRIPT language=JavaScript1.1><!--
+js=11;a+=';j='+navigator.javaEnabled()
+//--></SCRIPT>
+
+      <SCRIPT language=JavaScript1.2><!--
+js=12;s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+//--></SCRIPT>
+
+      <SCRIPT language=JavaScript1.3><!--
+js=13//--></SCRIPT>
+
+      <SCRIPT language=JavaScript><!--
+d.write('<img src="http://top.list.ru/counter'+
+'?id=30466;t=72;js='+js+a+'" alt="TopList" '+
+'border=0 height=31 width=38>')
+if(js>11)d.write('<'+'!-- ')//--></SCRIPT>
+      <NOSCRIPT><IMG height=31 alt=TopList src="erp-book_files/counter.gif" 
+      width=38 border=0></NOSCRIPT>
+      <SCRIPT language=JavaScript><!--
+if(js>11)d.write('--'+'>')
+//--></SCRIPT>
+      </A><!--TopList COUNTER--> </TD></TR>
+  <TR>
+    <TD vAlign=bottom align=right width="52%" height=51><FONT size=-2>Ваши 
+      замечания и предложения <A 
+      href="http://www.interface.ru/services/mailfrompage.asp?To=webmaster">отправляйте 
+      вебмастеру</A><BR></FONT><FONT size=-2><I>
+      <DIV align=right><I><FONT 
+    size=-2><BR><BR><BR></FONT></I></DIV></I></FONT></TD></TR></TBODY></TABLE><BR>
+<DIV align=center><!-- MEMPHIS BEGIN: [Интерфейс / низ / сквозное / 468] -->
+<SCRIPT src="">
+</SCRIPT>
+
+<SCRIPT for=memphis_banner>
+if (document.all.memphis_banner) {
+for (i=0; i<document.all.memphis_banner.length; i++)
+document.all.memphis_banner[i].insertAdjacentHTML("afterEnd", "<div class=Small>"+document.all.memphis_banner[i].alt+"</div>");
+}
+</SCRIPT>
+<BR></DIV></BODY></HTML>

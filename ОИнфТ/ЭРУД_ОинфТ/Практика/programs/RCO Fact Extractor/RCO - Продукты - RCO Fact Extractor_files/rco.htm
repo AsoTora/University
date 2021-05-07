@@ -1,0 +1,490 @@
+<html>
+<head>
+
+
+
+
+	<title>Технологии анализа и поиска текстовой информации</title>
+
+<meta name="title" content="Технологии анализа и поиска текстовой информации">
+<meta name="Description" content="Технологии анализа и поиска текстовой информации, поиск для Oracle, полнотекстовый поиск с учетом морфологии, контекстный поиск, поиск для Microsoft, поисковая машина, инструментарий разработчика, лингвистическое обеспечение,
+инструментарий аналитика.">
+<meta name="Keywords" lang="ru" content="поиск, полнотекстовый поиск, поиск с учетом морфологии, контекстный поиск, поисковые технологии, морфологический анализ, семантика, сеть, анализ, технологии, синтаксический анализ, информация, база данных, синтез, нечеткий, рубрикация, классификатор, морфология, кохханен, лингвистика">
+<meta name="Keywords" lang="en" content="search technology, rco, oracle, microsoft, analise, technology, text mining, knowledge, search, morphology, sintax, fuzzy, fulltext search">
+
+
+<LINK REL="StyleSheet" HREF="css.css" type="text/css">
+<script language="JavaScript" src="dhtml.js"></script>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!--
+
+var oMenu = new Array();
+var aImages = new Array();
+var sCur = null;
+
+function make_menu()
+{
+	for(var i=1; i<=4; i++)
+		oMenu["menu"+i] = new cm_makeObj("menu"+i);
+	show("menu1");
+}
+
+function show(lName)
+{
+	if(sCur && oMenu[sCur])
+	{
+		oMenu[sCur].hideIt();
+		document.images["i"+sCur].src = aImages["i"+sCur+"off"].src;
+	}
+
+	if(oMenu[lName])
+	{
+		oMenu[lName].showIt();
+		document.images["i"+lName].src = aImages["i"+lName+"on"].src;
+		sCur = lName;
+	}
+}
+
+function preload(aNames)
+{
+	var i;
+	for(i=0; i<aNames.length; i++)
+	{
+		aImages[aNames[i][0]] = new Image();
+		aImages[aNames[i][0]].src = aNames[i][1];
+	}
+}
+
+preload([
+			['imenu1on','images/sub1on.gif'], ['imenu1off','images/sub1.gif'],
+			['imenu2on','images/sub2on.gif'], ['imenu2off','images/sub2.gif'],
+			['imenu3on','images/sub3on.gif'], ['imenu3off','images/sub3.gif'],
+			['imenu4on','images/sub4on.gif'], ['imenu4off','images/sub4.gif'],
+			['arr','images/arr.gif'], ['mvsep','images/mvsep.gif']
+		]);
+
+function set(sImName, sPicName)
+{
+	document.images[sImName].src = aImages[sPicName].src;
+}
+
+//-->
+</SCRIPT>
+</head>
+
+<body bgcolor="White" link="#0000FF" alink="#0000FF" vlink="#993399" text=black marginwidth=0 marginheight=0 topmargin=0 leftmargin=0 onload="make_menu()"><a name="top"></a>
+<!-- layers -->
+<div style="position:absolute; top:115px; left:430px; width:150px; visibility:hidden;" name=menu1 id=menu1>
+<table cellspacing=0 cellpadding=0 border=0 width=150>
+<tr>
+<td width="15"><img src=images/1pix.gif width=15 height=71 border=0><br></td>
+<td width="135" class="divtext">
+ключевые объекты, смысловые связи, семантические сети, реферирование
+</td></tr>
+</table>
+</div>
+
+<div style="position:absolute; top:115px; left:430px; visibility:hidden;" name=menu2 id=menu2>
+<table cellspacing=0 cellpadding=0 border=0 width=150>
+<tr>
+<td width="15"><img src=images/1pix.gif width=15 height=71 border=0><br></td>
+<td width="135" class="divtext">
+контекстный, тематический, нечеткий и смысловой
+</td></tr>
+</table>
+</div>
+
+<div style="position:absolute; top:115px; left:430px; visibility:hidden;" name=menu3 id=menu3>
+<table cellspacing=0 cellpadding=0 border=0 width=150>
+<tr>
+<td width="15"><img src=images/1pix.gif width=15 height=71 border=0><br></td>
+<td width="135" class="divtext">
+тематические деревья, сети, карты и ряды
+</td></tr>
+</table>
+</div>
+
+<div style="position:absolute; top:115px; left:430px; visibility:hidden;" name=menu4 id=menu4>
+<table cellspacing=0 cellpadding=0 border=0 width=150>
+<tr>
+<td width="15"><img src=images/1pix.gif width=15 height=71 border=0><br></td>
+<td width="135" class="divtext">
+морфология, синтаксис, семантика
+</td></tr>
+</table>
+</div>
+<!-- /layers -->
+
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#D50505">
+<tr>
+<td>
+<table cellspacing=0 cellpadding=0 border=0>
+<tr>
+
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im1></td>
+<td><a href="/news.asp" class="menuoff" onmouseover="set('im1','arr')" onmouseout="set('im1','mvsep')">Новости</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im2></td>
+<td><a href="/product.asp" class="menuoff" onmouseover="set('im2','arr')" onmouseout="set('im2','mvsep')">Продукты</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im3></td>
+<td><a href="/technology.asp" class="menuoff" onmouseover="set('im3','arr')" onmouseout="set('im3','mvsep')">Технологии</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im4></td>
+<td><a href="/client.asp" class="menuoff" onmouseover="set('im4','arr')" onmouseout="set('im4','mvsep')">Клиенты</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im5></td>
+<td><a href="/partner.asp" class="menuoff" onmouseover="set('im5','arr')" onmouseout="set('im5','mvsep')">Партнеры</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im6></td>
+<td><a href="/price.asp" class="menuoff" onmouseover="set('im6','arr')" onmouseout="set('im6','mvsep')">Цены</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im7></td>
+<td><a href="/article.asp" class="menuoff" onmouseover="set('im7','arr')" onmouseout="set('im7','mvsep')">Публикации</a></td>
+
+<td><img src="images/mvsep.gif" width="27" height="28" border="0" alt="" name=im8></td>
+<td><a href="/product.asp?part=forum&tmpl=threads" class="menuoff" onmouseover="set('im8','arr')" onmouseout="set('im8','mvsep')">Форум</a></td>
+
+</tr></table>
+</td>
+</tr></table>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#990000"><tr><td><img src=images/1pix.gif width=1 height=3 border=0></td></tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=100%>
+<tr valign="top">
+<td><img src="images/rco.gif" width="286" height="156" border="0" alt="RCO"></td>
+<td><img src="images/rco1.gif" width="29" height="156" border="0" alt=""><br></td>
+<td width="100%">
+
+<table cellspacing=0 cellpadding=0 border=0 width=100%>
+<tr valign="top">
+<td><img src="images/rco3.gif" width="32" height="83" border="0" alt=""><br></td>
+<td width="100%">
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#F9CE03">
+<form action="search.asp">
+<tr>
+<td><img src="images/cor1.gif" width="30" height="38" border="0" alt=""><br></td>
+<td width="100%"><table cellspacing=0 cellpadding=0 border=0><tr><td><img src=images/1pix.gif width=65 height=1 border=0></td>
+<td><input type=text name=context value="" size=12 style="width:180px;"></td>
+<td>&nbsp;</td>
+
+
+<td><input type=image src="images/but_find.gif" width="48" height="23" border="0" alt="поиск"></td>
+<td><small>&nbsp;<a href="doc.asp?ob_no=2710">Помощь</a></small></td>
+</tr></table></td>
+</tr>
+</form>
+</table>
+
+<table cellspacing=0 cellpadding=0 border=0>
+<tr>
+<td><img src="images/h_rco1_1.gif" width="412" height="45" border="0" alt="RCO - Russian Context Optimizer"></td></tr>
+</table>
+
+</td></tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="Black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0>
+<tr>
+<td>
+<img src=images/1pix.gif width=96 height=7 border=0><br>
+
+<a href="#" onmouseover="show('menu1')" onclick="return false;"><img src="/images/sub1.gif" width="104" height="14" border="0" alt="АНАЛИЗ" name="imenu1"></a><br>
+<img src=images/1pix.gif width=1 height=1 border=0><br>
+<a href="#" onmouseover="show('menu2')" onclick="return false;"><img src="/images/sub2.gif" width="104" height="14" border="0" alt="ПОИСК" name="imenu2"></a><br>
+<img src=images/1pix.gif width=1 height=1 border=0><br>
+<a href="#" onmouseover="show('menu3')" onclick="return false;"><img src="/images/sub3.gif" width="104" height="14" border="0" alt="КЛАССИФИКАЦИЯ" name="imenu3"></a><br>
+<img src=images/1pix.gif width=1 height=1 border=0><br>
+<a href="#" onmouseover="show('menu4')" onclick="return false;"><img src="/images/sub4.gif" width="104" height="14" border="0" alt="ЛИНГВИСТИКА" name="imenu4"></a><br>
+<img src=images/1pix.gif width=1 height=4 border=0><br>
+</td>
+<td><img src=images/1pix.gif width=168 height=1 border=0></td>
+<td><a href="http://sale.rco.ru"><img src=images/online.gif width=170 height=59 border=0></a></td>
+</tr>
+</table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="Black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+
+</td></tr></table>
+
+
+<table cellspacing=0 cellpadding=0 border=0 width=756>
+<tr valign="top">
+<td width="566" background="images/bgr2_1.gif">
+<table cellspacing=0 cellpadding=0 border=0 width=566>
+<tr valign="top">
+<td width="286" background="images/bgr.gif">
+
+<img src=images/1pix.gif width=1 height=24 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=286 background="">
+<tr>
+<td width="9"><img src=images/1pix.gif width=9 height=1 border=0></td>
+<td width="277">
+<img src="images/hmiss.gif" width="258" height="19" border="0" alt="Миссия RCO"><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br>
+
+Торговая марка RCO<sup>тм</sup> компании "Гарант-Парк-Интернет" объединяет продукты и решения, которые предназначены для внедрения в базы данных и информационно-поисковые системы и позволяют задействовать широкий арсенал лингвистических и аналитических средств для решения прикладных задач, требующих компьютерной обработки документов на естественном языке.
+<p>
+</td></tr>
+</table>
+
+
+</td>
+<td width="21"><img src=images/1pix.gif width=21 height=1 border=0></td>
+<td width="259">
+<img src=images/1pix.gif width=1 height=24 border=0><br>
+<img src="images/hnapr.gif" width="258" height="19" border="0" alt="Направления"><br>
+<img src=images/1pix.gif width=1 height=7 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=259>
+
+
+
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/red.gif" width="15" height="19" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="product.asp#pd3" class="forsrch">Поиск для Oracle</a></td>
+</tr>
+
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/red.gif" width="15" height="19" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="product.asp#pd7" class="forsrch">Поиск для Microsoft</a></td>
+</tr>
+
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/red.gif" width="15" height="19" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="product.asp#pd9" class="forsrch">Инструментарий разработчика</a></td>
+</tr>
+
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/red.gif" width="15" height="19" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="product.asp#pd405" class="forsrch">Инструментарий аналитика</a></td>
+</tr>
+
+
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/red.gif" width="15" height="19" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="registration.asp?part=download" class="forsrch">Скачать триал-версии продуктов RCO</a></td>
+</tr>
+<!--
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/rb.gif" width="13" height="13" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="12" class="forsrch">Поиск для Microsoft</a></td>
+</tr>
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/rb.gif" width="13" height="13" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="12" class="forsrch">Поисковая машина</a></td>
+</tr>
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/rb.gif" width="13" height="13" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="12" class="forsrch">Инструментарий разработчика</a></td>
+</tr>
+<tr>
+<td width="23"><img src=images/1pix.gif width=1 height=6 border=0><br><img src=images/1pix.gif width=5 height=1 border=0><img src="images/rb.gif" width="13" height="13" border="0" alt=""><img src=images/1pix.gif width=5 height=1 border=0><br><img src=images/1pix.gif width=1 height=4 border=0><br></td>
+<td width="236"><a href="12" class="forsrch">Лингвистическое обеспечение</a></td>
+</tr>
+-->
+</table>
+<br>
+</td>
+</tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="Black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+
+
+<table cellspacing=0 cellpadding=0 border=0 width=566>
+<tr valign="top">
+<td width="286" background="images/bgr2.gif" align="left">
+
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ WIDTH="285" HEIGHT="285" id="fact_extractor" ALIGN="">
+ <PARAM NAME=movie VALUE="fact_extractor.swf"> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#999999> <EMBED src="fact_extractor.swf" quality=high bgcolor=#999999  WIDTH="285" HEIGHT="285" NAME="fact_extractor" ALIGN=""
+ TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED>
+</OBJECT><br>
+
+<img src=images/1pix.gif width=1 height=25 border=0><br>
+
+
+</td>
+<td width="21"><img src=images/1pix.gif width=21 height=1 border=0></td>
+<td width="259">
+
+<img src=images/1pix.gif width=1 height=24 border=0><br>
+<img src="images/htech.gif" width="258" height="19" border="0" alt="Технологии"><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br>
+
+Подразделение <a href="/technology.asp">RCO Research Group</a> занимается апробацией и внедрением новых подходов к построению компонентов информационно-поисковых систем, используя собственные разработки и последние достижения в области компьютерной лингвистики и искусственного интеллекта.
+
+</td>
+
+</tr></table>
+
+
+</td>
+<td width="21"><img src=images/1pix.gif width=21 height=1 border=0></td>
+<td width="169">
+<!-- votes -->
+
+
+
+
+
+
+
+
+
+<!-- /votes -->
+<img src=images/1pix.gif width=1 height=24 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=169>
+<tr>
+<td width="148">
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#D7D7D7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=148>
+<tr>
+<td width="1"><img src=images/1pix_gray.gif width=1 height=18 border=0><br></td>
+<td width="147">
+<img src=images/1pix.gif width=10 height=1 border=0><span class="smh">Новости</span>
+</td>
+</tr>
+</table>
+<img src="images/news_bot.gif" width="148" height="16" border="0" alt=""><br>
+</td>
+<td width="21"><img src="images/news_right.gif" width="21" height="35" border="0" alt=""></td>
+</tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=169 bgcolor="#f1f1f1">
+<tr>
+<td width="8"><img src=images/1pix.gif width=8 height=1 border=0></td>
+<td width="152">
+
+
+
+
+
+<span class="smnews">12.01.06<br>
+Вакансии</span><br>
+<a href="news.asp?ob_no=3118" class="morelnk">...подробнее</a><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br><table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table><img src=images/1pix.gif width=1 height=7 border=0><br>
+
+<span class="smnews">05.12.05<br>
+Обновлен ассортимент программных продуктов RCO и политика их лицензирования</span><br>
+<a href="news.asp?ob_no=3005" class="morelnk">...подробнее</a><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br><table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table><img src=images/1pix.gif width=1 height=7 border=0><br>
+
+<span class="smnews">27.09.05<br>
+RCO for BackOffice дополнен инструментарием для разработчиков информационно-поисковых систем</span><br>
+<a href="news.asp?ob_no=2774" class="morelnk">...подробнее</a><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br><table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table><img src=images/1pix.gif width=1 height=7 border=0><br>
+
+<span class="smnews">07.06.05<br>
+Участие в Международной конференции Диалог'2005 "Компьютерная лингвистика и интеллектуальные технологии"</span><br>
+<a href="news.asp?ob_no=2343" class="morelnk">...подробнее</a><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br><table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table><img src=images/1pix.gif width=1 height=7 border=0><br>
+
+
+<br>
+</td>
+<td width="8"><img src=images/1pix.gif width=8 height=1 border=0></td>
+<td width="1" bgcolor="#D7D7D7"><img src=images/1pix.gif width=1 height=1 border=0></td>
+</tr>
+</table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table>
+
+<table cellspacing=0 cellpadding=0 border=0 width=169>
+<tr valign="bottom">
+<td width="13"><img src="images/anleft.gif" width="13" height="31" border="0" alt=""></td>
+<td width="141" align="right">
+<img src="images/more.gif" width="15" height="8" border="0" alt=""><img src=images/1pix.gif width=7 height=1 border=0><a href="news.asp" class="allnews">все новости</a><br>
+<img src=images/1pix.gif width=1 height=9 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="#d7d7d7"><tr><td><img src=images/1pix.gif width=1 height=1 border=0><br></td></tr></table></td>
+<td width="15"><img src="images/anright.gif" width="15" height="31" border="0" alt=""></td>
+</tr></table>
+
+<p align="center"><img src="images/opn_cp_rgb.gif" border="0" alt="Oracle Certified Partner">
+</td>
+</tr></table>
+
+
+<table cellspacing=0 cellpadding=0 border=0 width=100%>
+<tr>
+<td>
+
+<table cellspacing=0 cellpadding=0 border=0 width=756>
+<tr>
+<td width="191" valign="top">
+<img src=images/1pix_black.gif width=191 height=1 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=191 bgcolor="#F1F1F1">
+<tr>
+<td width="14"><img src=images/1pix.gif width=14 height=51 border=0></td>
+<td width="177">
+<span class="small"><a href="http://www.metric.ru/contact.htm" class="redlnk">Контакты:</a><br>
+тел.: 930 89 59, 930 89 58<br>
+e-mail: <a href="mailto:rco@metric.ru" class="redlnk">rco@metric.ru</a><br>
+</span>
+</td>
+</tr></table>
+<img src=images/1pix_black.gif width=191 height=1 border=0><br>
+</td>
+<td width="12"><img src="images/foot1.gif" width="12" height="63" border="0" alt=""><br></td>
+
+<td width="553" valign="top"><img src="images/foot2.gif" width="83" height="11" border="0" alt=""><br>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+<img src=images/1pix.gif width=34 height=50 border=0><a href="http://www.optimizer.ru"><img src="images/optimizer.gif" width="105" height="50" border="0" alt="optimizer.ru"></a><img src=images/1pix.gif width=43 height=50 border=0><a href="http://www.parking.ru"><img src="images/parking.gif" width="103" height="50" border="0" alt="parking.ru"></a><img src=images/1pix.gif width=45 height=50 border=0><img src="images/frco.gif" width="52" height="50" border="0" alt="RCO"><img src=images/1pix.gif width=51 height=50 border=0><a href="http://www.metric.ru"><img src="images/metric.gif" width="107" height="50" border="0" alt="metric"></a><br>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+</td>
+</tr></table>
+
+</td>
+<td width="100%"><img src=images/1pix.gif width=1 height=11 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+<img src=images/1pix.gif width=1 height=50 border=0><br>
+<table cellspacing=0 cellpadding=0 border=0 width=100% bgcolor="black"><tr><td><img src=images/1pix_black.gif width=1 height=1 border=0><br></td></tr></table>
+</td>
+</tr></table>
+
+<br>
+<br>
+<table cellspacing=0 cellpadding=0 border=0 width=738>
+<tr>
+<td><nobr><img src=images/1pix.gif width=20 height=1 border=0><a href="http://www.optimizer.ru"><img src="/images/knopka_02.gif" width="88" height="31" border="0" alt="технология OPTIMIZER"></a> &nbsp;<!-- HotLog -->
+<script language="javascript">
+hotlog_js="1.0";
+hotlog_r=""+Math.random()+"&s=63646&im=34&r="+escape(document.referrer)+"&pg="+
+escape(window.location.href);
+document.cookie="hotlog=1; path=/"; hotlog_r+="&c="+(document.cookie?"Y":"N");
+</script><script language="javascript1.1">
+hotlog_js="1.1";hotlog_r+="&j="+(navigator.javaEnabled()?"Y":"N")</script>
+<script language="javascript1.2">
+hotlog_js="1.2";
+hotlog_r+="&wh="+screen.width+'x'+screen.height+"&px="+
+(((navigator.appName.substring(0,3)=="Mic"))?
+screen.colorDepth:screen.pixelDepth)</script>
+<script language="javascript1.3">hotlog_js="1.3"</script>
+<script language="javascript">hotlog_r+="&js="+hotlog_js;
+document.write("<a href='http://click.hotlog.ru/?63646' target='_top'><img "+
+" src='http://hit4.hotlog.ru/cgi-bin/hotlog/count?"+
+hotlog_r+"&' border=0 width=88 height=31 alt=HotLog></a>")</script>
+<noscript><a href=http://click.hotlog.ru/?63646 target=_top><img
+src="http://hit4.hotlog.ru/cgi-bin/hotlog/count?s=63646&im=34" border=0
+width="88" height="31" alt="HotLog"></a></noscript>
+<!-- /HotLog -->
+</nobr><br>
+</td>
+<td align="right" class="footer">
+&copy; 2002. Все права защищены<br><a href="http://www.metric.ru"  target=_blank class="footer"> Создание сайта: Metric</a>
+<br><a href="http://www.parking.ru"  target=_blank class="footer">Хостинг на Parking.ru</a>
+<br><a href="http://www.optimizer.ru"  target=_blank class="footer">CMS:  Optimizer</a>.<br>
+</td>
+</tr></table>
+<br>
+<br>
+
+
+</body>
+</html>

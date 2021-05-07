@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:background="@android:color/primary_text_dark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/text"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/fam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text"
+            android:paddingTop="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:autofillHints=""
+            android:hint="@string/fam"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fam"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:autofillHints=""
+            android:hint="@string/name"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:autofillHints=""
+            android:hint="@string/middle_name"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/middle_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:autofillHints=""
+            android:hint="@string/group"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/faculty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/group"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:autofillHints=""
+            android:hint="@string/faculty"
+            android:inputType="text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_below="@+id/faculty"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="100dp"
+            android:onClick="onClickSave"
+            android:background="#3F51B5"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_back"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:textStyle="bold"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginBottom="100dp"
+            android:onClick="onClickBack"
+            android:background="#3F51B5"
+            />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

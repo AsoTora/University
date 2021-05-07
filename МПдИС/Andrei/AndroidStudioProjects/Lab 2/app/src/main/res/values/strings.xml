@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">lab2</string>
+    <string name="text">Fill in the gaps</string>
+    <string name="fam">Second Name</string>
+    <string name="name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="group">Group</string>
+    <string name="faculty">Faculty</string>
+    <string name="text2">View type:</string>
+    <string name="save">Save</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="button_back">Back</string>
+</resources>

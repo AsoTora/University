@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <AbsoluteLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/primary_text_dark"
+        tools:ignore="Deprecated,MissingConstraints,UselessLeaf">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="120dp"
+            android:layout_y="50dp"
+            android:text="@string/text"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="15dp"
+            android:layout_y="130dp"
+            android:autofillHints=""
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="15dp"
+            android:layout_y="190dp"
+            android:autofillHints=""
+            android:hint="@string/middle_name"
+            android:inputType="textCapWords"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="15dp"
+            android:layout_y="250dp"
+            android:autofillHints=""
+            android:hint="@string/fam"
+            android:inputType="textCapWords"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="220dp"
+            android:layout_y="130dp"
+            android:autofillHints=""
+            android:hint="@string/group"
+            android:inputType="number"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="220dp"
+            android:layout_y="190dp"
+            android:autofillHints=""
+            android:hint="@string/faculty"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_x="70dp"
+            android:layout_y="400dp"
+            android:onClick="onClickSave"
+            android:text="@string/save"
+            android:background="#3F51B5"
+            android:textStyle="bold"
+            />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_x="230dp"
+            android:layout_y="400dp"
+            android:onClick="onClickBack"
+            android:text="@string/button_back"
+            android:background="#3F51B5"
+            android:textStyle="bold" />
+
+    </AbsoluteLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
