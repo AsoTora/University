@@ -31,9 +31,11 @@ _DS_Store
 venv/
 __pycache__
 Icon*
+.env
 
 **/Курсач/
 Реферат_плавание.docx
 Группа.pdf
 infa.docx
 820601.gsheet
+АиПРП/AiPRP_alex.zip
