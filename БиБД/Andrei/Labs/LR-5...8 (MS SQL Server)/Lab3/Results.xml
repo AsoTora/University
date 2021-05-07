@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <row>
+    <ID>68</ID>
+    <AddressLine1>1874 Valley Blvd.</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3337</PostalCode>
+    <ModifiedDate>2006-12-09 00:00:00.000</ModifiedDate>
+    <AccountNumber>TREYRE0001</AccountNumber>
+    <MaxPrice>59.9300</MaxPrice>
+  </row>
+  <row>
+    <ID>530</ID>
+    <AddressLine1>1286 Cincerto Circle</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3550</PostalCode>
+    <ModifiedDate>2007-09-23 00:00:00.000</ModifiedDate>
+    <AccountNumber>BICYCLE0001</AccountNumber>
+    <MaxPrice>59.9900</MaxPrice>
+  </row>
+  <row>
+    <ID>595</ID>
+    <AddressLine1>7995 Edwards Ave.</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3429</PostalCode>
+    <ModifiedDate>2008-06-01 00:00:00.000</ModifiedDate>
+    <AccountNumber>ADVANCED0001</AccountNumber>
+    <MaxPrice>47.4800</MaxPrice>
+  </row>
+  <row>
+    <ID>758</ID>
+    <AddressLine1>7786 Olive St</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3429</PostalCode>
+    <ModifiedDate>2008-01-24 00:00:00.000</ModifiedDate>
+    <AccountNumber>WESTJUN0001</AccountNumber>
+    <MaxPrice>44.2100</MaxPrice>
+  </row>
+  <row>
+    <ID>890</ID>
+    <AddressLine1>2834 Clifford Court</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3205</PostalCode>
+    <ModifiedDate>2006-04-20 00:00:00.000</ModifiedDate>
+    <AccountNumber>SPEEDCO0001</AccountNumber>
+    <MaxPrice>47.2800</MaxPrice>
+  </row>
+  <row>
+    <ID>893</ID>
+    <AddressLine1>4659 Montoya</AddressLine1>
+    <AddressLine2>Unknown</AddressLine2>
+    <StateProvinceID>77</StateProvinceID>
+    <PostalCode>3337</PostalCode>
+    <ModifiedDate>2006-10-30 00:00:00.000</ModifiedDate>
+    <AccountNumber>ALLENSON0001</AccountNumber>
+    <MaxPrice>15.3200</MaxPrice>
+  </row>
+</data>

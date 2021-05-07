@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2">Cars</a>
+          </div>
+          <p class="article-content">
+            {% for obj in objects %}
+              {{ obj }}
+            {% endfor %}
+            </p>
+        </div>
+      </article>
+{% endblock content %}
