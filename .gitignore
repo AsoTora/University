@@ -15,8 +15,25 @@
 # directory for test and junk projects
 **/tmp
 
-# large files and unnessesary docs
-.pdf
+# files
+*.gsheet
+*.doc
+*.jar
+*.dll
+
+stuff/
 
 # other
 ignore_*
+.DS_Store
+_DS_Store
+.vscode/
+venv/
+__pycache__
+Icon*
+
+**/Курсач/
+Реферат_плавание.docx
+Группа.pdf
+infa.docx
+820601.gsheet
