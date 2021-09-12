@@ -1,0 +1,6 @@
+[submodule "TEX-TEMPLATES/bsuir_templates"]
+	path = TEX-TEMPLATES/bsuir_templates
+	url = git@github.com:AsoTora/bsuir_templates.git
+[submodule "TEX-TEMPLATES/bsuir-diploma-latex"]
+	path = TEX-TEMPLATES/bsuir-diploma-latex
+	url = git@github.com:AsoTora/bsuir-diploma-latex.git
