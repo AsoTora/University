@@ -31,32 +31,41 @@ def build_histogram(data_values, data_names, title):
 
 def grafic_raspr():
     '''
-    Имитация любой случайной величины, распределенной по экспоненциальному закону
+    Имитация любой случайной величины, распределенной по экспоненциальному закону согласно Рисунку 1.4 и расчетов
     '''
-    r = random.random()
+    R = random.random()
     x = None
-    if (r >= 0) and (r < 0.1):
-        x = (r + 0.1) / 0.01
-    elif (r >= 0.1) and (r < 0.3):
-        x = (r + 0.7) / 0.04
-    elif (r >= 0.3) and (r < 1):
-        x = (r + 1.45) / 0.07
+    if (R >= -0.1) and (R < 0.7):
+        x = (R + 0.8) / 0.16
+    elif (R >= 0.7) and (R < 0.9):
+        x = (R + 0.6) / 0.02
+    elif (R >= 0.9) and (R < 1.1):
+        x = (R - 0.85) / 0.01
     return x
 
 
 def gauss(m, sigma):
     '''
-    Имитация гауссовского распределения
+    Имитация гауссовского распределения (формула 3.16)
     m -- математическое ожидание (среднее значение) ими- тируемой случайной величины
     sigma – ее стандартное отклонение
     '''
     k = 6
     rsum = 0
     for i in range(k):
-        r = random.random()
-        rsum = rsum + r
+        R = random.random()
+        rsum = rsum + R
     x = m + sigma * sqrt(12 / k) * (rsum - k / 2)
     return x
+
+def ravnomer_raspr(a, b, R):
+    '''
+    Равномерное распределение -- 3.11
+    a и b – границы диапазона возможных значений равномерной случайной
+    величины.
+    R -- СРРЧ
+    '''
+    return a+(b-a)/R
 
 
 def proverka_1():
@@ -74,17 +83,17 @@ def proverka_1():
             if (x > gran[j]) and x <= gran[j + 1]:
                 m[j] += 1
     print("\nПроверка 1")
+
     for i in range(k):
         f[i] = m[i] / (n * d)
         print("diap", gran[i], "-", gran[i+1])
         print(f"m[{i}]=", m[i])
         print(f"f[{i}]=", f[i])
+
     # подсчет переменной хи-квадрат
     hi_kv = 0
-
     for i in range(k):
         hi_kv += (m[i] ^ 2) / (n * p[i])
-
     print("\nхи-квадрат", hi_kv)
 
     build_histogram(f, [str(i + 10) + " - " + str(i + 11) for i in range(25)], 'First Check')
@@ -111,9 +120,9 @@ def proverka_2():
         print("diap", gran[i], "-", gran[i+1])
         print(f"m[{i}]=", m[i])
         print(f"f[{i}]=", f[i])
+
     # подсчет переменной хи-квадрат
     hi_kv = 0
-
     for i in range(k):
         hi_kv += pow(m[i], 2 / (n * p[i]))
 
@@ -146,7 +155,6 @@ def proverka_3():
         
     # подсчет переменной хи-квадрат
     hi_kv = 0
-
     for i in range(k):
         hi_kv += (m[i] ^ 2) / (n * p[i])
 
@@ -158,7 +166,7 @@ def raschet():
     razmer_partii = 5000
     m_och = 120
     m_per = 70
-    sigma = 10 # 
+    sigma = 10
     n = 2000
     kol = 0
     t00 = 0
@@ -176,13 +184,8 @@ def raschet():
         p = m_per + sigma * sqrt(2) * (sumr2 - 3)
 
         # Доля примесей S-%
-        r = random.random()
-        if r < 0.1:
-            S = (r + 0.1) / 0.01
-        elif r < 0.3:
-            S = (r + 0.7) / 0.04
-        else:
-            S = (r + 1.45) / 0.07
+        S = grafic_raspr()
+
         t0 = razmer_partii / o
         ver = random.random()
         if (S > 20) and (ver < 0.7):
@@ -193,11 +196,11 @@ def raschet():
         t00 += t0
         # Общее время переработки
         tp0 += tp
-        # Среднее время обработки одной партии
-        t = tp0 / n + t00 / n
-        print("\nСреднее время обработки одной партии", t, "часов")
-        vrst = kol / n
-        print("Вероятность того, что для партии потребуется повторная очистка =", vrst * 100, "%")
+    # Среднее время обработки одной партии
+    t = tp0 / n + t00 / n
+    print("\nСреднее время обработки одной партии", t, "часов")
+    vrst = kol / n
+    print("Вероятность того, что для партии потребуется повторная очистка =", vrst * 100, "%")
 
 
 proverka_1()

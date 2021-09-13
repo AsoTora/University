@@ -3,3 +3,9 @@
 
 # other
 ignore*
+.DS_Store
+
+*.aux
+*.log
+*.out
+*.toc
