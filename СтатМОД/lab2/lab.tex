@@ -1,0 +1,159 @@
+\documentclass[a4paper,hidelinks,14pt]{extarticle}
+
+\input{sys/packages}        % Подключаемые пакеты
+\input{sys/styles}   % Пользовательские стили
+
+\begin{document}
+
+\input{sys/names}	 % Переопределение именований
+\input{text/title}	 % Титульный лист
+
+%\input{text/aims}        % Цели работы
+\section{ЦЕЛЬ РАБОТЫ}
+
+\begin{itemize}
+	\item Изучение многомерных распределений теории вероятностей и математической статистики.
+	\item Исследование многомерных распределений теории вероятностей и математической статистики с помощью средств \textit{Matlab}.
+\end{itemize}
+
+\section{ЗАДАНИЕ}
+\begin{itemize}
+\item Вывести на экран монитора графики поверхностей и линии равных уровней плотностей вероятности двухмерных распределений (при ) из , указанных преподавателем, и исследовать их зависимость от параметров распределений.
+
+\item Для нормального распределения в одно графическое окно вывести эллипс рассеяния и две функции регрессии. Исследовать зависимость формы и площади эллипса рассеяния от коэффициента корреляции при заданных дисперсиях компонент случайного вектора. Исследовать взаимное расположение функций регрессии и осей эллипса рассеяния (совпадают ли функции регрессии с осями эллипса?).
+\end{itemize}
+
+\newpage
+
+%\input{text/process}     % Ход работы
+\section{ХОД РАБОТЫ}
+
+\subsection{Графики плотности распределения Фишера}
+Построим график плотности распределения Фишера по формуле 1.2.8.6. Листинг кода программы приведён на Рисунке~\ref{lst:listing1}
+\begin{lstlisting}[language=matlab,caption=Код программы \textit{Matlab}, label={lst:listing1}]
+    clc
+    x=[-10:0.01:10]
+    y1=0;
+    y2=0;
+    y3=0;
+    k1=1;
+    k2=2;
+    k3=100;
+    m1=1;
+    m2=1;
+    m3=100;
+    for i=1:length(x)
+    if x(i)>0
+    y1(i)=(gamma((k1+m1)/2)/(gamma(k1/2)*gamma(m1/2)))*(k1^(k1/2))*(m1^(m1/2))*(x(i)^((m1/2)-1))/((k1+m1*x(i))^((k1+m1)/2));
+    y2(i)=(gamma((k2+m2)/2)/(gamma(k2/2)*gamma(m2/2)))*(k2^(k2/2))*(m2^(m2/2))*(x(i)^((m2/2)-1))/((k2+m2*x(i))^((k2+m2)/2));
+    y3(i)=(gamma((k3+m3)/2)/(gamma(k3/2)*gamma(m3/2)))*(k3^(k3/2))*(m3^(m3/2))*(x(i)^((m3/2)-1))/((k3+m3*x(i))^((k3+m3)/2));
+    else
+    y1(i)=0;
+    y2(i)=0;
+    y3(i)=0;
+    end
+    end
+    y4=fpdf(x,m1,k1);
+    y5=fpdf(x,m2,k2);
+    y6=fpdf(x,m3,k3);
+
+    figure
+    plot(x,y1,'r-*', x,y2,'b--', x,y3,'k-');
+    grid on
+
+    figure
+    plot(x,y4,'r-*', x,y5,'b--', x,y6,'k-');
+    grid on
+
+\end{lstlisting}
+
+Получен следующий график плотности распределения Фишера: Рисунок~\ref{fig:fig3}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=150mm,height=98mm,scale=0.7]{fig/raspr2.png}
+    \caption{График плотности распределения Фишера, построенный по формуле}
+    \label{fig:fig3}
+\end{figure}
+
+
+Построим график плотности распределения Фишера средствами \textit{MatLab}. Воспользуемся следующей функцией: $y=fpdf(x,m,k)$.
+
+Листинг кода: \\
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=matlab,caption=Код программы \textit{Matlab}, label={lst:listing2}]
+    clc
+    x=[-10:0.01:10]
+    k1=1;
+    k2=2;
+    k3=100;
+    m1=1;
+    m2=1;
+    m3=100;
+
+    Y1 = fpdf(x,m1,k1)
+    Y2= fpdf(x,m2,k2)
+    Y3 = fpdf(x,m3,k3)
+
+    figure
+    plot(x,y1,'r-*', x,y2,'b--', x,y3,'k-');
+    grid on
+\end{lstlisting}
+\end{minipage}
+
+Получен следующий график плотности распределения Фишера: Рисунок~\ref{fig:fig4}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=150mm,height=98mm]{fig/raspr3.png}
+    \caption{График плотности распределения Фишера, построенный средствами \textit{Matlab}}
+    \label{fig:fig4}
+\end{figure}
+
+
+\subsection{Графики функций распределения Фишера}
+
+Построим графики функций распределения распределения Фишера средствами \textit{Matlab}.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=matlab,caption=Код программы \textit{Matlab}, label={lst:listing3}]
+clc
+x=[-10:0.01:10]
+y1=0;
+y2=0;
+y3=0;
+k1=1;
+k2=2;
+k3=100;
+m1=1;
+m2=1;
+m3=100;
+y1 = fcdf(x, m1, k1);
+y2 = fcdf(x, m2, k2);
+y3 = fcdf(x, m3, k3);
+
+plot(x,y1,'r-o',x,y2,'b--*', x, y3, 'k-')
+grid on
+\end{lstlisting}
+\end{minipage}
+
+Получен следующий график: Рисунок~\ref{fig:fig5}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=150mm,height=98mm]{fig/raspr_plotn.png}
+    \caption{График плотности распределения Фишера, построенный средствами \textit{Matlab}}
+    \label{fig:fig5}
+\end{figure}
+
+
+%\input{text/conclusion}  % Заключение
+\section*{ЗАКЛЮЧЕНИЕ}
+
+В ходе выполнения лабораторной работы ознакомились с системой  программирования \textit{Matlab}, приобрели навыки работы в ней. Ознакомились с языком программирования системы \textit{Matlab}.
+
+
+\newpage
+
+
+%\input{text/appendix}    % Приложения
+\end{document}
