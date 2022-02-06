@@ -12,7 +12,7 @@ Files are separated into branches by semesters. No commit history or any other e
 3. https://github.com/AsoTora/University/tree/sem3-4
 4. https://github.com/AsoTora/University/tree/sem5
 5. https://github.com/AsoTora/University/tree/sem6
-5. https://github.com/AsoTora/University/tree/sem7
-5. https://github.com/AsoTora/University/tree/sem8 (final)
+6. https://github.com/AsoTora/University/tree/sem7
+7. https://github.com/AsoTora/University/tree/sem8 (final)
 
 I would also recommend copying this repo with `git clone $url -b $branch --depth 1`
