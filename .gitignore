@@ -3,7 +3,10 @@
 
 # other
 ignore*
+Docs/
+Documents/
 .DS_Store
+ТИБ/*.pdf
 
 *.aux
 *.log
