@@ -1,0 +1,10 @@
+p {
+    padding-top: 1px;
+    padding-bottom: 10px;
+} 
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
