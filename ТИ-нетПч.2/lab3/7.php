@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <?php
-        $kek1="Привет гусь приколист";
-        $kek2=rus2translit($kek1);
-        echo $kek2;
-           function rus2translit($string) {
-            
-            $conv= array(' ' => '_');
+<?php
+echo "<b> Task 7 </b> <br>";
 
-            return strtr($string, $conv);
-        }
-    ?>
-</body>
-</html>
+function replace($string) {
+    $conv= array(' ' => '_');
+    return strtr($string, $conv); # https://www.php.net/manual/en/function.strtr.php
+}
+
+print(replace("Напишите функцию, которая заменяет в строке пробелы на подчеркивания и возвращает видоизмененную строчку."));

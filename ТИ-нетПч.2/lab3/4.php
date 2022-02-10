@@ -1,33 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <?php
-        $a = array (
-            "Московская область" => array("Москва", "Зеленоград", "Клин"), 
-            "Ленинградская область" => array("Санкт-Петербург", "Всеволожск", "Павловск", "Кронштадт"),
-            "Минская область" => array("Борисов", "Солигорск", "Слуцк", "Дзержинск"),
-            "Витебская область" => array("Поставы", "Глубокое", "Лепель", "Орша")
-            );
-            foreach ($a as $sKey => $aFamily)
-                {
-                    echo(
-                            "<h2>$sKey</h2>" . "<ul>"
-                        );
-                    foreach ($aFamily as $sLanguage)
-                        {
-                            echo("<li>$sLanguage</li>");
-                        }
+<?php
+echo "<b> Task 4 </b> <br>";
+$obl = array(
+    "Московская область" => array("Москва", "Зеленоград", "Клин"),
+    "Ленинградская область" => array("Санкт-Петербург", "Всеволожск", "Павловск", "Кронштадт"),
+    "Аму́рская о́бласть " => array("Белогорск", "город Свободный", "город Шимановск")
+);
 
-                    echo("</ul>");
-                }
-
-    ?>
-</body>
-</html>
+foreach ($obl as $i => $cities) {
+    echo ("<b>$i</b>" . "<ul>"
+    );
+    foreach ($cities as $city) {
+        echo ("<li>$city</li>");
+    }
+    echo ("</ul>");
+}
