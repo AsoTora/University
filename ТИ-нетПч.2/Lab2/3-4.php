@@ -21,7 +21,11 @@ function Mult($x, $y)
 
 function Div($x, $y)
 {
-    return ($x / $y);
+    if ($y != 0) {
+        return ($x / $y);
+    } else {
+        return "Devided by 0!!!";
+    }
 }
 
 echo $a . ' + ' . $b . ' = ' . Plus($a, $b) . '<br/>';
@@ -33,20 +37,27 @@ echo '<br>';
 
 
 // task 4
+echo "<b> task 4 </b> <br>";
+
 function mathOperation($arg1, $arg2, $operation)
 {
     switch ($operation) {
         case 'plus':
             return Plus($arg1, $arg2);
+            break;
         case 'minus':
             return Minus($arg1, $arg2);
+            break;
         case 'mult':
             return Mult($arg1, $arg2);
+            break;
         case 'div':
             return Div($arg1, $arg2);
+            break;
         default:
             echo "unknown";
             return ("error");
+            break;
     }
 }
 

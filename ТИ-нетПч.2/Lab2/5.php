@@ -1,7 +1,6 @@
 <?php
 echo "<b> task 5 </b> <br>";
 
-
 function power($val, $pow)
 {
   if ($pow == 0) {

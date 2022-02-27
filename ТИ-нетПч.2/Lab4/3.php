@@ -41,9 +41,9 @@ if (isset($_POST['a']) && isset($_POST['b'])) {
 
 <body>
     <form method="post">
-        a: <input name="a" value="<?php echo isset($_POST['a']) ? htmlspecialchars($_POST['a'], ENT_QUOTES) : ''; ?>">
+        a: <input name="a" type="number" value="<?php echo isset($_POST['a']) ? htmlspecialchars($_POST['a'], ENT_QUOTES) : ''; ?>">
         <br>
-        b: <input name="b" value="<?php echo isset($_POST['b']) ? htmlspecialchars($_POST['b'], ENT_QUOTES) : ''; ?>">
+        b: <input name="b" type="number" value="<?php echo isset($_POST['b']) ? htmlspecialchars($_POST['b'], ENT_QUOTES) : ''; ?>">
 
         <p>
             <input type="submit" name="operator" value="+" />
@@ -54,7 +54,6 @@ if (isset($_POST['a']) && isset($_POST['b'])) {
 
         Result: <input type='text' value="<?php echo $result; ?>"><br>
     </form>
-
 </body>
 
 </html>
