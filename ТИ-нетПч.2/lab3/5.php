@@ -9,8 +9,6 @@ $obl = array(
 );
 
 foreach ($obl as $i => $cities) {
-  echo ("<b>$i</b>" . "<ul>"
-  );
   foreach ($cities as $city) {
     if (str_starts_with($city, 'К')) {
       echo ("<li>$city</li>");

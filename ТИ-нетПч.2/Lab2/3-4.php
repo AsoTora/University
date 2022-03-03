@@ -19,10 +19,10 @@ function Mult($x, $y)
     return ($x * $y);
 }
 
-function Div($x, $y)
+function Modu($x, $y)
 {
     if ($y != 0) {
-        return ($x / $y);
+        return $x % $y;
     } else {
         return "Devided by 0!!!";
     }
@@ -31,7 +31,7 @@ function Div($x, $y)
 echo $a . ' + ' . $b . ' = ' . Plus($a, $b) . '<br/>';
 echo $a . ' - ' . $b . ' = ' . Minus($a, $b) . '<br/>';
 echo $a . ' * ' . $b . ' = ' . Mult($a, $b) . '<br/>';
-echo $a . ' / ' . $b . ' = ' . Div($a, $b) . '<br/>';
+echo $a . ' % ' . $b . ' = ' . Modu($a, $b) . '<br/>';
 
 echo '<br>';
 
@@ -51,8 +51,8 @@ function mathOperation($arg1, $arg2, $operation)
         case 'mult':
             return Mult($arg1, $arg2);
             break;
-        case 'div':
-            return Div($arg1, $arg2);
+        case 'mod':
+            return mod($arg1, $arg2);
             break;
         default:
             echo "unknown";

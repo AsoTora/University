@@ -1,6 +1,11 @@
 <?php
 echo "<b> Task 8 </b> <br>";
 
+function replace($string) {
+    $conv= array(' ' => '_');
+    return strtr($string, $conv); # https://www.php.net/manual/en/function.strtr.php
+}
+
 function translit($string) {
     $converter = array(
         'а' => 'a',   'б' => 'b',   'в' => 'v',
@@ -14,7 +19,7 @@ function translit($string) {
         'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
         'ь' => '\'',  'ы' => 'y',   'ъ' => '\'',
         'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
-    
+
         'А' => 'A',   'Б' => 'B',   'В' => 'V',
         'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
         'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
@@ -26,10 +31,12 @@ function translit($string) {
         'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
         'Ь' => '\'',  'Ы' => 'Y',   'Ъ' => '\'',
         'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-
-        ' ' => '_'
     );
     return strtr($string, $converter); # https://www.php.net/manual/en/function.strtr.php
+}
+
+function task8($string) {
+    return replace(translit($string));
 }
 
 print(translit("Объедините две ранее написанные функции в одну"));
