@@ -52,7 +52,11 @@ if (isset($_POST['a']) && isset($_POST['b'])) {
             <input type="submit" name="operator" value="/" />
         </p>
 
-        Result: <input type='text' value="<?php echo $result; ?>"><br>
+        Result: 
+        <input disabled name="c" type="number" value="<?php echo isset($_POST['a']) ? htmlspecialchars($_POST['a'], ENT_QUOTES) : ''; ?>">
+        <?php echo isset($_POST['operator']) ? htmlspecialchars($_POST['operator'], ENT_QUOTES) : ''; ?>
+        <input disabled name="d" type="number" value="<?php echo isset($_POST['b']) ? htmlspecialchars($_POST['b'], ENT_QUOTES) : ''; ?>">
+        = <input type='text' value="<?php echo $result; ?>"><br>
     </form>
 </body>
 

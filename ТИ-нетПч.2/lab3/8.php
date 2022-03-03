@@ -39,6 +39,6 @@ function task8($string) {
     return replace(translit($string));
 }
 
-print(translit("Объедините две ранее написанные функции в одну"));
+print(task8("Объедините две ранее написанные функции в одну"));
 
 ?>

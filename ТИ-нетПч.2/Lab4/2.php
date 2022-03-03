@@ -2,29 +2,32 @@
 <html lang="en">
 <?php
 if (isset($_POST['a']) && isset($_POST['b'])) {
-    $operator = $_POST['operator'];
-
-    switch ($operator) {
-        case "Add":
-            $result = $_POST['a'] + $_POST['b'];
-            break;
-        case "Subtract":
-            $result = $_POST['a'] - $_POST['b'];
-            break;
-        case "Multiply":
-            $result = $_POST['a'] * $_POST['b'];
-            break;
-        case "Divide":
-            if ($_POST['b'] == 0) {
-                $result = "you can't do this here!";
+    if (is_numeric($_POST['a']) && is_numeric(isset($_POST['b']))){
+        $operator = $_POST['operator'];
+        switch ($operator) {
+            case "Add":
+                $result = $_POST['a'] + $_POST['b'];
                 break;
-            } else {
-                $result = $_POST['a'] / $_POST['b'];
+            case "Subtract":
+                $result = $_POST['a'] - $_POST['b'];
                 break;
-            }
-        default:
-            $result = "";
-            break;
+            case "Multiply":
+                $result = $_POST['a'] * $_POST['b'];
+                break;
+            case "Divide":
+                if ($_POST['b'] == 0) {
+                    $result = "you can't do this here!";
+                    break;
+                } else {
+                    $result = $_POST['a'] / $_POST['b'];
+                    break;
+                }
+            default:
+                $result = "";
+                break;
+        }
+    } else{
+        $result = "";
     }
 } else {
     $result = "";
@@ -34,7 +37,7 @@ if (isset($_POST['a']) && isset($_POST['b'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ex3 Галерея изображений</title>
+    <title>ex 2</title>
 </head>
 
 <body>
