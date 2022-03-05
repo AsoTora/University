@@ -54,6 +54,10 @@
         if ($file['size'] > 5E+6) {
             return 'Размер файла на должен превышать 5 мегабайт!'; 
         }
+
+        if (file_exists($uploadFilePath) || file_exists($cropFilePath)) {
+            return 'Sorry, file already exists.';
+        }
         
         if (copy($file['tmp_name'], $uploadFilePath)) {
             resizeImage($uploadFilePath, $cropFilePath, 150,150);
