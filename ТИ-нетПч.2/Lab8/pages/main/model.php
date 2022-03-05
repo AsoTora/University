@@ -1,20 +1,46 @@
 <?php 
-    require $_SERVER['DOCUMENT_ROOT'] . '/constants.php';
-
-    function resizeImage($filePath, $targetFilePath, $newWidth) {
-        list($width, $height, $type, $attr) = getimagesize( $filePath );
-        $newHeight = $height / ($width / $newWidth);
-
-        $src = imagecreatefromstring(file_get_contents( $filePath ) );
-        $dst = imagecreatetruecolor( $newWidth, $newHeight );
-        imagecopyresampled( $dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height );
-        imagedestroy( $src );
-        imagepng( $dst, $targetFilePath );
-        imagedestroy( $dst );
-        
-        return $dst;
+    require $_SERVER['DOCUMENT_ROOT'] . '/Lab8' . '/constants.php';
+    
+    function resizeImage($originalFile, $targetFile, $newwidth, $newheight){
+        $info = getimagesize($originalFile);
+        $mime = $info['mime'];
+    
+        switch ($mime) {
+            case 'image/jpeg':
+                $image_create_func = 'imagecreatefromjpeg';
+                $image_save_func = 'imagejpeg';
+                break;
+    
+            case 'image/jpg':
+                $image_create_func = 'imagecreatefromjpeg';
+                $image_save_func = 'imagejpeg';
+                break;
+    
+            case 'image/png':
+                $image_create_func = 'imagecreatefrompng';
+                $image_save_func = 'imagepng';
+                break;
+    
+            default:
+                throw new Exception('Unknown image type.');
+                break;
+        }
+    
+        try {
+            $img = $image_create_func($originalFile);
+            list($width, $height) = getimagesize($originalFile);
+            $tmp = imagecreatetruecolor($newwidth, $newheight);
+            imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+    
+            if (file_exists($targetFile)) {
+                unlink($targetFile);
+            }
+            $image_save_func($tmp, "$targetFile");
+            return $tmp;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
     }
-
     
     function uploadFile($file, $connection) {
         $fileName = basename($file['name']);
@@ -30,8 +56,8 @@
         }
         
         if (copy($file['tmp_name'], $uploadFilePath)) {
-            resizeImage($uploadFilePath, $cropFilePath, 300);
-            mysqli_query($connection, "INSERT INTO sakila.Gallery (name, clicks, title, alt) 
+            resizeImage($uploadFilePath, $cropFilePath, 150,150);
+            mysqli_query($connection, "INSERT INTO Gallery (name, clicks, title, alt) 
             VALUES ('".$fileName."', 0, 'image', 'image')");
             
             return "Файл корректен и был успешно загружен.\n";
@@ -41,7 +67,7 @@
     }
 
     function getImagesInfoSortedByClicls($connection) {
-        $result = mysqli_query($connection, "SELECT * FROM sakila.Gallery ORDER BY clicks DESC", MYSQLI_USE_RESULT);
+        $result = mysqli_query($connection, "SELECT * FROM Gallery ORDER BY clicks DESC", MYSQLI_USE_RESULT);
         return mysqli_fetch_all($result, MYSQLI_BOTH);
     }
 ?>

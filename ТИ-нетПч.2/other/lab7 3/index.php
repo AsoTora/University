@@ -2,7 +2,7 @@
     define('ORIGINAL_DIR', './images/original/');
     define('PREVIEW_DIR', './images/preview/');
 
-    $connection = mysqli_connect("0.0.0.0:33060", "student", "student", "sakila");
+    $connection = mysqli_connect("0.0.0.0:33060", "student", "student", "DB_NAME");
 
     function resizeImage($filePath, $targetFilePath, $newWidth) {
         list($width, $height, $type, $attr) = getimagesize( $filePath );
@@ -37,7 +37,7 @@
             resizeImage($uploadFilePath, $cropFilePath, 300);
             echo "Файл корректен и был успешно загружен.\n";
 
-            mysqli_query($connection, "INSERT INTO sakila.Gallery (name, clicks) VALUES ('".$fileName."', 0)");
+            mysqli_query($connection, "INSERT INTO Gallery (name, clicks) VALUES ('".$fileName."', 0)");
         } else {
             echo 'Ошибка загрузки файла'; 
         }
@@ -47,7 +47,7 @@
         upload_file($_FILES['userfile'], $connection);
     }
 
-    $result = mysqli_query($connection, "SELECT * FROM sakila.Gallery ORDER BY clicks DESC", MYSQLI_USE_RESULT);
+    $result = mysqli_query($connection, "SELECT * FROM Gallery ORDER BY clicks DESC", MYSQLI_USE_RESULT);
     $imagesInfoArray = mysqli_fetch_all($result, MYSQLI_BOTH);
 ?>
 

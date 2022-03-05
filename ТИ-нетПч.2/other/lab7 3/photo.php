@@ -1,11 +1,11 @@
 <?php
-   $connection = mysqli_connect("0.0.0.0:33060", "student", "student", "sakila");  
+   $connection = mysqli_connect("0.0.0.0:33060", "student", "student", "DB_NAME");  
 
    $imageName = $_GET["name"];
    $imageClicks = $_GET["clicks"];
 
    mysqli_query($connection, 
-        "UPDATE sakila.Gallery
+        "UPDATE Gallery
         SET clicks = clicks + 1
         WHERE name = '$imageName' AND clicks = $imageClicks"
     );
