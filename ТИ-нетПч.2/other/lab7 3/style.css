@@ -1,0 +1,37 @@
+main {
+    padding: 0 50px;
+}
+
+.image_container {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.image_preview {
+    margin: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image_preview a {
+    margin-right: 100px;
+}
+
+a .preview {
+    width: 200px;
+    margin-right: 100px;
+}
+
+.original {
+    width: 100%;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+ }

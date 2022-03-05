@@ -3,7 +3,7 @@
 if (isset($_POST["submit"])) {
     $target_dir = "img/original/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
+    
     $resised_dir = "img/smaller/";
     $resised_file = $resised_dir . basename($_FILES["fileToUpload"]["name"]);
 
@@ -11,6 +11,8 @@ if (isset($_POST["submit"])) {
     $mimetype = finfo_file($finfo, $_FILES['fileToUpload']['tmp_name']);
 
     var_dump($mimetype);
+    var_dump($_POST);
+    
 
     // check file type
     $formats = array("image/jpg", "image/jpeg", "image/png");
@@ -21,11 +23,19 @@ if (isset($_POST["submit"])) {
                 </script>";
         exit();
     }
+    // check file size
+    if ($_FILES['fileToUpload']['size'] / (1024*1024) >= 10) {
+        echo "<script>
+                alert('File to huge!');
+                window.location.href='index.php';
+                </script>";
+        exit();
+    }
 
     // Check if file already exists
     if (file_exists($target_file)) {
         echo "<script>
-        alert('Sorry, file already exists.');
+        alert('Sorry, file not uploaded.');
         window.location.href='index.php';
         </script>";
         exit();
@@ -49,40 +59,49 @@ if (isset($_POST["submit"])) {
     header("Location: index.php");
 }
 
-function resize($originalFile, $targetFile, $newwidth, $newheight) {
+function resize($originalFile, $targetFile, $newwidth, $newheight)
+{
     $info = getimagesize($originalFile);
     $mime = $info['mime'];
 
     switch ($mime) {
-            case 'image/jpeg':
-                    $image_create_func = 'imagecreatefromjpeg';
-                    $image_save_func = 'imagejpeg';
-                    break;
+        case 'image/jpeg':
+            $image_create_func = 'imagecreatefromjpeg';
+            $image_save_func = 'imagejpeg';
+            break;
 
-            case 'image/jpg':
-                    $image_create_func = 'imagecreatefromjpeg';
-                    $image_save_func = 'imagejpeg';
-                    break;
+        case 'image/jpg':
+            $image_create_func = 'imagecreatefromjpeg';
+            $image_save_func = 'imagejpeg';
+            break;
 
-            case 'image/png':
-                    $image_create_func = 'imagecreatefrompng';
-                    $image_save_func = 'imagepng';
-                    break;
+        case 'image/png':
+            $image_create_func = 'imagecreatefrompng';
+            $image_save_func = 'imagepng';
+            break;
 
-            default: 
-                    throw new Exception('Unknown image type.');
-                    break;
+        default:
+            throw new Exception('Unknown image type.');
+            break;
     }
 
-    $img = $image_create_func($originalFile);
-    list($width, $height) = getimagesize($originalFile);
-    $tmp = imagecreatetruecolor($newwidth, $newheight);
-    imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+    try {
+        $img = $image_create_func($originalFile);
+        list($width, $height) = getimagesize($originalFile);
+        $tmp = imagecreatetruecolor($newwidth, $newheight);
+        imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-    if (file_exists($targetFile)) {
+        if (file_exists($targetFile)) {
             unlink($targetFile);
+        }
+        $image_save_func($tmp, "$targetFile");
+    } catch (Exception $e) {
+        $message=$e->getMessage();
+        echo "<script>
+        alert('$message');
+        window.location.href='index.php';
+        </script>";
     }
-    $image_save_func($tmp, "$targetFile");
 }
 
 ?>

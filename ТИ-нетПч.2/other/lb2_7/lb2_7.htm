@@ -1,0 +1,530 @@
+<!-- (C) 2017 Хаджинова Наталья Владимировна, БГУИР -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//RU">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="Content-Language" CONTENT="ru">
+<title>Лабораторная работа №7 "Работа с базой данных"</title>
+</head>
+
+<body>
+<div align="center">
+  <h1><strong>Лабораторная  работа № 7  &quot;</strong><strong>Работа с базой данных</strong><strong>&quot;</strong></h1>
+</div>
+<h2><strong>1. </strong><strong>Для чего нужна база данных</strong></h2>
+<p>На прошлом занятии мы разобрались с тем, как можно  хранить информацию в файлах. Однако в большинстве случаев такой подход будет  доставлять массу неудобств при работе с большими объёмами данных. Например,  представьте, что Вы храните в файле информацию о сотрудниках фирмы. Каждая  строка &ndash; запись об одном человеке. В определённый момент встаёт задача найти  сотрудника по имени и фамилии. При работе с файлом нет функции, которая сделает  это автоматически. Соответственно, придётся самостоятельно писать не самый  простой алгоритм анализа всех строк.</p>
+<p>А при работе с базой данных уже  есть специальная команда, с помощью которой мы сможем решить эту задачу за  считанные секунды. По сути, база данных и является набором файлов с  информацией, но в ней уже реализованы стандартные механизмы по совершению  наиболее востребованных операций с записями.</p>
+<p>То есть, база данных позволяет разработчику  сэкономить массу времени при работе с информацией.  Файлы, при этом, с сервера никуда не исчезают. Например, изображения и  документы, также как и раньше, хранятся в каталогах. А вот вся текстовая  информация переносится именно в базу данных.</p>
+<h2><strong>2. Отличие &laquo;БД&raquo; от &laquo;СУБД&raquo;</strong></h2>
+<p>БД &ndash; база  данных. Под этим термином понимается информация, которую вы храните.<br>
+  СУБД &ndash; система управления базой данных. Это программа, которая  предоставляет доступ внешним приложениям к базе данных, обеспечивает ее работу.<br>
+  Существуют различные популярные СУБД: Oracle, Microsoft SQL Server,  MySQL, Sybase, PostgreSQL итд.<br>
+Сайты PHP чаще всего работают в связке с MySQL, поэтому именно данную  СУБД мы будем рассматривать в текущем уроке.</p>
+<h2><strong>3. Реляционная база данных</strong></h2>
+<p>Существует множество различных способов организации информации в БД.  Основные типы баз данных:<br>
+Иерархические </p>
+<ul>
+  <li>Объектные </li>
+  <li>Сетевые</li>
+  <li>Объектно-реляционные </li>
+  <li>Функциональные </li>
+  <li>Реляционные</li>
+</ul>
+<p>Нас интересует именно последний тип, так как именно  с ним придётся работать при создании сайтов.<br>
+  Реляционная база данных состоит из <strong>таблиц</strong> и <strong>связей</strong> между ними. Как известно из жизни, любая таблица &ndash; это набор  столбцов и строк. Столбцов создаётся определённое количество, а строк может  быть сколько угодно. Столбец является более важным элементом, чем строка, так  как последняя отвечает лишь за конкретную запись в таблице, а столбец &ndash; за  наличие определённой характеристики у всех записей.<br>
+Представим, что нам нужно хранить информацию о  сотрудниках фирмы. При проектировании таблицы сначала нужно просто представить,  а какие вообще данные о каждом человеке нам нужны. Например, мы решили, что  будем хранить фамилию, имя и отчество сотрудника. Тогда таблица может выглядеть  следующим образом:</p>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="164" valign="bottom"><p align="center"><strong>id_emp</strong></p></td>
+    <td width="161" valign="bottom"><p><strong>first_name</strong></p></td>
+    <td width="161" valign="bottom"><p><strong>middle_name</strong></p></td>
+    <td width="161" valign="bottom"><p><strong>last_name</strong></p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p align="center">1</p></td>
+    <td width="161" valign="bottom"><p>Иван</p></td>
+    <td width="161" valign="bottom"><p>Иванович</p></td>
+    <td width="161" valign="bottom"><p>Иванов</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p align="center">2</p></td>
+    <td width="161" valign="bottom"><p>Петр</p></td>
+    <td width="161" valign="bottom"><p>Петрович</p></td>
+    <td width="161" valign="bottom"><p>Петров</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p align="center">3</p></td>
+    <td width="161" valign="bottom"><p>Павел</p></td>
+    <td width="161" valign="bottom"><p>Павлович</p></td>
+    <td width="161" valign="bottom"><p>Павлов</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p align="center">4</p></td>
+    <td width="161" valign="bottom"><p>Елена</p></td>
+    <td width="161" valign="bottom"><p>Ивановна</p></td>
+    <td width="161" valign="bottom"><p>Иванова</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p align="center">5</p></td>
+    <td width="161" valign="bottom"><p>Елена</p></td>
+    <td width="161" valign="bottom"><p>Петровна</p></td>
+    <td width="161" valign="bottom"><p>Петрова</p></td>
+  </tr>
+  <tr>
+    <td width="164" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+    <td width="161" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>Обратите внимание, что в таблице создаётся  дополнительное поле <strong>id_emp</strong>. Это так  называемый первичный ключ &ndash; уникальной номер конкретной строки, по которому мы  всегда сможем её получить. У каждой таблицы в реляционной базе данных должен  быть первичный ключ.</p>
+<p>Теперь немного усложним задачу. Представим, что  фирма состоит из нескольких отделов, и нам необходимо хранить информацию о том,  в каком именно отделе работает сотрудник. Сначала посмотрим на неправильную  реализацию:</p>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="131" valign="bottom"><p align="center"><strong>id_emp</strong></p></td>
+    <td width="125" valign="bottom"><p><strong>dept</strong></p></td>
+    <td width="132" valign="bottom"><p><strong>first_name</strong></p></td>
+    <td width="132" valign="bottom"><p><strong>middle_name</strong></p></td>
+    <td width="131" valign="bottom"><p><strong>last_name</strong></p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">1</p></td>
+    <td width="125" valign="bottom"><p>ИТ</p></td>
+    <td width="132" valign="bottom"><p>Иван</p></td>
+    <td width="132" valign="bottom"><p>Иванович</p></td>
+    <td width="131" valign="bottom"><p>Иванов</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">2</p></td>
+    <td width="125" valign="bottom"><p>Бухгалтерия</p></td>
+    <td width="132" valign="bottom"><p>Петр</p></td>
+    <td width="132" valign="bottom"><p>Петрович</p></td>
+    <td width="131" valign="bottom"><p>Петров</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">3</p></td>
+    <td width="125" valign="bottom"><p>ИТ</p></td>
+    <td width="132" valign="bottom"><p>Павел</p></td>
+    <td width="132" valign="bottom"><p>Павлович</p></td>
+    <td width="131" valign="bottom"><p>Павлов</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">4</p></td>
+    <td width="125" valign="bottom"><p>ИТ</p></td>
+    <td width="132" valign="bottom"><p>Елена</p></td>
+    <td width="132" valign="bottom"><p>Ивановна</p></td>
+    <td width="131" valign="bottom"><p>Иванова</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">5</p></td>
+    <td width="125" valign="bottom"><p>Бухгалтерия</p></td>
+    <td width="132" valign="bottom"><p>Елена</p></td>
+    <td width="132" valign="bottom"><p>Петровна</p></td>
+    <td width="131" valign="bottom"><p>Петрова</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>Почему же так делать неправильно? Если внимательно  присмотреться к столбу <strong>dept</strong>, станет  видно, что в нём присутствует повторяющаяся информация. В итоге, если у нас  вдруг измениться название отдела, придётся менять столько строчек в таблице,  сколько сотрудников в нём работало. Поэтому необходимо сделать две таблицы,  разбив информацию следующим образом:<br>
+  Таблица <strong>depts</strong> (отделы):</p>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p align="center"><strong>id_dept</strong></p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p><strong>name</strong></p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p align="center">1</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="192" colspan="2" valign="bottom"><p>Бухгалтерия</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p align="center">2</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>ИТ</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="256" colspan="2" valign="bottom"><p>Таблица <strong>emps</strong> (сотрудники):</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center"><strong>id_emp</strong></p></td>
+    <td width="125" valign="bottom"><p align="center"><strong>id_dept</strong></p></td>
+    <td width="132" colspan="2" valign="bottom"><p><strong>first_name</strong></p></td>
+    <td width="132" valign="bottom"><p><strong>middle_name</strong></p></td>
+    <td width="131" valign="bottom"><p><strong>last_name</strong></p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">1</p></td>
+    <td width="125" valign="bottom"><p align="center">2</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>Иван</p></td>
+    <td width="132" valign="bottom"><p>Иванович</p></td>
+    <td width="131" valign="bottom"><p>Иванов</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">2</p></td>
+    <td width="125" valign="bottom"><p align="center">1</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>Петр</p></td>
+    <td width="132" valign="bottom"><p>Петрович</p></td>
+    <td width="131" valign="bottom"><p>Петров</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">3</p></td>
+    <td width="125" valign="bottom"><p align="center">2</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>Павел</p></td>
+    <td width="132" valign="bottom"><p>Павлович</p></td>
+    <td width="131" valign="bottom"><p>Павлов</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">4</p></td>
+    <td width="125" valign="bottom"><p align="center">2</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>Елена</p></td>
+    <td width="132" valign="bottom"><p>Ивановна</p></td>
+    <td width="131" valign="bottom"><p>Иванова</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p align="center">5</p></td>
+    <td width="125" valign="bottom"><p align="center">1</p></td>
+    <td width="132" colspan="2" valign="bottom"><p>Елена</p></td>
+    <td width="132" valign="bottom"><p>Петровна</p></td>
+    <td width="131" valign="bottom"><p>Петрова</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="125" valign="bottom"><p>&nbsp;</p></td>
+    <td width="72" valign="bottom"><p>&nbsp;</p></td>
+    <td width="60" valign="bottom"><p>&nbsp;</p></td>
+    <td width="132" valign="bottom"><p>&nbsp;</p></td>
+    <td width="131" valign="bottom"><p>&nbsp;</p></td>
+    <td width="5" valign="bottom"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<br clear="all">
+<div>
+  <p>Суть изменения заключается в том,  что в таблице <strong>emps</strong> в столбце <strong>id_dept</strong> у нас хранится только номер  отдела, а не его название. Данное поле называется внешним ключом, ссылающимся  на таблицу <strong>depts</strong>.</p>
+  <h2><strong>3. Язык SQL</strong></h2>
+  <p>SQL (Structured Query Language - &laquo;язык  структурированных запросов&raquo;) - универсальный компьютерный язык, применяемый для  создания, модификации и управления данными в реляционных базах данных.</p>
+  <p>Т.е., SQL &ndash; это язык для общения с базой данных.  Любую операцию, от создания таблицы до выборки данных, можно осуществить только  посредством запроса на языке SQL.</p>
+  <p>Все  запросы делятся на два вида:</p>
+  <ul>
+    <li>DDL</li>
+    <li> DML</li>
+  </ul>
+  <p>К DDL (Data Definition Language &ndash;  &laquo;язык описания данных&raquo;) относятся запросы, меняющие структуру базы данных.  Например, создание таблицы, удаление таблицы, добавление столбца к существующей  таблице.</p>
+  <p>К DML (Data Modification Language &ndash;  &laquo;язык модификации данных&raquo;) относятся запросы, меняющие содержимое базы данных,  то есть, операции над строками таблиц. Сюда относится вставка, удаление,  изменение и выборка строк.</p>
+  <p>Мы сосредоточимся на изучении именно DML-запросов,  так как они осуществляются гораздо чаще. По сути, DDL-операции не должны  осуществляться из PHP скрипта, так как структура базы данных должна быть  заранее продумана и сделана один раз при её создании.</p>
+  <p>Пример  DDL-операции &ndash; создание таблицы <strong>depts</strong>:</p>
+  <p>CREATE TABLE depts<br>
+    <br>
+  </p>
+  <p>Обычно данные команды не прописываются вручную, а производятся с помощью  специальной утилиты phpMyAdmin.</p>
+  <p>Если&nbsp;&nbsp; Вы&nbsp;&nbsp;&nbsp; используете&nbsp;&nbsp;&nbsp;&nbsp; denwer,&nbsp;&nbsp;&nbsp;&nbsp; то&nbsp;&nbsp;&nbsp; можете&nbsp;&nbsp;&nbsp; открыть&nbsp;&nbsp;&nbsp; её&nbsp;&nbsp;&nbsp; по&nbsp;&nbsp;&nbsp; следующему&nbsp;&nbsp;&nbsp; адресу:</p>
+  <p>http://localhost/tools/phpMyAdmin</p>
+  <p>Теперь  перейдём к рассмотрению DML-операций.</p>
+</div>
+<div>
+  <p><strong><em>4.1</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong><em>Вставка  строк</em></strong></p>
+  <p>Для вставки строк в языке SQL служит оператор <strong>INSERT</strong>. Вот так можно наполнить базу  данных сотрудников и отделов:</p>
+  <p>INSERT INTO depts (id_dept, name) VALUES ('1', 'Бухгалтерия'); INSERT INTO depts (id_dept, name) VALUES  ('2', 'ИТ');<br>
+    <br>
+    INSERT INTO  emps (id_emp, id_dept, last_name, first_name, middle_name) VALUES ('1', '2', 'Иван', 'Иванович', 'Иванов');<br>
+    <br>
+    INSERT INTO  emps (id_emp, id_dept, last_name, first_name, middle_name) VALUES ('2', '1', 'Петр', 'Петрович', 'Петров');<br>
+    <br>
+    INSERT INTO  emps (id_emp, id_dept, last_name, first_name, middle_name) VALUES ('3', '2', 'Павел', 'Павлович', 'Павлов');<br>
+    <br>
+    INSERT INTO  emps (id_emp, id_dept, last_name, first_name, middle_name) VALUES ('4', '2', 'Елена', 'Ивановна', 'Иванова');<br>
+    <br>
+    INSERT INTO  emps (id_emp, id_dept, last_name, first_name, middle_name) VALUES ('5', '1', 'Елена', 'Петровна', 'Петрова');<br>
+  </p>
+  <p><strong><em>4.2</em></strong>&nbsp;&nbsp;&nbsp; <strong><em>Удаление строк</em></strong></p>
+  <p>Предположим, руководство решило уволить всех  сотрудников отдела маркетинга. В этом случае поможет оператор DELETE, удаляющий  строки из таблицы:</p>
+  <p>&nbsp;DELETE FROM  emps<br>
+  WHERE id_dept = '2'<br>
+  </p>
+  <p>Увольнение  конкретного сотрудника выглядит похожим образом:</p>
+  <p>&nbsp;DELETE FROM  emps<br>
+  WHERE id_emp = '2'<br>
+  </p>
+  <p>Обратите внимание, запись о сотруднике мы удаляем,  используя не его фамилию, а первичный ключ. Связано это с тем, что однофамильцы  могут присутствовать в фирме, а первичный ключ всегда уникален.</p>
+  <p><strong><em>4.3</em></strong>&nbsp;&nbsp;&nbsp; <strong><em>Изменение строк</em></strong></p>
+  <p>Елена Петровна вышла замуж за Павла Павловича и  поменяла фамилию. Для изменения строк таблицы служит оператор <strong>UPDATE</strong>:</p>
+  <p>UPDATE emps<br>
+  SET last_name = 'Иванова'<br>
+    WHERE id_emp = '5'<br>
+  </p>
+  <p>Главное, не забывать указывать при изменении строк  параметр WHERE. В противном случае, при отсутствии WHERE в данном примере,  фамилии поменялись бы у всех сотрудников.</p>
+</div>
+<div>
+  <p><strong><em>4.4</em></strong>&nbsp;&nbsp;&nbsp; <strong><em>Выборка строк</em></strong></p>
+  <p>За выборку строк отвечает оператор SELECT. С его  помощью можно составлять сложнейшие запросы, выбирающие данные сразу из  множества таблиц. В этом уроке нас интересуют лишь самые простые примеры.</p>
+  <p>Все  сотрудники:</p>
+  <p>&nbsp;SELECT *<br>
+  FROM emps<br>
+  </p>
+  <p>Сотрудники  ИТ-отдела:</p>
+  <p>SELECT *<br>
+  FROM emps<br>
+    WHERE id_dept = '1'<br>
+  </p>
+  <p>Сколько  всего в фирме работает человек?</p>
+  <p>&nbsp;SELECT count(*)<br>
+  FROM emps;<br>
+  </p>
+  <p>Сколько  сотрудников в ИТ-отделе?</p>
+  <p>SELECT count(*)<br>
+  FROM emps<br>
+    WHERE id_dept = '2';<br>
+  </p>
+  <p>Сотрудники  отдела бухгалтерии, отсортированные по фамилии, имени, отчеству:</p>
+  <p>SELECT *<br>
+  FROM emps<br>
+    WHERE id_dept = '1'<br>
+    ORDER BY last_name,  first_name, middle_name ASC<br>
+  </p>
+  <p>Сотрудники  отдела бухгалтерии, отсортированные в обратном алфавитном порядке:</p>
+  <p>SELECT *<br>
+  FROM emps<br>
+    WHERE id_dept = '1'<br>
+    ORDER BY last_name,  first_name, middle_name DESC<br>
+ </p>
+  <p>На данном этапе мы рассмотрели основные  DML-операции. Очень важно, что мы видели синтаксис именно языка SQL, т.е., в  PHP-коде нельзя просто брать и писать подобные команды. Для этого нужно  применять специальные функции, которые мы рассмотрим в следующем разделе.</p>
+</div>
+<div>
+  <h2>5. <strong>Средства PHP для работы с MySQL</strong></h2>
+  <p>Порядок работы с базой данных в PHP похож на порядок работы с файлами,  но имеет определённые особенности:</p>
+  <ol>
+    <li>установить  соединение с сервером;</li>
+    <li>выбрать  конкретную базу данных;</li>
+    <li>выполнить  операции;</li>
+    <li>закрыть  соединение.</li>
+  </ol>
+  <p>Рассмотрим по очереди все эти шаги. Для подключения к базе в PHP  существует специальная функция <strong>mysql_connect.</strong> Чаще всего она вызывается с тремя параметрами:</p>
+  <p><strong>&nbsp;mysql_connect</strong>($server, $username, $password);<br>
+  </p>
+  <p>Если вы тестируете сайт на локальном компьютере, и  у вас установлен пакет Денвер, то параметры должны быть следующими:</p>
+  <p>$server = 'localhost'; // Адрес сервера, на котором  находится база $username = 'root'; // Имя пользователя<br>
+    <br>
+    $password = '';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Пароль<br>
+  </p>
+  <p>После  установки соединения с сервером необходимо выбрать конкретную базу данных.</p>
+  <p>Для этого  служит функция <strong>mysql_select_db</strong>:</p>
+  <p><strong>&nbsp;mysql_select_db </strong>($db_name);<br>
+    </p>
+  <p>где  $db_name &ndash; имя базы, с которой Вы хотите работать.</p>
+  <p>Теперь можно совершать действия, которые мы  рассматривали в предыдущем пункте. За выполнение запроса к базе отвечает  функция <strong>mysql_query</strong>, которая  принимает строку с командой на языке SQL и возвращает результат её выполнения,  например:</p>
+  <p>&nbsp;$result = <strong>mysql_query</strong>(&quot;DELETE  FROM emps WHERE id_emp = '2'&quot;);<br>
+    </p>
+  <p>Для запросов, не подразумевающих получение данных  из базы (INSERT, UPDATE, DELETE), функция возвращает true в случае успешного  выполнения операции и false в противном случае.</p>
+  <p>Для SELECT-запросов функция возвращает дескриптор с  результатом выборки в случае успешного выполнения операции и false в противном  случае.</p>
+  <p>Получается, что после выполнения запроса на выборку  данных, нам необходимо его обработать. Как правило, это представляет собой  перегонку системного типа данных в массивы. Например:</p>
+  <p>$result = <strong>mysql_query</strong>('SELECT  * FROM emps'); $epms = <strong>array</strong>();<br>
+     <br>
+    <strong>while</strong>($row =<strong> mysql_fetch_assoc</strong>($result))<br>
+    </p>
+  <p>$epms[] = $row;<br>
+    </p>
+  <p>Внимательно разберёмся с данным кодом. В переменной $result оказывается  результат выборки из базы - список всех сотрудников.</p>
+  <p>Однако, пока что он храниться в  непригодном для нас виде. Поэтому создаём пустой массив $epms, в который будем  добавлять информацию о каждой записи.<br>
+    Теперь запускаем цикл, который ориентируется на  функцию <strong>mysql_fetch_assoc</strong>. Она  извлекает очередную строку из выборки данных и возвращает её в переменную $row  в виде ассоциативного массива. Ключами данного массива являются названия  столбцов таблицы, а значениями &ndash; данные из конкретной строки. Когда строки  закончатся, <strong>mysql_fetch_assoc </strong>вернёт  значение<strong> </strong>false,<strong> </strong>и цикл завершится.<br>
+    На выходе мы получим двумерный массив $epms с  информацией о сотрудниках. В нём будет столько же элементов, сколько строк  вернула база в результате выборки. Каждый его элемент &ndash; ассоциативный массив с  информацией об одном сотруднике.<br>
+    Данная перегонка является стандартной. Её  достаточно освоить один раз, а затем лишь применять на практике.<br>
+    Также  существуют и другие полезные функции при работе с базой, например:<br>
+    <strong>mysql_num_rows - </strong>число  строк,<strong> </strong>содержащееся в результате  выборки данных;<br>
+    <strong>mysql_affected_rows - </strong>число строк,<strong> </strong>затронутых  последним запросом<strong> </strong>INSERT, UPDATE<strong> </strong>или DELETE;<br>
+    <strong>mysql_error &ndash; </strong>сообщение  о последней ошибке,<strong> </strong>возникшей в ходе  запроса;<br>
+    <strong>mysql_insert_id &ndash; </strong>id<strong> </strong>записи,<strong> </strong>добавленной последним запросом<strong> </strong>INSERT;<br>
+  <strong>mysql_close &ndash; </strong>закрывает  соединение с сервером<strong> </strong>MySql.</p>
+  <p><strong>Контроль</strong></p>
+  <ol>
+    <li>Зачем  нужна база данных </li>
+    <li>Чем БД  отличается от СУБД </li>
+    <li>Из чего  состоит реляционная база данных </li>
+    <li>Из чего  состоят таблицы в БД </li>
+    <li>Что в  таблице важнее: столбец или строка </li>
+    <li>Что такое  первичный ключ </li>
+    <li>В чём  отличие DDL и DML операций </li>
+    <li>Какие из  вышеперечисленных операций совершаются чаще </li>
+    <li>Как  создать базу данных и таблицы через phpMyAdmin </li>
+    <li>Вставка  строк </li>
+    <li>Удаление  строк </li>
+    <li>Изменение  строк </li>
+    <li>Выборка  строк </li>
+    <li>Порядок  работы с базой данных в PHP </li>
+  </ol>
+</div>
+<br clear="all">
+<h2><strong>Задание</strong></h2>
+<p>После предыдущего урока Вы реализовали галерею  изображений с помощью файлов и папок. Теперь необходимо сделать то же самое, но  для хранения имен картинок следует использовать базу данных.<br>
+  Создать  галерею изображений, состоящую из двух страниц:<br>
+  index.php  &ndash; просмотр всех фотографий (уменьшенных копий);<br>
+  photo.php  &ndash; просмотр конкретной фотографии (изображение оригинального размера).<br>
+  В базе  данных создать таблицу, в которой будет храниться информация о картинках.<br>
+На странице просмотра фотографии полного размера под картинкой должно  быть указано число ее просмотров.</p>
+<p>На странице просмотра галереи список фотографий  должен быть отсортирован по популярности. Популярность - число кликов по  фотографии.</p>

@@ -25,7 +25,8 @@
             $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
             if ($extension == 'jpg' || $extension == 'png' || $extension == 'jpeg') {
     ?>
-                <a target="_blank" href="<?php echo $orig_path; ?>"><img src="<?php echo $file_path; ?>" /> </a>
+                <a target="_blank" href="<?php echo "./photo.php?name=" . $file; ?>"><img src="<?php echo $file_path; ?>" /> </a>
+                </a>
     <?php
             }
         }
