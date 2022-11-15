@@ -14,9 +14,8 @@
 
 # directory for test and junk projects
 **/tmp
-
-# large files and unnessesary docs
-.pdf
+.DS_Store
 
 # other
 ignore_*
+Documents/
