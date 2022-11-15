@@ -17,3 +17,7 @@ Files are separated into branches by semesters. No commit history or any other e
 8. https://github.com/AsoTora/University/tree/diploma
 
 I would also recommend copying this repo with `git clone $url -b $branch --depth 1`
+
+# Search Engine tags
+
+БГУИР, АСОИ, Лабораторные работы
